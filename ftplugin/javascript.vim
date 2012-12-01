@@ -1,8 +1,7 @@
-let &formatexpr="JsBeautify()"
+let s:CliOptions = "-d"
 let s:bundleDir = fnamemodify(expand("<sfile>"), ":h:h:h")
-let g:jsbeautify_file = fnameescape(s:bundleDir."/js-beautify/beautify.js")
+let &formatprg=s:bundleDir."/js-beautify/python/js-beautify -i ".s:CliOptions
 
-let g:jsbeautify = {'indent_size': 4, 'indent_char': ' '}
 set expandtab
 set tabstop=4
 set shiftwidth=4
