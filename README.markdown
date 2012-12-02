@@ -33,7 +33,7 @@ noremap <F7> :Autoformat<CR>
 Supported formatprograms
 ------------------------
 Here is a list of formatprograms that are currently supported.
-* astyle for _C#, C++, C and Java_.
+* astyle for __C#, C++, C and Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
 
 * einars/jsbeautify (the python version) for _javascript_.
