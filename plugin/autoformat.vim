@@ -20,7 +20,7 @@ command! Autoformat call s:Autoformat()
 "with the given name, if the formatter is installed
 "globally or in the formatters folder
 let s:formatterdir = fnamemodify(expand("<sfile>"), ":h:h")."/formatters/"
-function! s:FindFormatter(name, args)
+function! g:FindFormatter(name, args)
 	if executable(a:name)
 		let s:prgpath = a:name
 	else

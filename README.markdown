@@ -1,8 +1,9 @@
 vim-autoformat
 ==============
-
-This vim plugin integrates external code-formatting programs into vim.
-If you have installed a supported formatprogram correctly, it will integrate with vim automatically.
+This vim plugin integrates external code-formatting programs into vim automatically.
+If you have installed a supported formatprogram correctly, you can use it within vim immediately.
+You don't have to configure anything.
+It works out of the box.
 
 
 How to install (Vundle)
@@ -16,20 +17,29 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 To be able to use automatic code formatting, you have to install an external program that can format code of the programming language you are using.
+Normally, it suffices to make the formatprogram either globally available or to put it in the ```formatters``` folder.
+In some cases this is inconvenient to accomplish and therefore sometimes alternative installation methods are supported.
+It is said explicitly if this is the case.
 
-If you have done that, you can format visually selected code with ```gq```.
+When you have succeed installing the formatters you need, you can format visually selected code with ```gq```.
 For more info type ```:help gq```.
-You can also format the whole buffer by calling the function ```g:Autoformat()```.
+You can also format the whole buffer with the command ```:Autoformat```.
 For convenience it is recommended that you assign a key for this, like so:
 ```vim
-noremap <F7> :call g:Autoformat()<CR><CR>
+noremap <F7> :Autoformat<CR>
 ```
 
 
 Supported formatprograms
 ------------------------
-* einars/jsbeautify for javascript (has to be installed as a pathogen-compatible plugin)
-* autopep8 for python (must be globally available)
+Here is a list of formatprograms that are currently supported.
+* einars/jsbeautify (the python version) for javascript 
+  This one can also installed as a vundle package.
+  To do so, put this in your .vimrc:
+  ```vim
+  Bundle "einars/jsbeautify"
+  ```
+* autopep8 for python
 
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder ```ftplugin```.
 You can take the existing ones as an example.
