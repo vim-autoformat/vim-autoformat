@@ -35,12 +35,8 @@ It's probably in your distro's repository, so you can download it as a regular p
 (For Ubuntu type `sudo apt-get install astyle` in a terminal)
 
 * `jsbeautify` (the python version) for __Javascript__.
-This one can also installed as a vundle package (if you use the vundle plugin).
-To do so, put this in your .vimrc:
-
-```vim
-Bundle "einars/jsbeautify"
-```
+This one can also be installed as a vundle package (if you use the vundle plugin).
+To do so, put this in your .vimrc: `Bundle "einars/jsbeautify"`.
 
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
