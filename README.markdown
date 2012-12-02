@@ -50,3 +50,9 @@ It's probably in your distro's repository, so you can download it as a regular p
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder ```ftplugin```.
 You can take the existing ones as an example.
 Oh, and be sure to send me a patch. :)
+
+How can I change the behaviour of formatters?
+---------------------------------------------
+Every formatter is called from a script in the *vim-autoformat/ftplugin/* directory.
+E.g. the file that calls the C# formatter is named *vim-autoformat/ftplugin/cs.vim*.
+You can change the arguments passed to the formatter there.
