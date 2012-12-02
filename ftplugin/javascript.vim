@@ -4,6 +4,8 @@ let s:arguments = "-i"
 
 if executable(s:prgpath)
 	let &formatprg=s:prgpath." ".s:arguments
+else
+	call g:FindFormatter("js-beautify",s:arguments)
 endif
 
 set expandtab
