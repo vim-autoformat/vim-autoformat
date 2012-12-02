@@ -1,10 +1,5 @@
 vim-autoformat
 ==============
-\      /   |   |\      /|
- \    /    |   | \    / |
-  \  /     |   |  \  /  |
-   \/      |   |   \/   |
-
 This vim plugin integrates external code-formatting programs into vim automatically.
 If you have installed a supported formatprogram correctly, you can use it within vim immediately.
 You don't have to configure anything.
