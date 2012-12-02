@@ -33,10 +33,10 @@ noremap <F7> :Autoformat<CR>
 Supported formatprograms
 ------------------------
 Here is a list of formatprograms that are currently supported.
-* astyle for *C#, C++, C and Java.*
+* astyle for _C#, C++, C and Java_.
 It's probably in your distro's repository, so you can download it as a regular package.
 
-* einars/jsbeautify (the python version) for *javascript.*
+* einars/jsbeautify (the python version) for _javascript_.
 This one can also installed as a vundle package (if you use the vundle plugin).
 To do so, put this in your .vimrc:
 
@@ -44,7 +44,7 @@ To do so, put this in your .vimrc:
 Bundle "einars/jsbeautify"
 ```
 
-* autopep8 for *python*.
+* autopep8 for _python_.
 It's probably in your distro's repository, so you can download it as a regular package.
 
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder ```ftplugin```.
