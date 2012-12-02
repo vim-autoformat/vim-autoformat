@@ -33,7 +33,7 @@ noremap <F7> :Autoformat<CR>
 Supported formatprograms
 ------------------------
 Here is a list of formatprograms that are currently supported.
-* einars/jsbeautify (the python version) for javascript
+* einars/jsbeautify (the python version) for javascript.
 This one can also installed as a vundle package.
 To do so, put this in your .vimrc:
 
