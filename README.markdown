@@ -1,7 +1,7 @@
 vim-autoformat
 ==============
 
-This vim plugin provides bindings for external code-formatting programs.
+This vim plugin integrates external code-formatting programs into vim.
 If you have installed a supported formatprogram correctly, it will integrate with vim automatically.
 
 
