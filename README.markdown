@@ -17,9 +17,8 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 To be able to use automatic code formatting, you have to install an external program that can format code of the programming language you are using.
-Normally, it suffices to make the formatprogram either globally available or to put it in the `formatters/` folder.
-In some cases this is inconvenient to accomplish and therefore sometimes alternative installation methods are supported.
-It is said explicitly if this is the case.
+It suffices to make the formatprogram either globally available or to put it in the `formatters/` folder.
+Sometimes alternative installation methods are supported.
 
 When you have succeed installing the formatters you need, you can format visually selected code with `gq`.
 For more info type `:help gq`.
