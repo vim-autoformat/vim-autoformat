@@ -1,5 +1,5 @@
 "Function for formatting the entire buffer
-function! g:Autoformat()
+function! s:Autoformat()
 	"If a formatprg is specified
 	if &formatprg!=""
 		"echo "formatprg is: ".&formatprg
@@ -13,3 +13,6 @@ function! g:Autoformat()
 		echo "No formatter installed for this filetype"
 	endif
 endfunction
+
+"Create a command for this
+command Autoformat call s:Autoformat()
