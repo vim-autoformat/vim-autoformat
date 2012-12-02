@@ -17,8 +17,7 @@ To be able to use automatic code formatting, you have to install an external pro
 It suffices to make the formatprogram either globally available or to put it in the `formatters/` folder.
 Sometimes alternative installation methods are supported.
 
-When you have succeed installing the formatters you need, you can format visually selected code with `gq`.
-For more info type `:help gq`.
+When you have installed the formatters you need, you can format visually selected code with `gq`.
 You can also format the whole buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
 
@@ -26,12 +25,14 @@ For convenience it is recommended that you assign a key for this, like so:
 noremap <F7> :Autoformat<CR>
 ```
 
+For more ways to perform autoformatting type `:help gq`.
 
 Supported formatprograms
 ------------------------
 Here is a list of formatprograms that are currently supported.
 * `astyle` for __C#, C++, C and Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
+(For Ubuntu type `sudo apt-get install astyle` in a terminal)
 
 * `jsbeautify` (the python version) for __Javascript__.
 This one can also installed as a vundle package (if you use the vundle plugin).
@@ -43,6 +44,7 @@ Bundle "einars/jsbeautify"
 
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
+(For Ubuntu type `sudo apt-get install autopep8` in a terminal)
 
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder `vim-autoformat/ftplugin/`.
 You can take the existing ones as an example.
@@ -52,4 +54,4 @@ How can I change the behaviour of formatters?
 ---------------------------------------------
 Every formatter is called from a script in the `vim-autoformat/ftplugin/` directory.
 E.g. the file that calls the C# formatter is named `vim-autoformat/ftplugin/cs.vim`.
-You can change the arguments passed to the formatter there.
+You can change the arguments passed to the formatter in that file.
