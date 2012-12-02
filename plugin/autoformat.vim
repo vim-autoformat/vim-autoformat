@@ -15,4 +15,4 @@ function! s:Autoformat()
 endfunction
 
 "Create a command for this
-command Autoformat call s:Autoformat()
+command! Autoformat call s:Autoformat()
