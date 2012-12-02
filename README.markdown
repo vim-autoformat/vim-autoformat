@@ -7,12 +7,24 @@ If you have installed a supported formatprogram correctly, it will integrate wit
 
 How to install (Vundle)
 -----------------------
-
 Put this in your .vimrc
 
 ```vim
 Bundle "Chiel92/vim-autoformat"
 ```
+
+How to use
+----------
+To be able to use automatic code formatting, you have to install an external program that can format code of the programming language you are using.
+
+If you have done that, you can format visually selected code with ```gq```.
+For more info type ```:help gq```.
+You can also format the whole buffer by calling the function ```g:Autoformat()```.
+For convenience it is recommended that you assign a key for this, like so:
+```vim
+noremap <F7> :call g:Autoformat()<CR><CR>
+```
+
 
 Supported formatprograms
 ------------------------
