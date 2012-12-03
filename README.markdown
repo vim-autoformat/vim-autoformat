@@ -17,14 +17,14 @@ To be able to use automatic code formatting, you have to install an external pro
 It suffices to make the formatprogram either globally available or to put it in the `formatters/` folder.
 Sometimes alternative installation methods are supported.
 
-When you have installed the formatters you need, you can format visually selected code with `gq`.
-You can also format the whole buffer with the command `:Autoformat`.
+When you have installed the formatters you need, you can format the buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
 
 ```vim
-noremap <F7> :Autoformat<CR>
+noremap <F7> :Autoformat<CR><CR>
 ```
 
+If you don't want to format the whole buffer, you can alternatively format visually selected code with `gq`.
 For more ways to perform autoformatting type `:help gq`.
 
 Supported formatprograms
