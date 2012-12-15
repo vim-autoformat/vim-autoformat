@@ -1,3 +1,8 @@
+if exists("b:did_ftplugin")
+	finish
+endif
+let b:did_ftplugin = 1
+
 "Besides installing the js-beautify globally or in the 
 "formatters/ folder, cloning the repository as a vim bundle
 "is supported as well.

@@ -1,3 +1,8 @@
+if exists("b:did_ftplugin")
+	finish
+endif
+let b:did_ftplugin = 1
+
 "Set the formatter name and arguments for this filetype
 let s:prgname   = "astyle"
 let s:arguments = "--mode=java --style=ansi"
