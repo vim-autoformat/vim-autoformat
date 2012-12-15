@@ -31,23 +31,24 @@ For more ways to perform autoformatting type `:help gq`.
 
 Supported formatprograms
 ------------------------
+With most of the distro's, if you installed a formatprogram, it's automatically globally available.
+If this is not the case, you can either make it globally available manually, or put it's binary in the `formatters/` directory.
+Sometimes alternative installation methods are presented.
 Here is a list of formatprograms that are currently supported.
-Generally, if you're running windows, I recommend placing the binary in `formatters/`.
-For linux this also suffices, but there are often more convenient ways to install the program.
 
 * `astyle` for __C#, C++, C and Java__.
-If you're running linux, it's probably in your distro's repository, so you can download it as a regular package.
+It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
-Here is the link to the site: http://astyle.sourceforge.net/
+Otherwise, download it here: http://astyle.sourceforge.net/
 
-* `jsbeautify` (the python version) for __Javascript__.
-This one can also be installed as a vundle package (if you use the vundle plugin).
-To do so, put this in your .vimrc: `Bundle "einars/jsbeautify"`.
+* `jsbeautify` (the python CLI version) for __Javascript__.
+This one can also be installed as a vundle package, and I recommend to do so.
+Put this in your .vimrc: `Bundle "einars/jsbeautify"`.
 Note that we're only using the python version, so `node` doesn't have to be installed.
 Here is the link to the repository: https://github.com/einars/js-beautify
 
 * `autopep8` for __Python__.
-If you're running linux, it's probably in your distro's repository, so you can download it as a regular package.
+It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2
@@ -68,4 +69,5 @@ E.g. the file that calls the C# formatter is named `vim-autoformat/ftplugin/cs.v
 You can change the arguments passed to the formatter in that file.
 
 
-If you have any suggestions on this plugin, or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme, or if you experience problems, please contact me by creating an issue in this repository.
+I'm also curious to know if it works on windows (or if it doesn't). Let me know!
