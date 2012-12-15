@@ -14,7 +14,9 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
-It suffices to make the formatprogram either globally available or to put it in the `formatters/` folder.
+It suffices to make the formatprogram either globally available
+(which is the case if you installed it via your package manager)
+or to put it in the `formatters/` folder.
 Sometimes alternative installation methods are supported.
 
 When you have installed the formatters you need, you can format the buffer with the command `:Autoformat`.
