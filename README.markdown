@@ -58,6 +58,10 @@ You can download it's binary here
 http://www.waterproof.fr/products/phpCodeBeautifier/download.php
 I recommend putting the phpCB binary in the `formatters/` directory.
 
+* `tidy` for __HTML__.
+It's probably in your distro's repository, so you can download it as a regular package.
+For Ubuntu type `sudo apt-get install tidy` in a terminal.
+
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder `vim-autoformat/ftplugin/`.
 You can take the existing ones as an example.
 Oh, and be sure to send me a patch. :)
@@ -70,4 +74,8 @@ You can change the arguments passed to the formatter in that file.
 
 
 If you have any suggestions on this plugin or on this readme, or if you experience problems, please contact me by creating an issue in this repository.
-I'm also curious to know if it works on windows (or if it doesn't). Let me know!
+
+Todo list
+---------
+* Add XML support by tidy.
+* Check for windows support.
