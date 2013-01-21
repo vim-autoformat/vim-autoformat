@@ -1,7 +1,8 @@
 vim-autoformat
 ==============
-This vim plugin integrates external code-formatting programs into vim automatically.
-If you have installed a supported formatprogram, you can use it within vim out of the box.
+Format your code with only one button press!
+This plugins makes use of external format programs to achieve the best result.
+Check the list of formatprograms to see which languages are currently supported.
 
 How to install (Vundle)
 -----------------------
