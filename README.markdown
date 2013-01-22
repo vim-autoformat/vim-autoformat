@@ -73,10 +73,10 @@ Every formatter is called from a script in the `vim-autoformat/ftplugin/` direct
 E.g. the file that calls the C# formatter is named `vim-autoformat/ftplugin/cs.vim`.
 You can change the arguments passed to the formatter in that file.
 
-
-If you have any suggestions on this plugin or on this readme, or if you experience problems, please contact me by creating an issue in this repository.
-
 Todo list
 ---------
 * Add XML support by tidy.
 * Check for windows support.
+
+
+If you have any suggestions on this plugin or on this readme, if you have feature requests or if you experience problems, please contact me by creating an issue in this repository.
