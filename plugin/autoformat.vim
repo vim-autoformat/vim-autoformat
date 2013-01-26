@@ -30,6 +30,10 @@ function! g:FindFormatter(name, args)
 	
 	if executable(s:prgpath)
 		let &formatprg=s:prgpath." ".a:args
+		let w:formatprg=&formatprg
+		let t:formatprg=&formatprg
+		let b:formatprg=&formatprg
 	endif
 endfunction
 
+"TODO: Now when buffer/window/tab changes, reload formatprg from the vars
