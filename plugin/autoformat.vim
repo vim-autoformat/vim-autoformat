@@ -34,8 +34,6 @@ function! g:FindFormatter(name, args)
 endfunction
 
 "formatprg is a global option
-"So when buffer/window/tab changes, (re)load formatprg from the bufferlocal
-"variable
-au BufEnter,WinEnter * let &formatprg=b:formatprg
-"Default value for b:formatprg is empty string
-let b:formatprg = ""
+"So when buffer/window/tab changes, 
+"(re)load formatprg from the bufferlocal variable
+au BufEnter,WinEnter * if exists("b:formatprg") | let &formatprg=b:formatprg
