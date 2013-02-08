@@ -14,7 +14,7 @@ let s:prgpath   = s:bundleDir."/js-beautify/python/".s:prgname
 
 if executable(s:prgpath)
 	"If js-beautify is installed as a bundle
-	let &formatprg=s:prgpath." ".s:arguments
+	let b:formatprg=s:prgpath." ".s:arguments
 else
 	"Else look for js-beautify globally
 	"or in the formatters/folder

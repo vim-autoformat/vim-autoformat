@@ -29,11 +29,13 @@ function! g:FindFormatter(name, args)
 	endif
 	
 	if executable(s:prgpath)
-		let &formatprg=s:prgpath." ".a:args
-		let w:formatprg=&formatprg
-		let t:formatprg=&formatprg
-		let b:formatprg=&formatprg
+		let b:formatprg=s:prgpath." ".a:args
 	endif
 endfunction
 
-"TODO: Now when buffer/window/tab changes, reload formatprg from the vars
+"formatprg is a global option
+"So when buffer/window/tab changes, (re)load formatprg from the bufferlocal
+"variable
+au BufEnter,WinEnter * let &formatprg=b:formatprg
+"Default value for b:formatprg is empty string
+let b:formatprg = ""
