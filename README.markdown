@@ -40,23 +40,23 @@ Here is a list of formatprograms that are currently supported.
 * `astyle` for __C#, C++, C and Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
-Otherwise, download it here: http://astyle.sourceforge.net/
+Otherwise, download it here: http://astyle.sourceforge.net/.
 
 * `jsbeautify` (the python CLI version) for __Javascript__.
 This one can also be installed as a vundle package, and I recommend to do so.
 Put this in your .vimrc: `Bundle "einars/jsbeautify"`.
 Note that we're only using the python version, so `node` doesn't have to be installed.
-Here is the link to the repository: https://github.com/einars/js-beautify
+Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install autopep8` in a terminal.
-Here is the link to the repository: https://github.com/hhatto/autopep8
-And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2
+Here is the link to the repository: https://github.com/hhatto/autopep8.
+And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
 * `phpCB` for __PHP__.
-You can download it's binary here 
-http://www.waterproof.fr/products/phpCodeBeautifier/download.php
+You can download it's binary here:
+http://www.waterproof.fr/products/phpCodeBeautifier/download.php.
 I recommend putting the phpCB binary in the `formatters/` directory.
 
 * `tidy` for __HTML__.
@@ -65,7 +65,7 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder `vim-autoformat/ftplugin/`.
 You can take the existing ones as an example.
-Oh, and be sure to send me a patch. :)
+Be sure to send me a patch. :)
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
@@ -79,4 +79,4 @@ Todo list
 * Check for windows support.
 
 
-If you have any suggestions on this plugin or on this readme, if you have feature requests or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme or if you experience problems, please contact me by creating an issue in this repository.
