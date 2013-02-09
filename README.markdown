@@ -1,7 +1,7 @@
 vim-autoformat
 ==============
 Format your code with only one button press!
-This plugins makes use of external format programs to achieve the best result.
+This plugin makes use of external formatprograms to achieve the best result.
 Check the list of formatprograms to see which languages are currently supported.
 
 How to install (Vundle)
