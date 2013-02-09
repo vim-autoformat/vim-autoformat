@@ -37,7 +37,7 @@ If this is not the case, you can either make it globally available manually, or 
 Sometimes alternative installation methods are presented.
 Here is a list of formatprograms that are currently supported.
 
-* `astyle` for __C#, C++, C and Java__.
+* `astyle` for __C#__, __C++__, __C__ and __Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
 Otherwise, download it here: http://astyle.sourceforge.net/.
@@ -59,7 +59,7 @@ You can download it's binary here:
 http://www.waterproof.fr/products/phpCodeBeautifier/download.php.
 I recommend putting the phpCB binary in the `formatters/` directory.
 
-* `tidy` for __HTML__.
+* `tidy` for __HTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
@@ -75,7 +75,6 @@ You can change the arguments passed to the formatter in that file.
 
 Todo list
 ---------
-* Add XML support by tidy.
 * Check for windows support.
 
 
