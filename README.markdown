@@ -76,6 +76,7 @@ You can change the arguments passed to the formatter in that file.
 Todo list
 ---------
 * Check for windows support.
+* Add option for on-the-fly code-formatting (like visual studio)
 
 
 If you have any suggestions on this plugin or on this readme or if you experience problems, please contact me by creating an issue in this repository.
