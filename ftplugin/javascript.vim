@@ -21,6 +21,13 @@ else
 	call g:FindFormatter(s:prgname,s:arguments)
 endif
 
+let b:autoformat = 1
+"Enable on-the-fly formatting
+if b:autoformat==1 
+	"inoremap <CR> <C-O>gqq<CR>
+	"inoremap } }<C-O>gq%
+endif
+
 "Set indenting behaviour to match with the formatter
 set expandtab
 set tabstop=4
