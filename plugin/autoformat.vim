@@ -37,3 +37,8 @@ endfunction
 "So when buffer/window/tab changes, 
 "(re)load formatprg from the bufferlocal variable
 au BufEnter,WinEnter * if exists("b:formatprg") | let &formatprg=b:formatprg
+
+let b:autoformat = 1
+if b:autoformat==1 
+	inoremap <CR> <Esc>Vgqo
+endif
