@@ -4,8 +4,7 @@ endif
 let b:did_ftplugin = 1
 
 "Besides installing the js-beautify globally or in the 
-"formatters/ folder, cloning the repository as a vim bundle
-"is supported as well.
+"formatters/ folder, installing as a vim bundle is supported.
 let s:prgname	= "js-beautify"
 let s:arguments = "-i"
 
@@ -17,7 +16,7 @@ if executable(s:prgpath)
 	let b:formatprg=s:prgpath." ".s:arguments
 else
 	"Else look for js-beautify globally
-	"or in the formatters/folder
+	"or in the formatters/ folder
 	call g:FindFormatter(s:prgname,s:arguments)
 endif
 
