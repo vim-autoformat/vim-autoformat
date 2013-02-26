@@ -7,6 +7,7 @@ let g:formatprg_python = "autopep8 /dev/stdin"
 let g:formatprg_xml = "tidy -q -xml --show-errors 10 --show-warnings 10 --indent auto --indent-spaces 2 --vertical-space yes --tidy-mark no --wrap 68"
 let g:formatprg_html = "tidy -q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces 2 --vertical-space yes --tidy-mark no --wrap 68"
 
+
 let g:formatprg_javascript = "js-beautify -i"
 let s:bundleDir = fnamemodify(expand("<sfile>"), ":h:h:h")
 let s:prgpath   = s:bundleDir."/js-beautify/python/".s:prgname
