@@ -1,7 +1,7 @@
-if exists("b:did_ftplugin")
+if exists("b:formatprg_set")
 	finish
 endif
-let b:did_ftplugin = 1
+let b:formatprg_set = 1
 
 "Besides installing the js-beautify globally or in the 
 "formatters/ folder, installing as a vim bundle is supported.

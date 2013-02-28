@@ -1,7 +1,7 @@
-if exists("b:did_ftplugin")
+if exists("b:formatprg_set")
 	finish
 endif
-let b:did_ftplugin = 1
+let b:formatprg_set = 1
 
 "Set the formatter name and arguments for this filetype
 let s:prgname   = "astyle"
