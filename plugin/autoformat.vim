@@ -25,8 +25,9 @@ au BufEnter,WinEnter * if exists("b:formatprg") | let &formatprg=b:formatprg
 "with the given name, if the formatter is installed
 "globally or in the formatters folder
 let s:formatprgvarname = "g:formatprg_".&filetype
+echo s:formatprgvarname
 if !exists(s:formatprgvarname)
-	echo "No formatter set for this filetype"
+	echo "No formatter set for filetype ".&filetype
 	finish
 endif
 s:formatprg = eval(s:formatprgvarname)
