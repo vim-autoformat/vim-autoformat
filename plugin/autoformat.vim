@@ -9,37 +9,44 @@ function! s:Autoformat()
 		"Recall window state
 	  	call winrestview(winview)
 	else 
-		echo "No formatter installed for this filetype"
+		echo "No formatter set for filetype ".&filetype
 	endif
 endfunction
 
 "Create a command for formatting the entire buffer
 command! Autoformat call s:Autoformat()
 
-"formatprg is a global option
-"So when buffer/window/tab changes, 
-"(re)load formatprg from the bufferlocal variable
-au BufEnter,WinEnter * if exists("b:formatprg") | let &formatprg=b:formatprg
-
 "Function for finding and setting the formatter 
 "with the given name, if the formatter is installed
 "globally or in the formatters folder
-let s:formatprgvarname = "g:formatprg_".&filetype
-echo s:formatprgvarname
-if !exists(s:formatprgvarname)
-	echo "No formatter set for filetype ".&filetype
-	finish
-endif
-s:formatprg = eval(s:formatprgvarname)
-s:formatprgname = matchstr(s:formatprg, '^[^ ]+')
+function! s:set_formatprg()
+	"Reset previous formatprg
+	set formatprg=""
 
-"Check if given formatprg is installed
-if executable(s:formatprgname)
-	b:formatprg = s:formatprg
-else
-	let s:formatterdir = fnamemodify(expand("<sfile>"), ":h:h")."/formatters/"
-	let s:formatprgname = s:formatterdir.s:formatprgname
-	if executable(s:formatprgname)
-		b:formatprg = s:formatprg
+	"Get formatprg config for current filetype
+	let s:formatprg_var = "g:formatprg_".&filetype
+	let s:formatprg_args_var = "g:formatprg_args_".&filetype
+	if !exists(s:formatprg_var) || !exists(s:formatprg_args_var)
+		"No formatprg configured
+		return
 	endif
-endif
+	let s:formatprg = eval(s:formatprg_var)
+	let s:formatprg_args = eval(s:formatprg_args_var)
+	
+	"Set correct formatprg path, if it is installed
+	if !executable(s:formatprg)
+		let s:formatterdir = fnamemodify(expand("<sfile>"), ":h:h")."/formatters/"
+		let s:formatprg = s:formatterdir.s:formatprg
+		if !executable(s:formatprg)
+			"Configured formatprg not installed
+			return
+		endif
+	endif
+	let b:formatprg = s:formatprg." ".s:formatprg_args
+endfunction
+
+"When filetype changes, set correct b:formatprg
+au FileType * call s:set_formatprg()
+
+"When current buffer changes, store b:formatprg into &formatprg
+au BufEnter * if exists("b:formatprg") | let &formatprg = b:formatprg
