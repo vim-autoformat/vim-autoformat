@@ -2,7 +2,9 @@ vim-autoformat
 ==============
 Format your code with only one button press!
 This plugin makes use of external formatprograms to achieve the best result.
-Check the list of formatprograms to see which languages are currently supported.
+You can specify how to use which formatprograms for which filetypes.
+A set of reasonable defaults are given, so you should be able to use it right away.
+Check the list of formatprograms to see which languages are supported by default.
 
 How to install (Vundle)
 -----------------------
@@ -15,24 +17,25 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
-It suffices to make the formatprogram either globally available
-(which is the case if you installed it via your package manager)
+For the default supported formatprograms, it suffices to make the formatprogram either globally available
+(which is the case if you install it via your package manager)
 or to put it in the `formatters/` folder.
 Sometimes alternative installation methods are supported.
 
-When you have installed the formatters you need, you can format the buffer with the command `:Autoformat`.
+When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
 
 ```vim
 noremap <F7> :Autoformat<CR><CR>
 ```
 
-If you don't want to format the whole vimbuffer, you can alternatively format visually selected code with `gq`.
+If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.
+However, some formatprograms will behave a bit weird then, because they need the context of a piece of code.
 For more ways to perform autoformatting type `:help gq`.
 
-Supported formatprograms
+Default formatprograms
 ------------------------
-With most of the distro's, if you installed a formatprogram, it's automatically globally available.
+For most linux distro's, if you installed a formatprogram, it's automatically globally available.
 If this is not the case, you can either make it globally available manually, or put it's binary in the `formatters/` directory.
 Sometimes alternative installation methods are presented.
 Here is a list of formatprograms that are currently supported.
@@ -63,21 +66,38 @@ I recommend putting the phpCB binary in the `formatters/` directory.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
-If you find yourself in need of support for another formatprogram, simply add a configuration file in the folder `vim-autoformat/ftplugin/`.
-You can take the existing ones as an example.
-Be sure to send me a patch. :)
-
 How can I change the behaviour of formatters?
 ---------------------------------------------
-Every formatter is called from a script in the `vim-autoformat/ftplugin/` directory.
-E.g. the file that calls the C# formatter is named `vim-autoformat/ftplugin/cs.vim`.
-You can change the arguments passed to the formatter in that file.
+The formatprg for a filetype is defined in the global `g:formatprg_<filetype>`.
+The arguments given to the formatprogram are defined in `g:formatprg_args_<filetype>`.
+So for example, if you want to set the arguments passed to `astyle` for formatting a C# file, you would put a line like this in your .vimrc:
+
+```vim
+let g:formatprg_args_cs = "--mode=cs --style=java -H"
+```
+
+How can I define a formatprogram myself?
+---------------------------------
+A definition looks like this:
+
+```vim
+let g:formatprg_cs = "astyle"
+let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
+```
+
+If you change the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype:
+
+```vim
+au filetype *.cs set tabstop=4
+au filetype *.cs set softtabstop=4
+au filetype *.cs set shiftwidth=4
+```
+
 
 Todo list
 ---------
 * Check for windows support.
 * Option for on-the-fly code-formatting (like visual studio)
-* Better support for customizing formatter behaviour
 
 
 If you have any suggestions on this plugin or on this readme or if you experience problems, please contact me by creating an issue in this repository.
