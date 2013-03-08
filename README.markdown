@@ -5,6 +5,7 @@ This plugin makes use of external formatprograms to achieve the best result.
 You can specify how to use which formatprograms for which filetypes.
 A set of reasonable defaults are given, so you should be able to use it right away.
 Check the list of formatprograms to see which languages are supported by default.
+You can easily customize or add your own formatprogram.
 
 How to install (Vundle)
 -----------------------
@@ -17,10 +18,8 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
-For the default supported formatprograms, it suffices to make the formatprogram either globally available
-(which is the case if you install it via your package manager)
-or to put it in the `formatters/` folder.
-Sometimes alternative installation methods are supported.
+It suffices to make the formatprogram either globally available, which is the case if you install it via your package manager.
+Alternatively, you can put the binary (or a link to it) in the `formatters/` folder.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
@@ -35,10 +34,7 @@ For more ways to perform autoformatting type `:help gq`.
 
 Default formatprograms
 ------------------------
-For most linux distro's, if you installed a formatprogram, it's automatically globally available.
-If this is not the case, you can either make it globally available manually, or put it's binary in the `formatters/` directory.
-Sometimes alternative installation methods are presented.
-Here is a list of formatprograms that are currently supported.
+Here is a list of formatprograms that are supported by default.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
@@ -68,7 +64,7 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
-The formatprg for a filetype is defined in the global `g:formatprg_<filetype>`.
+The formatprg for a filetype is defined in `g:formatprg_<filetype>`.
 The arguments given to the formatprogram are defined in `g:formatprg_args_<filetype>`.
 So for example, if you want to set the arguments passed to `astyle` for formatting a C# file, you would put a line like this in your .vimrc:
 
@@ -78,6 +74,7 @@ let g:formatprg_args_cs = "--mode=cs --style=java -H"
 
 How can I define a formatprogram myself?
 ---------------------------------
+You can define one in your .vimrc.
 A definition looks like this:
 
 ```vim
