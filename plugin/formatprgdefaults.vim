@@ -1,5 +1,6 @@
 let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi"
+let g:tabwidth_cs = 4
 let g:formatprg_c = "astyle"
 let g:formatprg_args_c = "--mode=c --style=ansi"
 let g:formatprg_cpp = "astyle"
