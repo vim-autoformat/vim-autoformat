@@ -2,8 +2,7 @@ vim-autoformat
 ==============
 Format your code with only one button press!
 This plugin makes use of external formatprograms to achieve the best result.
-You can specify how to use which formatprograms for which filetypes.
-A set of reasonable defaults are given, so you should be able to use it right away.
+You can specify how to use which formatprograms for which filetypes, but a set of reasonable defaults is given, so you can use it right away.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
 
@@ -97,4 +96,4 @@ Todo list
 * Option for on-the-fly code-formatting (like visual studio)
 
 
-If you have any suggestions on this plugin or on this readme or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme, if you think some default formatprg definition is missing, or if you experience problems, please contact me by creating an issue in this repository.
