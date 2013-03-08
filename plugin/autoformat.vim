@@ -50,3 +50,9 @@ au FileType * call s:set_formatprg()
 
 "When current buffer changes, store b:formatprg into &formatprg
 au BufEnter * if exists("b:formatprg") | let &formatprg = b:formatprg
+
+"Set indent behaviour to match with the formatprg defaults
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
