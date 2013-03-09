@@ -2,7 +2,6 @@ vim-autoformat
 ==============
 Format your code with only one button press!
 This plugin makes use of external formatprograms to achieve the best result.
-You can specify how to use which formatprograms for which filetypes, but a set of reasonable defaults is given, so you can use it right away.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
 
@@ -17,7 +16,7 @@ Bundle "Chiel92/vim-autoformat"
 How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
-It suffices to make the formatprogram either globally available, which is the case if you install it via your package manager.
+It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 Alternatively, you can put the binary (or a link to it) in the `formatters/` folder.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
@@ -28,7 +27,7 @@ noremap <F7> :Autoformat<CR><CR>
 ```
 
 If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.
-However, some formatprograms will behave a bit weird then, because they need the context of a piece of code.
+However, some formatprograms will behave a bit weird this way, because they need the context of a piece of code.
 For more ways to perform autoformatting type `:help gq`.
 
 Default formatprograms
@@ -63,16 +62,16 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
-The formatprg for a filetype is defined in `g:formatprg_<filetype>`.
+The formatprg for a <filetype> is defined in `g:formatprg_<filetype>`.
 The arguments passed to the formatprogram are defined in `g:formatprg_args_<filetype>`.
-So, a definition could look like this:
+So, a complete definition could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
 
-If you are not satisfied with the default configuration, you can override it by defining `g:formatprg\_<filetype>` or `g:formatprg\_args\_<filetype>` in your .vimrc, just like above.
+If you are not satisfied with the default configuration, you can override it by defining these variables in your .vimrc, just like above.
 
 If you changed the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
 
@@ -94,7 +93,7 @@ If you have any suggestions on this plugin or on this readme, if you think some 
 Change log
 ----------
 ### March 10 2012
-The custom_config branch has been merged into the master branch.
+* The custom_config branch has been merged into the master branch.
 This means that customization of formatprograms can be done easily now, as explained above.
-I also set the default tab width to 4 for all formatprograms, and in vim itself.
-Finally, the default parameters for astyle have been slightly modified: it will wrap spaces around operators.
+* I also set the default tab width to 4 for all formatprograms, and in vim itself.
+* Finally, the default parameters for astyle have been slightly modified: it will wrap spaces around operators.
