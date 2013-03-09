@@ -68,7 +68,8 @@ let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 
 If you are not satisfied with the default configuration, you can override it by defining these variables in your .vimrc, just like above.
 
-If you changed the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
+The default tabwidth is set to 4 for all formatprograms as well as for vim itself.
+If you change the tabwidth for a certain formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
 
 ```vim
 au filetype *.cs set tabstop=2
@@ -88,8 +89,8 @@ If you have any suggestions on this plugin or on this readme, if you think some 
 Change log
 ----------
 ### March 10 2013
-* The custom_config branch has been merged into the master branch.
-This means that customization of formatprograms can be done easily now, as explained above.
+The custom_config branch has been merged into the master branch.
+* Customization of formatprograms can be done easily now, as explained above.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
 * phpCB has been removed from the defaults, due to buggy behaviour.
