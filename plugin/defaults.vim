@@ -26,12 +26,12 @@ if !exists("g:formatprg_args_java")
     let g:formatprg_args_java = "--mode=java --style=ansi -p -c -H"
 endif
 
-if !exists("g:formatprg_php")
-    let g:formatprg_php = "phpCB"
-endif
-if !exists("g:formatprg_args_php")
-    let g:formatprg_args_php = "--space-after-if --space-after-switch --space-after-while --space-before-start-angle-bracket --space-after-end-angle-bracket --one-true-brace-function-declaration --glue-amperscore --change-shell-comment-to-double-slashes-comment --force-large-php-code-tag --force-true-false-null-contant-lowercase --align-equal-statements --comment-rendering-style PEAR --equal-align-position 50 --padding-char-count 4"
-endif
+"if !exists("g:formatprg_php")
+"    let g:formatprg_php = "phpCB"
+"endif
+"if !exists("g:formatprg_args_php")
+"    let g:formatprg_args_php = "--space-after-if --space-after-switch --space-after-while --space-before-start-angle-bracket --space-after-end-angle-bracket --one-true-brace-function-declaration --glue-amperscore --change-shell-comment-to-double-slashes-comment --force-large-php-code-tag --force-true-false-null-contant-lowercase --align-equal-statements --comment-rendering-style PEAR --equal-align-position 50 --padding-char-count 4"
+"endif
 
 if !exists("g:formatprg_python")
     let g:formatprg_python = "autopep8"
