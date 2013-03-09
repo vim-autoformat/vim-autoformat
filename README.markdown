@@ -17,7 +17,7 @@ How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
 It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
-Alternatively, you can put the binary (or a link to it) in the `formatters/` folder.
+Alternatively, you can put its binary (or a link to it) in the `formatters/` folder.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
@@ -57,16 +57,17 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
-The formatprg for a `<filetype>` is defined in `g:formatprg_<filetype>`.
+If you are not satisfied with the default configuration for a certain filetype, you can override it by defining it yourself.
+The formatprogram used for a `<filetype>` is defined in `g:formatprg_<filetype>`.
 The arguments passed to the formatprogram are defined in `g:formatprg_args_<filetype>`.
-So, a complete definition could look like this:
+The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
+By defining one or both of these variable in your .vimrc, you override any possible default value.
+So, a complete definition for C# files could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
-
-If you are not satisfied with the default configuration, you can override it by defining these variables in your .vimrc, just like above.
 
 The default tabwidth is set to 4 for all formatprograms as well as for vim itself.
 If you change the tabwidth for a certain formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
@@ -88,7 +89,7 @@ If you have any suggestions on this plugin or on this readme, if you think some 
 
 Change log
 ----------
-### March 10 2013
+### March 9 2013
 The custom_config branch has been merged into the master branch.
 * Customization of formatprograms can be done easily now, as explained above.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
