@@ -51,7 +51,7 @@ For Ubuntu type `sudo apt-get install autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
-* `tidy` for __HTML__ and __XML__.
+* `tidy` for __HTML__, __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
@@ -87,9 +87,9 @@ If you have any suggestions on this plugin or on this readme, if you think some 
 
 Change log
 ----------
-### March 10 2012
+### March 10 2013
 * The custom_config branch has been merged into the master branch.
 This means that customization of formatprograms can be done easily now, as explained above.
-* I set the default tab width to 4 for all formatprograms, and in vim itself.
+* I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
-* phpCB has been removed from the defaults, due to buggy behaviour
+* phpCB has been removed from the defaults, due to buggy behaviour.
