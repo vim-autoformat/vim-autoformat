@@ -9,7 +9,12 @@ function! s:Autoformat()
 		"Recall window state
 	  	call winrestview(winview)
 	else 
-		echo "No formatter defined for filetype ".&filetype
+	    let s:formatprg_var = "g:formatprg_".&filetype
+        if !exists(s:formatprg_var)
+		    echo "No formatter defined for filetype ".&filetype
+        else
+            echo "Defined formatter ".eval(s:formatprg_var)." is not executable"
+        endif
 	endif
 endfunction
 
@@ -28,7 +33,7 @@ function! s:set_formatprg()
 	let s:formatprg_var = "g:formatprg_".&filetype
 	let s:formatprg_args_var = "g:formatprg_args_".&filetype
 	if !exists(s:formatprg_var) || !exists(s:formatprg_args_var)
-		"No formatprg configured
+		"No formatprg defined
 		return
 	endif
 	let s:formatprg = eval(s:formatprg_var)
