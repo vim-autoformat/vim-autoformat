@@ -64,7 +64,7 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 How can I change the behaviour of formatters?
 ---------------------------------------------
 The formatprg for a filetype is defined in `g:formatprg_<filetype>`.
-The arguments given to the formatprogram are defined in `g:formatprg_args_<filetype>`.
+The arguments passed to the formatprogram are defined in `g:formatprg_args_<filetype>`.
 So, a definition could look like this:
 
 ```vim
@@ -72,9 +72,9 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
 
-If you are not satisfied with the default configuration, you can override the default by defining `g:formatprg_<filetype>` or `g:formatprg_args_<filetype>` in your .vimrc.
+If you are not satisfied with the default configuration, you can override it by defining `g:formatprg\_<filetype>` or `g:formatprg\_args\_<filetype>` in your .vimrc, just like above.
 
-If you change the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype:
+If you changed the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
 
 ```vim
 au filetype *.cs set tabstop=2
