@@ -65,28 +65,21 @@ How can I change the behaviour of formatters?
 ---------------------------------------------
 The formatprg for a filetype is defined in `g:formatprg_<filetype>`.
 The arguments given to the formatprogram are defined in `g:formatprg_args_<filetype>`.
-So for example, if you want to set the arguments passed to `astyle` for formatting a C# file, you would put a line like this in your .vimrc:
-
-```vim
-let g:formatprg_args_cs = "--mode=cs --style=java -H"
-```
-
-How can I define a formatprogram myself?
----------------------------------
-You can define one in your .vimrc.
-A definition looks like this:
+So, a definition could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
 
+If you are not satisfied with the default configuration, you can override the default by defining `g:formatprg_<filetype>` or `g:formatprg_args_<filetype>` in your .vimrc.
+
 If you change the tabwidth for a formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype:
 
 ```vim
-au filetype *.cs set tabstop=4
-au filetype *.cs set softtabstop=4
-au filetype *.cs set shiftwidth=4
+au filetype *.cs set tabstop=2
+au filetype *.cs set softtabstop=2
+au filetype *.cs set shiftwidth=2
 ```
 
 
@@ -97,3 +90,11 @@ Todo list
 
 
 If you have any suggestions on this plugin or on this readme, if you think some default formatprg definition is missing, or if you experience problems, please contact me by creating an issue in this repository.
+
+Change log
+----------
+### March 10 2012
+The custom_config branch has been merged into the master branch.
+This means that customization of formatprograms can be done easily now, as explained above.
+I also set the default tab width to 4 for all formatprograms, and in vim itself.
+Finally, the default parameters for astyle have been slightly modified: it will wrap spaces around operators.
