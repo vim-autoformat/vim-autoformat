@@ -93,4 +93,4 @@ This means that customization of formatprograms can be done easily now, as expla
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
 * phpCB has been removed from the defaults, due to buggy behaviour.
-* XHTML support added
+* XHTML default definition added
