@@ -5,11 +5,11 @@ function! s:Autoformat()
 	  	"Save window state
 	  	let winview=winsaveview()
 		"Autoformat code
-		:silent exe "normal gggqG"
+		silent exe "normal gggqG"
 		"Recall window state
 	  	call winrestview(winview)
 	else 
-		echo "No formatter set for filetype ".&filetype
+		echo "No formatter defined for filetype ".&filetype
 	endif
 endfunction
 
@@ -19,6 +19,7 @@ command! Autoformat call s:Autoformat()
 "Function for finding and setting the formatter 
 "with the given name, if the formatter is installed
 "globally or in the formatters folder
+let s:formatterdir = fnamemodify(expand("<sfile>"), ":p:h:h")."/formatters/"
 function! s:set_formatprg()
 	"Reset previous formatprg
 	set formatprg=""
@@ -35,7 +36,6 @@ function! s:set_formatprg()
 	
 	"Set correct formatprg path, if it is installed
 	if !executable(s:formatprg)
-		let s:formatterdir = fnamemodify(expand("<sfile>"), ":h:h")."/formatters/"
 		let s:formatprg = s:formatterdir.s:formatprg
 		if !executable(s:formatprg)
 			"Configured formatprg not installed

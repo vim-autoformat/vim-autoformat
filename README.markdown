@@ -62,7 +62,7 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
-The formatprg for a <filetype> is defined in `g:formatprg_<filetype>`.
+The formatprg for a `<filetype>` is defined in `g:formatprg_<filetype>`.
 The arguments passed to the formatprogram are defined in `g:formatprg_args_<filetype>`.
 So, a complete definition could look like this:
 
