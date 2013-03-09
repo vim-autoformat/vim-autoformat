@@ -94,5 +94,5 @@ The custom_config branch has been merged into the master branch.
 * Customization of formatprograms can be done easily now, as explained above.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
-* phpCB has been removed from the defaults, due to buggy behaviour.
+* phpCB has been removed from the defaults, due to code-breaking behaviour.
 * XHTML default definition added
