@@ -11,13 +11,17 @@ function! s:Autoformat()
 	else 
 	    let s:formatprg_var = "g:formatprg_".&filetype
         if !exists(s:formatprg_var)
-		    echo "No formatter defined for filetype ".&filetype."."
+		    echo "No formatter defined for filetype '".&filetype."'."
         else
             echo "Defined formatter ".eval(s:formatprg_var)." is not executable."
         endif
         echo "Using indent file instead."
+	  	"Save window state
+	  	let winview=winsaveview()
         "Autoindent code
         silent exe "normal gg=G"
+		"Recall window state
+	  	call winrestview(winview)
 	endif
 endfunction
 
