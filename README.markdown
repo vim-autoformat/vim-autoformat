@@ -99,6 +99,6 @@ The custom_config branch has been merged into the master branch.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
 * phpCB has been removed from the defaults, due to code-breaking behaviour.
 * XHTML default definition added
-* 
+
 ### March 10 2013
 * When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
