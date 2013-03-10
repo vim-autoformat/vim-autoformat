@@ -85,10 +85,11 @@ au filetype *.cs set shiftwidth=2
 Todo list
 ---------
 * Check for windows support.
-* Option for on-the-fly code-formatting (like visual studio)
+* Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
 
 
 If you have any suggestions on this plugin or on this readme, if you think some default formatprg definition is missing, or if you experience problems, please contact me by creating an issue in this repository.
+You can also send a message to ctje92 at gmail dot com.
 
 Change log
 ----------
