@@ -11,10 +11,13 @@ function! s:Autoformat()
 	else 
 	    let s:formatprg_var = "g:formatprg_".&filetype
         if !exists(s:formatprg_var)
-		    echo "No formatter defined for filetype ".&filetype
+		    echo "No formatter defined for filetype ".&filetype."."
         else
-            echo "Defined formatter ".eval(s:formatprg_var)." is not executable"
+            echo "Defined formatter ".eval(s:formatprg_var)." is not executable."
         endif
+        echo "Using indent file instead."
+        "Autoindent code
+        silent exe "normal gg=G"
 	endif
 endfunction
 
@@ -32,12 +35,17 @@ function! s:set_formatprg()
 	"Get formatprg config for current filetype
 	let s:formatprg_var = "g:formatprg_".&filetype
 	let s:formatprg_args_var = "g:formatprg_args_".&filetype
-	if !exists(s:formatprg_var) || !exists(s:formatprg_args_var)
+
+	if !exists(s:formatprg_var)
 		"No formatprg defined
 		return
 	endif
 	let s:formatprg = eval(s:formatprg_var)
-	let s:formatprg_args = eval(s:formatprg_args_var)
+
+    let s:formatprg_args = ""
+    if  exists(s:formatprg_args_var)
+        let s:formatprg_args = eval(s:formatprg_args_var)
+    endif
 	
 	"Set correct formatprg path, if it is installed
 	if !executable(s:formatprg)
