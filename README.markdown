@@ -72,7 +72,13 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
 
-The default tabwidth is set to 4 for all formatprograms as well as for vim itself.
+The default tabwidth is set to 4 for all formatprograms as well as for vim itself.  
+It overwrites *tabstop*, *softtabstop*, *shiftwidth* in vimrc. If you want to keep your settings, you have to use *g:autoformat_default* variable. For example:
+```vim
+let g:autoformat_default = 2
+```
+
+
 If you change the tabwidth for a certain formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
 
 ```vim
