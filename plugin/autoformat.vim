@@ -48,7 +48,7 @@ function! s:set_formatprg()
 
     let s:formatprg_args = ""
     if  exists(s:formatprg_args_var)
-        let s:formatprg_args = eval(s:formatprg_args_var)
+        let s:formatprg_args = eval(eval(s:formatprg_args_var))
     endif
 	
 	"Set correct formatprg path, if it is installed
