@@ -38,9 +38,9 @@ endif
 "Set default indent behaviour to match with the formatprg defaults
 set expandtab
 if !exists("g:autoformat_default")
-    set tabstop     = 4
-    set softtabstop = 4
-    set shiftwidth  = 4
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
 else
     execute "set tabstop=".g:autoformat_default
     execute "set softtabstop=".g:autoformat_default
