@@ -72,10 +72,12 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
 ```
 
-The default tabwidth is set to 4 for all formatprograms as well as for vim itself.  
-It overwrites *tabstop*, *softtabstop*, *shiftwidth* in vimrc. If you want to keep your settings, you have to use *g:autoformat_default* variable. For example:
+By default vim-autoformat equals `tabstop`, `softtabstop` and `shiftwidth` to 4 and sets `expandtab`, matching the default configuration for the default formatprograms.
+This overwrites these options from your .vimrc.
+If you don't want vim-autoformat to set these options, put this line in your .vimrc.
+
 ```vim
-let g:autoformat_default = 2
+let g:autoformat_no_default_shiftwidth = 1
 ```
 
 
@@ -109,3 +111,6 @@ The custom_config branch has been merged into the master branch.
 
 ### March 10 2013
 * When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
+
+### March 13 2013
+* It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.

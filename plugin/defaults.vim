@@ -36,13 +36,9 @@ if !exists("g:formatprg_args_javascript")
 endif
 
 "Set default indent behaviour to match with the formatprg defaults
-set expandtab
-if !exists("g:autoformat_default")
+if !exists("g:autoformat_no_default_shiftwidth")
+    set expandtab
     set tabstop=4
     set softtabstop=4
     set shiftwidth=4
-else
-    execute "set tabstop=".g:autoformat_default
-    execute "set softtabstop=".g:autoformat_default
-    execute "set shiftwidth=".g:autoformat_default
 endif
