@@ -53,7 +53,9 @@ endfunction
 "2. if formatprg!="" run regular gq
 "3. else run =
 
-nnoremap gq :call g:set_formatprg()<cr>gq
+"if(!g:set_formatprg()) | nnoremap gq = | endif
+"nnoremap gq if(g:set_formatprg()) | gq | else | =
+"nnoremap <expr> gq g:set_formatprg() ? gq : =
 "noremap gq :call g:set_formatprg()<cr>gq
 "nnoremap gq :call <SID>gq("normal")<cr>
 "vnoremap gq :call <SID>gq("visual")<cr>
