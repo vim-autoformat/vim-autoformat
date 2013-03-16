@@ -16,7 +16,7 @@ try:
     class Canceled(Exception):     
         "Exception used to cancel run()."     
 except (NameError,TypeError):     
-    Canceled=__name__ + ".Canceled"     
+    Canceled=__name__+".Canceled"     
 class SuckerThread(websucker.Sucker):     
     stopit=0     
     savedir=None     
@@ -25,9 +25,7 @@ class SuckerThread(websucker.Sucker):
         self.msgq=msgq     
         websucker.Sucker.__init__(self)     
         self.setflags(verbose=VERBOSE)     
-        self.urlopener.addheaders=[     
-            ('User-agent','websucker/%s' % websucker.__version__),    
-        ]     
+        self.urlopener.addheaders=[('User-agent','websucker/%s'%websucker.__version__),]
     def message(self,format,*args):     
         if args:     
             format=format%args     
