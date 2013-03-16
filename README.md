@@ -64,7 +64,7 @@ If you are not satisfied with the default configuration for a certain filetype, 
 The formatprogram used for a `<filetype>` is defined in `g:formatprg_<filetype>`.
 The arguments passed to the formatprogram are defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
 The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
-Defining any of these variable in your .vimrc, will override the default value.
+Defining any of these variable manually in your .vimrc, will override the default value, if existing.
 So, a complete definition for C# files could look like this:
 
 ```vim
@@ -72,8 +72,10 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop' 
 ```
 Notice that `g:formatprg_args_expr_cs` can be evaluated.
-As you see, this allows us to take user defined options into account.
+As you see, this allows us to dynamically define some parameters.
 In this case, the indent width that astyle will use, depends on the value of `&softtabstop`.
+For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
+For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
 
 
 Todo list
@@ -103,4 +105,7 @@ The `custom_config` branch has been merged into the master branch.
 * It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
 ### March 16 2013
 The `dynamic_indent_width` branch has been merged into the master branch
-* 
+* The options `expandtab`, `shiftwidth`, `tabstop` and `softtabstop` are not overwritten anymore.
+* `g:formatprg_args_expr_<filetype>` is introduced.
+* This obsoletes `g:autoformat_no_default_shiftwidth`
+* For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
