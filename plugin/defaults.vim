@@ -1,4 +1,4 @@
-if !exists("g:formatprg_cs") | let g:formatprg_cs = "astyle" | endif
+if !exists("g:formatprg_cs") | let g:formatprg_cs = "zastyle" | endif
 if !exists("g:formatprg_args_cs") | let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop' | endif
 
 if !exists("g:formatprg_c") | let g:formatprg_c = "astyle" | endif

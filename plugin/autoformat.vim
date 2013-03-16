@@ -1,6 +1,5 @@
-"Function for finding and setting the formatter 
-"with the given name, if the formatter is installed
-"globally or in the formatters folder
+"Function for finding and setting the formatter with the given name, 
+"if the formatter is installed globally or in the formatters folder
 let s:formatterdir = fnamemodify(expand("<sfile>"), ":p:h:h")."/formatters/"
 function! s:set_formatprg()
     "Reset previous formatprg
@@ -13,7 +12,9 @@ function! s:set_formatprg()
 
     if !exists(s:formatprg_var)
         "No formatprg defined
-        echo "No formatter defined for filetype '".&filetype."'."
+        if exists("g:autoformat_verbosemode") 
+            echoerr "No formatter defined for filetype '".&filetype."'."
+        endif
         return 0
     endif
     let s:formatprg = eval(s:formatprg_var)
@@ -30,7 +31,9 @@ function! s:set_formatprg()
         let s:formatprg = s:formatterdir.s:formatprg
         if !executable(s:formatprg)
             "Configured formatprg not installed
-            echo "Defined formatter ".eval(s:formatprg_var)." is not executable."
+            if exists("g:autoformat_verbosemode") 
+                echoerr "Defined formatter ".eval(s:formatprg_var)." is not executable."
+            endif
             return 0
         endif
     endif
@@ -43,7 +46,7 @@ endfunction
 "1. set right formatprg
 "2. if formatprg!="" run regular gq
 "3. else run =
-nnoremap <expr> gq <SID>set_formatprg() ? 'gq' : '='
+noremap <expr> gq <SID>set_formatprg() ? 'gq' : '='
 
 "Function for formatting the entire buffer
 function! s:Autoformat()
