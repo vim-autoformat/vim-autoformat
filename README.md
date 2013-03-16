@@ -92,6 +92,7 @@ Change log
 ----------
 ### March 9 2013
 The `custom_config` branch has been merged into the master branch.
+
 * Customization of formatprograms can be done easily now, as explained above.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
@@ -103,9 +104,11 @@ The `custom_config` branch has been merged into the master branch.
 
 ### March 13 2013
 * It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
+
 ### March 16 2013
-The `dynamic_indent_width` branch has been merged into the master branch
+The `dynamic_indent_width` branch has been merged into the master branch.
+
 * The options `expandtab`, `shiftwidth`, `tabstop` and `softtabstop` are not overwritten anymore.
-* `g:formatprg_args_expr_<filetype>` is introduced.
 * This obsoletes `g:autoformat_no_default_shiftwidth`
+* `g:formatprg_args_expr_<filetype>` is introduced.
 * For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
