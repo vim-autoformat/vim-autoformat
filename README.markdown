@@ -62,32 +62,18 @@ How can I change the behaviour of formatters?
 ---------------------------------------------
 If you are not satisfied with the default configuration for a certain filetype, you can override it by defining it yourself.
 The formatprogram used for a `<filetype>` is defined in `g:formatprg_<filetype>`.
-The arguments passed to the formatprogram are defined in `g:formatprg_args_<filetype>`.
+The arguments passed to the formatprogram are defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
 The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
-By defining one or both of these variable in your .vimrc, you override any possible default value.
+Defining any of these variable in your .vimrc, will override the default value.
 So, a complete definition for C# files could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
-let g:formatprg_args_cs = "--mode=cs --style=ansi -p -c -H"
+let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop' 
 ```
-
-By default vim-autoformat equals `tabstop`, `softtabstop` and `shiftwidth` to 4 and sets `expandtab`, matching the default configuration for the default formatprograms.
-This overwrites these options from your .vimrc.
-If you don't want vim-autoformat to set these options, put this line in your .vimrc.
-
-```vim
-let g:autoformat_no_default_shiftwidth = 1
-```
-
-
-If you change the tabwidth for a certain formatprogram, I would suggest to change the indent options of vim correspondingly for that filetype.
-
-```vim
-au filetype *.cs set tabstop=2
-au filetype *.cs set softtabstop=2
-au filetype *.cs set shiftwidth=2
-```
+Notice that `g:formatprg_args_expr_cs` can be evaluated.
+As you see, this allows us to take user defined options into account.
+In this case, the indent width that astyle will use, depends on the value of `&softtabstop`.
 
 
 Todo list
@@ -97,13 +83,13 @@ Todo list
 * Create a help file
 
 
-If you have any suggestions on this plugin or on this readme, if you think some default formatprg definition is missing, or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme, if you think some formatprg definition should be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
 You can also send a message to ctje92 at gmail dot com.
 
 Change log
 ----------
 ### March 9 2013
-The custom_config branch has been merged into the master branch.
+The `custom_config` branch has been merged into the master branch.
 * Customization of formatprograms can be done easily now, as explained above.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
@@ -115,3 +101,6 @@ The custom_config branch has been merged into the master branch.
 
 ### March 13 2013
 * It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
+### March 16 2013
+The `dynamic_indent_width` branch has been merged into the master branch
+* 
