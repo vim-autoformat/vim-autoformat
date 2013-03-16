@@ -1,21 +1,21 @@
 if !exists("g:formatprg_cs") | let g:formatprg_cs = "astyle" | endif
 if !exists("g:formatprg_args_expr_cs") 
-    let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop' 
+    let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")' 
 endif
 
 if !exists("g:formatprg_c") | let g:formatprg_c = "astyle" | endif
 if !exists("g:formatprg_args_expr_c") 
-    let g:formatprg_args_expr_c = '"--mode=c --style=ansi -pcHs".&softtabstop' 
+    let g:formatprg_args_expr_c = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 endif
 
 if !exists("g:formatprg_cpp") | let g:formatprg_cpp = "astyle" | endif
 if !exists("g:formatprg_args_expr_cpp") 
-    let g:formatprg_args_expr_cpp = '"--mode=c --style=ansi -pcHs".&softtabstop' 
+    let g:formatprg_args_expr_cpp = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 endif
 
 if !exists("g:formatprg_java") | let g:formatprg_java = "astyle" | endif
 if !exists("g:formatprg_args_expr_java") 
-    let g:formatprg_args_expr_java = '"--mode=java --style=ansi -pcHs".&softtabstop' 
+    let g:formatprg_args_expr_java = '"--mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 endif
 
 if !exists("g:formatprg_python") | let g:formatprg_python = "autopep8" | endif
@@ -25,17 +25,17 @@ endif
 
 if !exists("g:formatprg_xml") | let g:formatprg_xml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xml") 
-    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 10 --show-warnings 10 --indent auto --indent-spaces ".&softtabstop." --vertical-space yes --tidy-mark no --wrap 68"' 
+    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no"' 
 endif
 
 if !exists("g:formatprg_html") | let g:formatprg_html = "tidy" | endif
 if !exists("g:formatprg_args_expr_html") 
-    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&softtabstop." --vertical-space yes --tidy-mark no --wrap 68"' 
+    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no"' 
 endif
 
 if !exists("g:formatprg_xhtml") | let g:formatprg_xhtml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xhtml") 
-    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&softtabstop." --vertical-space yes --tidy-mark no --wrap 68 -asxhtml"' 
+    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml"' 
 endif
 
 if !exists("g:formatprg_javascript")
@@ -50,5 +50,5 @@ if !exists("g:formatprg_javascript")
     endif
 endif
 if !exists("g:formatprg_args_expr_javascript")
-    let g:formatprg_args_expr_javascript = '"-i -s".&softtabstop'
+    let g:formatprg_args_expr_javascript = '"-i -s".&shiftwidth'
 endif
