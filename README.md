@@ -5,7 +5,7 @@ This plugin makes use of external formatprograms to achieve the best result.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
 
-How to install (Vundle)
+How to install
 -----------------------
 ###Vundle
 Put this in your .vimrc
@@ -30,7 +30,7 @@ How to use
 First you have to install an external program that can format code of the programming language you are using.
 It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 Alternatively, you can put its binary (or a link to it) in the `formatters/` folder.
-Finally, you can point vim-autoformat to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
+A third way to do it is to point vim-autoformat to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
