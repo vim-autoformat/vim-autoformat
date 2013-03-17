@@ -7,17 +7,30 @@ You can easily customize or add your own formatprogram.
 
 How to install (Vundle)
 -----------------------
+###Vundle
 Put this in your .vimrc
 
 ```vim
 Bundle "Chiel92/vim-autoformat"
 ```
 
+Then restart vim and run `:BundleInstall`.
+To update the plugin to the latest version, your can also run `:BundleInstall`.
+
+###Pathogen
+Download the source and extract in your bundle directory.
+Updating has to be done manually, as far as I'm aware.
+
+###Other
+It is highly recommended to use a plugin manager such as Vundle, since this makes it easy to update plugins or uninstall them.
+It also keeps your .vim directory clean.
+
 How to use
 ----------
 First you have to install an external program that can format code of the programming language you are using.
 It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 Alternatively, you can put its binary (or a link to it) in the `formatters/` folder.
+Finally, you can point vim-autoformat to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
@@ -62,7 +75,7 @@ How can I change the behaviour of formatters?
 ---------------------------------------------
 If you are not satisfied with the default configuration for a certain filetype, you can override it by defining it yourself.
 The formatprogram used for a `<filetype>` is defined in `g:formatprg_<filetype>`.
-The arguments passed to the formatprogram are defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
+The arguments passed to the formatprogram are either defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
 The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
 So, a complete definition for C# files could look like this:
@@ -73,8 +86,10 @@ let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop'
 ```
 Notice that `g:formatprg_args_expr_cs` can be evaluated.
 As you see, this allows us to dynamically define some parameters.
-In this case, the indent width that astyle will use, depends on the value of `&softtabstop`.
+In this example, the indent width that astyle will use, depends on the value of `&softtabstop`.
+
 For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
+This means that the formatting style will match your current vim settings as much as possible.
 For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
 
 
@@ -82,10 +97,10 @@ Todo list
 ---------
 * Check for windows support.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
-* Create a help file
+* Create a help file.
 
 
-If you have any suggestions on this plugin or on this readme, if you think some formatprg definition should be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
 You can also send a message to ctje92 at gmail dot com.
 
 Change log
