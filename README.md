@@ -15,7 +15,7 @@ Bundle "Chiel92/vim-autoformat"
 ```
 
 Then restart vim and run `:BundleInstall`.
-To update the plugin to the latest version, your can also run `:BundleInstall`.
+To update the plugin to the latest version, you can run `:BundleUpdate`.
 
 ###Pathogen
 Download the source and extract in your bundle directory.
