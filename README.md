@@ -57,7 +57,7 @@ Otherwise, download it here: http://astyle.sourceforge.net/.
 
 * `jsbeautify` (the python CLI version) for __Javascript__.
 This one can also be installed as a vundle package, and I recommend to do so.
-Put this in your .vimrc: `Bundle "einars/jsbeautify"`.
+Put this in your .vimrc: `Bundle "einars/js-beautify"`.
 Note that we're only using the python version, so `node` doesn't have to be installed.
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
