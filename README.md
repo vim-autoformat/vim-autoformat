@@ -85,7 +85,8 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -pcHs4"
 ```
 
-If you want to define the arguments dynamically, you can use `g:formatprg_args_<filetype>`.
+If you want to define the arguments dynamically, you can use `g:formatprg_args_<filetype>` instead.
+Then, a similar definition would look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
@@ -94,7 +95,8 @@ let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
 
 Notice that `g:formatprg_args_expr_cs` can be evaluated.
 As you see, this allows us to dynamically define some parameters.
-In this example, the indent width that astyle will use, depends on the value of `&shiftwidth`.
+In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`.
+So if you're editing a csharp file and change the `shiftwidth`, the `formatprg_args_expr_<filetype>` will change correspondingly.
 
 For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
 This means that the formatting style will match your current vim settings as much as possible.
