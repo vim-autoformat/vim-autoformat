@@ -82,11 +82,19 @@ So, a complete definition for C# files could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
-let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&softtabstop' 
+let g:formatprg_args_cs = "--mode=cs --style=ansi -pcHs4"
 ```
+
+If you want to define the arguments dynamically, you can use `g:formatprg_args_<filetype>`.
+
+```vim
+let g:formatprg_cs = "astyle"
+let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth' 
+```
+
 Notice that `g:formatprg_args_expr_cs` can be evaluated.
 As you see, this allows us to dynamically define some parameters.
-In this example, the indent width that astyle will use, depends on the value of `&softtabstop`.
+In this example, the indent width that astyle will use, depends on the value of `&shiftwidth`.
 
 For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
 This means that the formatting style will match your current vim settings as much as possible.
