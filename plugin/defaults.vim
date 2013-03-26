@@ -25,17 +25,17 @@ endif
 
 if !exists("g:formatprg_xml") | let g:formatprg_xml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xml")  && !exists("g:formatprg_args_xml") 
-    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no"' 
+    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_html") | let g:formatprg_html = "tidy" | endif
 if !exists("g:formatprg_args_expr_html")  && !exists("g:formatprg_args_html") 
-    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no"' 
+    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_xhtml") | let g:formatprg_xhtml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xhtml")  && !exists("g:formatprg_args_xhtml") 
-    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml"' 
+    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_javascript")
