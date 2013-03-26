@@ -98,7 +98,7 @@ As you see, this allows us to dynamically define some parameters.
 In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`.
 So if you're editing a csharp file and change the `shiftwidth`, the `formatprg_args_expr_<filetype>` will change correspondingly.
 
-For the default formatprogram definitions, the options `expandtab` and `shiftwidth` are taken into account whenever possible.
+For the default formatprogram definitions, the options `expandtab`, `shiftwidth` and `textwidth` are taken into account whenever possible.
 This means that the formatting style will match your current vim settings as much as possible.
 For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
 
@@ -108,7 +108,6 @@ Todo list
 * Check for windows support.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
 * Create a help file.
-* Take `textwidth` into account.
 * Only use autoindent as fallback when running `:Autoformat`.
 
 

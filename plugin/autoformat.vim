@@ -42,18 +42,22 @@ function! s:set_formatprg()
     return 1
 endfunction
 
-"When gq has been pressed:
-"1. set right formatprg
-"2. if formatprg!="" run regular gq
-"3. else run =
-noremap <expr> gq <SID>set_formatprg() ? 'gq' : '='
+"set right formatprg before formatting
+noremap <expr> gq <SID>set_formatprg() ? 'gq' : 'gq'
 
 "Function for formatting the entire buffer
 function! s:Autoformat()
     "Save window state
     let winview=winsaveview()
-    "Autoformat code
-    exe "normal gggqG"
+
+    if <SID>set_formatprg()
+        "Autoformat code
+        exe "1,$!".&formatprg
+    else
+        "Autoindent code
+        exe "normal gg=G"
+    endif
+
     "Recall window state
     call winrestview(winview)
 endfunction
