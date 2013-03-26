@@ -85,7 +85,7 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=cs --style=ansi -pcHs4"
 ```
 
-If you want to define the arguments dynamically, you can use `g:formatprg_args_<filetype>` instead.
+If you want to define the arguments dynamically, you can use the more powerful `g:formatprg_args_expr_<filetype>` instead.
 Then, a similar definition would look like this:
 
 ```vim
@@ -93,7 +93,7 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth' 
 ```
 
-Notice that `g:formatprg_args_expr_cs` can be evaluated.
+Notice that `g:formatprg_args_expr_cs` is an expression that can be evaluated.
 As you see, this allows us to dynamically define some parameters.
 In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`.
 So if you're editing a csharp file and change the `shiftwidth`, the `formatprg_args_expr_<filetype>` will change correspondingly.
@@ -108,6 +108,8 @@ Todo list
 * Check for windows support.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
 * Create a help file.
+* Take `textwidth` into account.
+* Only use autoindent as fallback when running `:Autoformat`.
 
 
 If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
