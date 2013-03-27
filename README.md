@@ -24,10 +24,11 @@ Updating has to be done manually, as far as I'm aware.
 ###Other
 It is highly recommended to use a plugin manager such as Vundle, since this makes it easy to update plugins or uninstall them.
 It also keeps your .vim directory clean.
+Still you can decide to download this repository as a zip file or whatever and extract it to your .vim folder.
 
 How to use
 ----------
-First you have to install an external program that can format code of the programming language you are using.
+First you should install an external program that can format code of the programming language you are using.
 It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 Alternatively, you can put its binary (or a link to it) in the `formatters/` folder.
 A third way to do it is to point vim-autoformat to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
@@ -39,12 +40,14 @@ For convenience it is recommended that you assign a key for this, like so:
 noremap <F7> :Autoformat<CR><CR>
 ```
 
-If there is no formatprogram available for the current filetype, vim will auto-indent the buffer, instead of auto-formatting it.
+If there is no formatprogram available for the current filetype, vim will fallback to auto indentation only, instead of auto-formatting.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.
 However, some formatprograms will behave a bit weird this way, because they need the context of a piece of code.
 For more ways to perform autoformatting type `:help gq`.
+If you format a piece of code manually by using `gq`, vim will not fallback to auto indentation if there is no formatprogram available.
+This way, the default behaviour of `gq` will remain functional.
 
 Default formatprograms
 ------------------------
@@ -74,11 +77,11 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 How can I change the behaviour of formatters?
 ---------------------------------------------
 If you are not satisfied with the default configuration for a certain filetype, you can override it by defining it yourself.
-The formatprogram used for a `<filetype>` is defined in `g:formatprg_<filetype>`.
+The formatprogram used for some `<filetype>` is defined in `g:formatprg_<filetype>`.
 The arguments passed to the formatprogram are either defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
 The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
-So, a complete definition for C# files could look like this:
+So, a complete definition in your .vimrc for C# files could look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
@@ -95,8 +98,8 @@ let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
 
 Notice that `g:formatprg_args_expr_cs` is an expression that can be evaluated.
 As you see, this allows us to dynamically define some parameters.
-In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`.
-So if you're editing a csharp file and change the `shiftwidth`, the `formatprg_args_expr_<filetype>` will change correspondingly.
+In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`, instead of being fixed at 4.
+So if you're editing a csharp file and change the `shiftwidth` (even runtime), the `formatprg_args_expr_<filetype>` will change correspondingly.
 
 For the default formatprogram definitions, the options `expandtab`, `shiftwidth` and `textwidth` are taken into account whenever possible.
 This means that the formatting style will match your current vim settings as much as possible.
@@ -108,10 +111,10 @@ Todo list
 * Check for windows support.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
 * Create a help file.
-* Only use autoindent as fallback when running `:Autoformat`.
 
 
 If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
+Any feedback is welcome.
 You can also send a message to ctje92 at gmail dot com.
 
 Change log
@@ -135,3 +138,9 @@ The `dynamic_indent_width` branch has been merged into the master branch.
 * The options `expandtab`, `shiftwidth`, `tabstop` and `softtabstop` are not overwritten anymore.
 * This obsoletes `g:autoformat_no_default_shiftwidth`
 * `g:formatprg_args_expr_<filetype>` is introduced.
+
+### March 27 2013
+* The default behaviour of gq is enabled again by removing the fallback on auto-indenting.
+Instead, the fallback is only used when running the command `:Autoformat`.
+* For HTML,XML and XHTML, the option `textwidth` is taken into account when formatting.
+This extends the way the formatting style will match your current vim settings.
