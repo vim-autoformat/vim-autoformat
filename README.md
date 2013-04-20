@@ -4,6 +4,7 @@ Format your code with only one button press!
 This plugin makes use of external formatprograms to achieve the best result.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
+When no formatprogram exists (or no formatprogram is installed) for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 
 How to install
 -----------------------
@@ -30,8 +31,10 @@ How to use
 ----------
 First you should install an external program that can format code of the programming language you are using.
 It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
-Alternatively, you can put its binary (or a link to it) in the `formatters/` folder.
-A third way to do it is to point vim-autoformat to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
+Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
+A third way to make vim detect the formatprogram, is by putting its binary (or a link to it) in the `formatters/` directory within the directory of vim-autoformat.
+Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
+This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
@@ -39,9 +42,6 @@ For convenience it is recommended that you assign a key for this, like so:
 ```vim
 noremap <F7> :Autoformat<CR><CR>
 ```
-
-If there is no formatprogram available for the current filetype, vim will fallback to auto indentation only, instead of auto-formatting.
-This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.
 However, some formatprograms will behave a bit weird this way, because they need the context of a piece of code.
@@ -51,7 +51,7 @@ This way, the default behaviour of `gq` will remain functional.
 
 Default formatprograms
 ------------------------
-Here is a list of formatprograms that are supported by default.
+Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
 It's probably in your distro's repository, so you can download it as a regular package.
@@ -76,9 +76,9 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 How can I change the behaviour of formatters?
 ---------------------------------------------
-If you are not satisfied with the default configuration for a certain filetype, you can override it by defining it yourself.
-The formatprogram used for some `<filetype>` is defined in `g:formatprg_<filetype>`.
-The arguments passed to the formatprogram are either defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
+If you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can override it by defining it yourself.
+The formatprogram that is used for a certain `<filetype>` is defined in `g:formatprg_<filetype>`.
+The arguments that are passed to the formatprogram are either defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
 The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
 So, a complete definition in your .vimrc for C# files could look like this:
@@ -96,7 +96,7 @@ let g:formatprg_cs = "astyle"
 let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth' 
 ```
 
-Notice that `g:formatprg_args_expr_cs` is an expression that can be evaluated.
+Notice that `g:formatprg_args_expr_cs` now contains an expression that can be evaluated, as required.
 As you see, this allows us to dynamically define some parameters.
 In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`, instead of being fixed at 4.
 So if you're editing a csharp file and change the `shiftwidth` (even runtime), the `formatprg_args_expr_<filetype>` will change correspondingly.
@@ -115,7 +115,6 @@ Todo list
 
 If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
 Any feedback is welcome.
-You can also send a message to ctje92 at gmail dot com.
 
 Change log
 ----------
