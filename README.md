@@ -30,9 +30,12 @@ Still you can decide to download this repository as a zip file or whatever and e
 How to use
 ----------
 First you should install an external program that can format code of the programming language you are using.
-It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
-Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
-A third way to make vim detect the formatprogram, is by putting its binary (or a link to it) in the `formatters/` directory within the directory of vim-autoformat.
+This can either be one of the programs that are listed below as defaultprograms, or a custom program.
+For using a custom formatprogram, read the text below *How can I change the behaviour of formatters, or add one myself?*
+If the formatprogram you want to use is installed correctly, in one of the following ways, vim automatically detects it.
+* It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
+* Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
+* A third way to make vim detect the formatprogram, is by putting its binary (or a link to it) in the `formatters/` directory within the directory of vim-autoformat.
 Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
@@ -40,7 +43,7 @@ When you have installed the formatters you need, you can format the entire buffe
 For convenience it is recommended that you assign a key for this, like so:
 
 ```vim
-noremap <F7> :Autoformat<CR><CR>
+noremap <F3> :Autoformat<CR><CR>
 ```
 
 If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.
@@ -74,12 +77,12 @@ And here the link to its page on the python website: http://pypi.python.org/pypi
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
-How can I change the behaviour of formatters?
+How can I change the behaviour of formatters, or add one myself?
 ---------------------------------------------
-If you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can override it by defining it yourself.
+If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
+*The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.*
 The formatprogram that is used for a certain `<filetype>` is defined in `g:formatprg_<filetype>`.
 The arguments that are passed to the formatprogram are either defined in `g:formatprg_args_expr_<filetype>` as an expression which can be evaluated, or else in `g:formatprg_args_<filetype>` as a plain string.
-The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
 So, a complete definition in your .vimrc for C# files could look like this:
 
