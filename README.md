@@ -73,7 +73,7 @@ For Ubuntu type `sudo apt-get install autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
-* `tidy` for __HTML__, __XHTML__ and __XML__.
+* `tidy` for __HTML__ (not HTML5, tidy cannot handle the new tags sadly), __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
