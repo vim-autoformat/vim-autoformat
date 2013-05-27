@@ -20,22 +20,22 @@ endif
 
 if !exists("g:formatprg_python") | let g:formatprg_python = "autopep8" | endif
 if !exists("g:formatprg_args_expr_python")  && !exists("g:formatprg_args_python") 
-    let g:formatprg_args_expr_python = '"/dev/stdin"' 
+    let g:formatprg_args_expr_python = '"/dev/stdin ".(&textwidth ? "--max-line-length=".&textwidth : "")' 
 endif
 
 if !exists("g:formatprg_xml") | let g:formatprg_xml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xml")  && !exists("g:formatprg_args_xml") 
-    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
+    let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_html") | let g:formatprg_html = "tidy" | endif
 if !exists("g:formatprg_args_expr_html")  && !exists("g:formatprg_args_html") 
-    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
+    let g:formatprg_args_expr_html = '"-q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_xhtml") | let g:formatprg_xhtml = "tidy" | endif
 if !exists("g:formatprg_args_expr_xhtml")  && !exists("g:formatprg_args_xhtml") 
-    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth' 
+    let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth' 
 endif
 
 if !exists("g:formatprg_javascript")
