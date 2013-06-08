@@ -1,6 +1,6 @@
 if !exists("g:formatprg_cs") | let g:formatprg_cs = "astyle" | endif
 if !exists("g:formatprg_args_expr_cs") && !exists("g:formatprg_args_cs") 
-    let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")' 
+    let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".&shiftwidth : "t")' 
 endif
 
 if !exists("g:formatprg_c") | let g:formatprg_c = "astyle" | endif
