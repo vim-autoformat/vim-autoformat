@@ -36,6 +36,7 @@ If the formatprogram you want to use is installed correctly, in one of the follo
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 * Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
 * A third way to make vim detect the formatprogram, is by putting its binary (or a link to it) in the `formatters/` directory within the directory of vim-autoformat.
+
 Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
@@ -73,7 +74,7 @@ For Ubuntu type `sudo apt-get install autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
-* `tidy` for __HTML__ (not HTML5, tidy cannot handle the new tags sadly), __XHTML__ and __XML__.
+* `tidy` for __HTML__ ( __not HTML5__, tidy cannot handle the new tags sadly), __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
