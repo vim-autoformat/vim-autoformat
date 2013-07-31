@@ -20,7 +20,7 @@ endif
 
 if !exists("g:formatprg_python") | let g:formatprg_python = "autopep8" | endif
 if !exists("g:formatprg_args_expr_python")  && !exists("g:formatprg_args_python") 
-    let g:formatprg_args_expr_python = '"/dev/stdin ".(&textwidth ? "--max-line-length=".&textwidth : "")' 
+    let g:formatprg_args_expr_python = '"- ".(&textwidth ? "--max-line-length=".&textwidth : "")' 
 endif
 
 if !exists("g:formatprg_xml") | let g:formatprg_xml = "tidy" | endif
