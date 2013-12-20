@@ -1,6 +1,4 @@
-"Function for finding and setting the formatter with the given name,
-"if the formatter is installed globally or in the formatters folder
-let s:formatterdir = fnamemodify(expand("<sfile>"), ":p:h:h")."/formatters/"
+"Function for finding and setting the formatter with the given name
 function! s:set_formatprg()
     "Get formatprg config for current filetype
     let s:formatprg_var = "g:formatprg_".&filetype
@@ -25,14 +23,11 @@ function! s:set_formatprg()
 
     "Set correct formatprg path, if it is installed
     if !executable(s:formatprg)
-        let s:formatprg = s:formatterdir.s:formatprg
-        if !executable(s:formatprg)
-            "Configured formatprg not installed
-            if exists("g:autoformat_verbosemode")
-                echoerr "Defined formatter ".eval(s:formatprg_var)." is not executable."
-            endif
-            return 0
+        "Configured formatprg not installed
+        if exists("g:autoformat_verbosemode")
+            echoerr "Defined formatter ".eval(s:formatprg_var)." is not executable."
         endif
+        return 0
     endif
     let &formatprg = s:formatprg." ".s:formatprg_args
 

@@ -35,7 +35,6 @@ For using a custom formatprogram, read the text below *How can I change the beha
 If the formatprogram you want to use is installed correctly, in one of the following ways, vim automatically detects it.
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 * Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatprg_<filetype>` in your .vimrc.
-* A third way to make vim detect the formatprogram, is by putting its binary (or a link to it) in the `formatters/` directory within the directory of vim-autoformat.
 
 Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
@@ -62,19 +61,23 @@ It's probably in your distro's repository, so you can download it as a regular p
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
 Otherwise, download it here: http://astyle.sourceforge.net/.
 
-* `jsbeautify` (the python CLI version) for __Javascript__.
-This one can also be installed as a vundle package, and I recommend to do so.
-Put this in your .vimrc: `Bundle "einars/js-beautify"`.
-Note that we're only using the python version, so `node` doesn't have to be installed.
-Here is the link to the repository: https://github.com/einars/js-beautify.
-
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
-* `tidy` for __HTML__ ( __not HTML5__, tidy cannot handle the new tags sadly), __XHTML__ and __XML__.
+* `js-beautify` for __Javascript__.
+It can be installed by running `npm install -g js-beautify`.
+Note that `nodejs` is needed for this to work.
+Here is the link to the repository: https://github.com/einars/js-beautify.
+
+* `html-beautify` for __HTML__.
+It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
+Note that `nodejs` is needed for this to work.
+Here is the link to the repository: https://github.com/einars/js-beautify.
+
+* `tidy` for __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
@@ -97,7 +100,7 @@ Then, a similar definition would look like this:
 
 ```vim
 let g:formatprg_cs = "astyle"
-let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth' 
+let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
 ```
 
 Notice that `g:formatprg_args_expr_cs` now contains an expression that can be evaluated, as required.
@@ -110,31 +113,27 @@ This means that the formatting style will match your current vim settings as muc
 For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
 
 
-Todo list
----------
+Things that are not (yet) implemented
+----------------------------------------------------------
 * Check for windows support.
-* Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, i'd be glad to hear.)
-* Create a help file.
+* Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, I'd be glad to hear.)
 
-
-If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
+Pull requests are welcome.
 Any feedback is welcome.
+If you have any suggestions on this plugin or on this readme, if you have some nice default formatprg definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
 
 Change log
 ----------
-### March 9 2013
-The `custom_config` branch has been merged into the master branch.
-* Customization of formatprograms can be done easily now, as explained above.
-* I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
-* The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
-* phpCB has been removed from the defaults, due to code-breaking behaviour.
-* XHTML default definition added
+### December 20 2013
+* `html-beautify` is now the default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
+* The `formatters/` folder is no longer supported anymore, because it is unnecessary.
+* `js-beautify` can no longer be installed as a bundle, since it only makes this plugin unnecessarily complex.
 
-### March 10 2013
-* When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
-
-### March 13 2013
-* It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
+### March 27 2013
+* The default behaviour of gq is enabled again by removing the fallback on auto-indenting.
+Instead, the fallback is only used when running the command `:Autoformat`.
+* For HTML,XML and XHTML, the option `textwidth` is taken into account when formatting.
+This extends the way the formatting style will match your current vim settings.
 
 ### March 16 2013
 The `dynamic_indent_width` branch has been merged into the master branch.
@@ -142,8 +141,16 @@ The `dynamic_indent_width` branch has been merged into the master branch.
 * This obsoletes `g:autoformat_no_default_shiftwidth`
 * `g:formatprg_args_expr_<filetype>` is introduced.
 
-### March 27 2013
-* The default behaviour of gq is enabled again by removing the fallback on auto-indenting.
-Instead, the fallback is only used when running the command `:Autoformat`.
-* For HTML,XML and XHTML, the option `textwidth` is taken into account when formatting.
-This extends the way the formatting style will match your current vim settings.
+### March 13 2013
+* It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
+
+### March 10 2013
+* When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
+
+### March 9 2013
+The `custom_config` branch has been merged into the master branch.
+* Customization of formatprograms can be done easily now, as explained above.
+* I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
+* The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
+* phpCB has been removed from the defaults, due to code-breaking behaviour.
+* XHTML default definition added
