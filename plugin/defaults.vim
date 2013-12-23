@@ -35,7 +35,7 @@ endif
 
 if !exists("g:formatprg_html") | let g:formatprg_html = "html-beautify" | endif
 if !exists("g:formatprg_args_expr_html")  && !exists("g:formatprg_args_html")
-    let g:formatprg_args_expr_html = '"-f -"'
+    let g:formatprg_args_expr_html = '"-f - -s".&shiftwidth'
 endif
 
 if !exists("g:formatprg_javascript") | let g:formatprg_javascript = "js-beautify" | endif
