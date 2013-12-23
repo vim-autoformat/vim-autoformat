@@ -40,6 +40,5 @@ endif
 
 if !exists("g:formatprg_javascript") | let g:formatprg_javascript = "js-beautify" | endif
 if !exists("g:formatprg_args_expr_javascript") && !exists("g:formatprg_args_javascript")
-    let g:formatprg_args_expr_javascript = '"-f - -s".&shiftwidth'
+    let g:formatprg_args_expr_javascript = '"-f - -".(&expandtab ? "" : "t")."s ".&shiftwidth'
 endif
-
