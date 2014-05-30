@@ -77,6 +77,11 @@ It is shipped with `js-beautify`, which can be installed by running `npm install
 Note that `nodejs` is needed for this to work.
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
+* `css-beautify` for __CSS__.
+It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
+Note that `nodejs` is needed for this to work.
+Here is the link to the repository: https://github.com/einars/js-beautify.
+
 * `tidy` for __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
@@ -124,6 +129,9 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 
 Change log
 ----------
+### May 30 2014
+* Added `css-beautify` to the defaults for formatting CSS files
+
 ### December 20 2013
 * `html-beautify` is now the default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
 * The `formatters/` folder is no longer supported anymore, because it is unnecessary.
