@@ -40,6 +40,8 @@ Remember that when no formatprogram exists for a certain filetype, vim-autoforma
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 When you have installed the formatters you need, you can format the entire buffer with the command `:Autoformat`.
+You can provide the command with a file type such as `:Autoformat json`, otherwise the buffer's filetype will be used.
+
 For convenience it is recommended that you assign a key for this, like so:
 
 ```vim
