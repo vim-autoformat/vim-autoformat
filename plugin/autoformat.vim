@@ -1,14 +1,16 @@
 "Function for finding and setting the formatter with the given name
-function! s:set_formatprg()
-    "Get formatprg config for current filetype
-    let s:formatprg_var = "g:formatprg_".&filetype
-    let s:formatprg_args_var = "g:formatprg_args_".&filetype
-    let s:formatprg_args_expr_var = "g:formatprg_args_expr_".&filetype
+function! s:set_formatprg(...)
+    let type = a:0 ? a:1 : &filetype
+
+    "Get formatprg config
+    let s:formatprg_var = "g:formatprg_".type
+    let s:formatprg_args_var = "g:formatprg_args_".type
+    let s:formatprg_args_expr_var = "g:formatprg_args_expr_".type
 
     if !exists(s:formatprg_var)
         "No formatprg defined
         if exists("g:autoformat_verbosemode")
-            echoerr "No formatter defined for filetype '".&filetype."'."
+            echoerr "No formatter defined for filetype '".type."'."
         endif
         return 0
     endif
@@ -38,11 +40,11 @@ endfunction
 noremap <expr> gq <SID>set_formatprg() ? 'gq' : 'gq'
 
 "Function for formatting the entire buffer
-function! s:Autoformat()
+function! s:Autoformat(...)
     "Save window state
     let winview=winsaveview()
 
-    if <SID>set_formatprg()
+    if call('<SID>set_formatprg', a:000)
         "Autoformat code
         exe "1,$!".&formatprg
     else
@@ -55,4 +57,4 @@ function! s:Autoformat()
 endfunction
 
 "Create a command for formatting the entire buffer
-command! Autoformat call s:Autoformat()
+command! -nargs=? -complete=filetype Autoformat call s:Autoformat(<f-args>)
