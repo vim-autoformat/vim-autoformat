@@ -63,7 +63,7 @@ Otherwise, download it here: http://astyle.sourceforge.net/.
 
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
-For Ubuntu type `sudo apt-get install autopep8` in a terminal.
+For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
 And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
