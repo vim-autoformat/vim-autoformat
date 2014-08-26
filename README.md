@@ -12,7 +12,7 @@ How to install
 Put this in your .vimrc
 
 ```vim
-Bundle "Chiel92/vim-autoformat"
+Plugin 'Chiel92/vim-autoformat'
 ```
 
 Then restart vim and run `:BundleInstall`.
