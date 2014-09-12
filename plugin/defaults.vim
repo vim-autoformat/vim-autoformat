@@ -45,7 +45,7 @@ endif
 
 if !exists("g:formatprg_javascript") | let g:formatprg_javascript = "js-beautify" | endif
 if !exists("g:formatprg_args_expr_javascript") && !exists("g:formatprg_args_javascript")
-    let g:formatprg_args_expr_javascript = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t")'
+    let g:formatprg_args_expr_javascript = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
 endif
 
 if !exists("g:formatprg_json") | let g:formatprg_json = "js-beautify" | endif
