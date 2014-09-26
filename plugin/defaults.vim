@@ -38,6 +38,11 @@ if !exists("g:formatprg_args_expr_css")  && !exists("g:formatprg_args_css")
     let g:formatprg_args_expr_css = '"-f - -s ".&shiftwidth'
 endif
 
+if !exists("g:formatprg_scss") | let g:formatprg_scss = "sass-convert" | endif
+if !exists("g:formatprg_args_expr_scss") && !exists("g:formatprg_args_scss")
+    let g:formatprg_args_expr_scss = '"-F scss -T scss --indent " . (&expandtab ? &shiftwidth : "t")'
+endif
+
 if !exists("g:formatprg_html") | let g:formatprg_html = "html-beautify" | endif
 if !exists("g:formatprg_args_expr_html")  && !exists("g:formatprg_args_html")
     let g:formatprg_args_expr_html = '"-f - -s ".&shiftwidth'
