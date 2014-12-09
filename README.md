@@ -135,6 +135,9 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 
 Change log
 ----------
+### Dec 9 2014
+* Added `rbeautify` to the defaults for formatting ruby files
+
 ### May 30 2014
 * Added `css-beautify` to the defaults for formatting CSS files
 
