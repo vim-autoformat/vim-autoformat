@@ -93,7 +93,7 @@ It's probably in your distro's repository, so you can download it as a regular p
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 * `rbeautify` for __Ruby__.
-It is shipped with `rbeautify`, which can be installed by running `gem install ruby-beautify`.
+It is shipped with `ruby-beautify`, which can be installed by running `gem install ruby-beautify`.
 Note that compatible `ruby-beautify-0.94.0` or higher version.
 Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify
 
