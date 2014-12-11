@@ -60,5 +60,5 @@ endif
 
 if !exists("g:formatprg_ruby") | let g:formatprg_ruby = "rbeautify" | endif
 if !exists("g:formatprg_args_expr_ruby") && !exists("g:formatprg_args_ruby")
-    let g:formatprg_args_expr_ruby = '(&expandtab ? "-s" : "-t").(&shiftwidth ? " -c ".&shiftwidth : "")'
+    let g:formatprg_args_expr_ruby = '(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 endif
