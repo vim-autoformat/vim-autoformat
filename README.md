@@ -92,6 +92,11 @@ Here is the link to the SASS homepage: http://sass-lang.com/.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
+* `rbeautify` for __Ruby__.
+It is shipped with `ruby-beautify`, which can be installed by running `gem install ruby-beautify`.
+Note that compatible `ruby-beautify-0.94.0` or higher version.
+Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify
+
 How can I change the behaviour of formatters, or add one myself?
 ---------------------------------------------
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
@@ -135,6 +140,9 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 
 Change log
 ----------
+### Dec 9 2014
+* Added `rbeautify` to the defaults for formatting ruby files
+
 ### May 30 2014
 * Added `css-beautify` to the defaults for formatting CSS files
 

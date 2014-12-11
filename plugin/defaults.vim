@@ -57,3 +57,8 @@ if !exists("g:formatprg_json") | let g:formatprg_json = "js-beautify" | endif
 if !exists("g:formatprg_args_expr_json") && !exists("g:formatprg_args_json")
     let g:formatprg_args_expr_json = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t")'
 endif
+
+if !exists("g:formatprg_ruby") | let g:formatprg_ruby = "rbeautify" | endif
+if !exists("g:formatprg_args_expr_ruby") && !exists("g:formatprg_args_ruby")
+    let g:formatprg_args_expr_ruby = '(&expandtab ? "-s -c ".&shiftwidth : "-t")'
+endif
