@@ -95,7 +95,8 @@ For Ubuntu type `sudo apt-get install tidy` in a terminal.
 * `rbeautify` for __Ruby__.
 It is shipped with `ruby-beautify`, which can be installed by running `gem install ruby-beautify`.
 Note that compatible `ruby-beautify-0.94.0` or higher version.
-Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify
+Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify.
+This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
 
 How can I change the behaviour of formatters, or add one myself?
 ---------------------------------------------
