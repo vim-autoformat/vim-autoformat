@@ -15,8 +15,8 @@ Put this in your .vimrc
 Plugin 'Chiel92/vim-autoformat'
 ```
 
-Then restart vim and run `:BundleInstall`.
-To update the plugin to the latest version, you can run `:BundleUpdate`.
+Then restart vim and run `:PluginInstall`.
+To update the plugin to the latest version, you can run `:PluginUpdate`.
 
 ###Pathogen
 Download the source and extract in your bundle directory.
