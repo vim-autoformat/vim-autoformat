@@ -13,6 +13,11 @@ if !exists("g:formatprg_args_expr_cpp")  && !exists("g:formatprg_args_cpp")
     let g:formatprg_args_expr_cpp = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 endif
 
+if !exists("g:formatprg_objc") | let g:formatprg_objc = "clang-format" | endif
+if !exists("g:formatprg_args_expr_objc") && !exists("g:formatprg_args_objc")
+    let g:formatprg_args_expr_objc = '"-style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
+    endif
+
 if !exists("g:formatprg_java") | let g:formatprg_java = "astyle" | endif
 if !exists("g:formatprg_args_expr_java")  && !exists("g:formatprg_args_java")
     let g:formatprg_args_expr_java = '"--mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'

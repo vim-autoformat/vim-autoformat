@@ -63,6 +63,9 @@ It's probably in your distro's repository, so you can download it as a regular p
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
 Otherwise, download it here: http://astyle.sourceforge.net/.
 
+* `clang-format` for Objective-C.
+clang-format is a product of LLVM source builds.  If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/. To specify custom clang-format options, add to your .vimrc: `let g:format_args_objc = "-style=file"`.  clang-format details: http://clang.llvm.org/docs/ClangFormat.html
+
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
