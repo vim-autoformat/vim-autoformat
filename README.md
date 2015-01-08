@@ -15,8 +15,8 @@ Put this in your .vimrc
 Plugin 'Chiel92/vim-autoformat'
 ```
 
-Then restart vim and run `:BundleInstall`.
-To update the plugin to the latest version, you can run `:BundleUpdate`.
+Then restart vim and run `:PluginInstall`.
+To update the plugin to the latest version, you can run `:PluginUpdate`.
 
 ###Pathogen
 Download the source and extract in your bundle directory.
@@ -62,6 +62,12 @@ Here is a list of formatprograms that are supported by default, and thus will be
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install astyle` in a terminal.
 Otherwise, download it here: http://astyle.sourceforge.net/.
+
+* `clang-format` for __Objective-C__.
+clang-format is a product of LLVM source builds.
+If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
+To to load style configuration from a .clang-format file, add to your .vimrc: `let g:format_args_objc = "-style=file"`.
+Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `autopep8` for __Python__.
 It's probably in your distro's repository, so you can download it as a regular package.
