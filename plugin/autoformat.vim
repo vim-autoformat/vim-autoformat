@@ -1,6 +1,8 @@
 "Function for finding and setting the formatter with the given name
 function! s:set_formatprg(...)
     let type = a:0 ? a:1 : &filetype
+    "Support composite filetypes by replacing dots with underscores
+    let type = substitute(type, "[.]", "_", "g")
 
     "Get formatprg config
     let s:formatprg_var = "g:formatprg_".type
