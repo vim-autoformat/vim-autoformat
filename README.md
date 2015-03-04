@@ -77,7 +77,7 @@ And here the link to its page on the python website: http://pypi.python.org/pypi
 
 * `js-beautify` for __Javascript__ and __JSON__.
 It can be installed by running `npm install -g js-beautify`.
-Note that `nodejs` is needed for this to work.
+Note that the *python version is not supported* and `nodejs` is needed for this to work.
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `html-beautify` for __HTML__.
