@@ -77,7 +77,15 @@ And here the link to its page on the python website: http://pypi.python.org/pypi
 
 * `js-beautify` for __Javascript__ and __JSON__.
 It can be installed by running `npm install -g js-beautify`.
-Note that the *python version is not supported* and `nodejs` is needed for this to work.
+Note that the *python version is not supported by default* and `nodejs` is needed for this to work.
+If you want (or need) to use the python version, you have to specify the format program definition manually in your `.vimrc`.
+Example:
+
+vim
+```
+let g:formatprg_args_expr_javascript = '"-".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
+```
+
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `html-beautify` for __HTML__.
