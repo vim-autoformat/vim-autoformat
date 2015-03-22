@@ -58,6 +58,11 @@ if !exists("g:formatprg_args_expr_javascript") && !exists("g:formatprg_args_java
     let g:formatprg_args_expr_javascript = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
 endif
 
+if !exists("g:formatprg_typescript") | let g:formatprg_typescript = "tsfmt" | endif
+if !exists("g:formatprg_args_expr_typescript") && !exists("g:formatprg_args_typescript")
+    let g:formatprg_args_expr_typescript = '"--stdin %"'
+endif
+
 if !exists("g:formatprg_json") | let g:formatprg_json = "js-beautify" | endif
 if !exists("g:formatprg_args_expr_json") && !exists("g:formatprg_args_json")
     let g:formatprg_args_expr_json = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t")'
