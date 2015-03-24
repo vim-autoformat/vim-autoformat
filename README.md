@@ -85,6 +85,12 @@ let g:formatprg_args_expr_javascript = '"-".(&expandtab ? "s ".&shiftwidth : "t"
 ```
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
+* `typescript-formatter` for __Typescript__.
+`typescript-formatter` is a thin wrapper around the TypeScript compiler services.
+It can be installed by running `npm install -g typescript-formatter`.
+Note that `nodejs` is needed for this to work. 
+Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
+
 * `html-beautify` for __HTML__.
 It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
 Note that `nodejs` is needed for this to work.
