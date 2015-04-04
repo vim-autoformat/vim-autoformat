@@ -151,7 +151,7 @@ If you have a composite filetype with dots (like `django.python` or `php.wordpre
 
 Things that are not (yet) implemented
 ----------------------------------------------------------
-* Check for windows support.
+* Support toggling between multiple formatters, as requested and described in #46.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, I'd be glad to hear.)
 
 Pull requests are welcome.
