@@ -1,8 +1,13 @@
-let g:format_def_autopep8 = '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")'
-let g:format_def_test = '"asdf"'
-let g:format_def_another_autopep8 = '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+"
+" This file contains all default format program definitions and links them to filetypes
+"
 
-if !exists("g:formatters_python")
+
+" Python
+let g:formatdef_autopep8 = '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+let g:formatdef_test = '"asdf"'
+let g:formatdef_another_autopep8 = '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+if !exists('g:formatters_python')
     let g:formatters_python = [
                 \ 'test',
                 \ 'another_autopep8',
@@ -11,70 +16,104 @@ if !exists("g:formatters_python")
 endif
 
 
-"if !exists("g:formatters_cs")
-    "let g:formatters_cs = ['"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".&shiftwidth : "t")']
-"endif
+" C#
+let g:formatdef_astyle_cs = '"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+if !exists('g:formatters_cs')
+    let g:formatters_cs = ['astyle_cs']
+endif
 
-"if !exists("g:formatters_c")
-    "let g:formatters_c = ['"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")']
-"endif
 
-"if !exists("g:formatprg_cpp") | let g:formatprg_cpp = "astyle" | endif
-"if !exists("g:formatprg_args_expr_cpp")  && !exists("g:formatprg_args_cpp")
-    "let g:formatprg_args_expr_cpp = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
-"endif
+" C
+let g:formatdef_clangformat_c = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
+let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+if !exists('g:formatters_c')
+    "let g:formatters_c = ['clangformat_c', 'astyle_c']
+    let g:formatters_c = ['astyle_c']
+endif
 
-"if !exists("g:formatprg_objc") | let g:formatprg_objc = "clang-format" | endif
-"if !exists("g:formatprg_args_expr_objc") && !exists("g:formatprg_args_objc")
-    "let g:formatprg_args_expr_objc = '"-style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
-    "endif
 
-"if !exists("g:formatprg_java") | let g:formatprg_java = "astyle" | endif
-"if !exists("g:formatprg_args_expr_java")  && !exists("g:formatprg_args_java")
-    "let g:formatprg_args_expr_java = '"--mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
-"endif
+" C++
+let g:formatdef_clangformat_cpp = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
+let g:formatdef_astyle_cpp = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+if !exists('g:formatters_cpp')
+    let g:formatters_cpp = ['clangformat_cpp', 'astyle_cpp']
+endif
 
-"if !exists("g:formatprg_xml") | let g:formatprg_xml = "tidy" | endif
-"if !exists("g:formatprg_args_expr_xml")  && !exists("g:formatprg_args_xml") 
-    "let g:formatprg_args_expr_xml = '"-q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
-"endif
 
-"if !exists("g:formatprg_xhtml") | let g:formatprg_xhtml = "tidy" | endif
-"if !exists("g:formatprg_args_expr_xhtml")  && !exists("g:formatprg_args_xhtml")
-    "let g:formatprg_args_expr_xhtml = '"-q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth'
-"endif
+" Objective C
+let g:formatdef_clangformat_objc = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
+if !exists('g:formatters_objc')
+    let g:formatters_objc = ['clangformat_objc']
+endif
 
-"if !exists("g:formatprg_css") | let g:formatprg_css = "css-beautify" | endif
-"if !exists("g:formatprg_args_expr_css")  && !exists("g:formatprg_args_css")
-    "let g:formatprg_args_expr_css = '"-f - -s ".&shiftwidth'
-"endif
 
-"if !exists("g:formatprg_scss") | let g:formatprg_scss = "sass-convert" | endif
-"if !exists("g:formatprg_args_expr_scss") && !exists("g:formatprg_args_scss")
-    "let g:formatprg_args_expr_scss = '"-F scss -T scss --indent " . (&expandtab ? &shiftwidth : "t")'
-"endif
+" Java
+let g:formatdef_astyle_java = '"astyle --mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+if !exists('g:formatters_java')
+    let g:formatters_java = ['astyle_java']
+endif
 
-"if !exists("g:formatprg_html") | let g:formatprg_html = "html-beautify" | endif
-"if !exists("g:formatprg_args_expr_html")  && !exists("g:formatprg_args_html")
-    "let g:formatprg_args_expr_html = '"-f - -s ".&shiftwidth'
-"endif
 
-"if !exists("g:formatprg_javascript") | let g:formatprg_javascript = "js-beautify" | endif
-"if !exists("g:formatprg_args_expr_javascript") && !exists("g:formatprg_args_javascript")
-    "let g:formatprg_args_expr_javascript = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
-"endif
+" HTML
+let g:formatdef_htmlbeautify = '"html-beautify -f - -s ".&shiftwidth'
+if !exists('g:formatters_html')
+    let g:formatters_html = ['htmlbeautify']
+endif
 
-"if !exists("g:formatprg_typescript") | let g:formatprg_typescript = "tsfmt" | endif
-"if !exists("g:formatprg_args_expr_typescript") && !exists("g:formatprg_args_typescript")
-    "let g:formatprg_args_expr_typescript = '"--stdin %"'
-"endif
 
-"if !exists("g:formatprg_json") | let g:formatprg_json = "js-beautify" | endif
-"if !exists("g:formatprg_args_expr_json") && !exists("g:formatprg_args_json")
-    "let g:formatprg_args_expr_json = '"-f - -".(&expandtab ? "s ".&shiftwidth : "t")'
-"endif
+" Javascript
+let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
+if !exists('g:formatters_javascript')
+    let g:formatters_javascript = ['jsbeautify_javascript']
+endif
 
-"if !exists("g:formatprg_ruby") | let g:formatprg_ruby = "rbeautify" | endif
-"if !exists("g:formatprg_args_expr_ruby") && !exists("g:formatprg_args_ruby")
-    "let g:formatprg_args_expr_ruby = '(&expandtab ? "-s -c ".&shiftwidth : "-t")'
-"endif
+
+" JSON
+let g:formatdef_jsbeautify_json = '"js-beautify -f - -".(&expandtab ? "s ".&shiftwidth : "t")'
+if !exists('g:formatters_json')
+    let g:formatters_json = ['jsbeautify_json']
+endif
+
+
+" Ruby
+let g:formatdef_rbeautify = 'rbeautify (&expandtab ? "-s -c ".&shiftwidth : "-t")'
+if !exists('g:formatters_ruby')
+    let g:formatters_ruby = ['rbeautify']
+endif
+
+
+" CSS
+let g:formatdef_cssbeautify = '"css-beautify -f - -s ".&shiftwidth'
+if !exists('g:formatters_css')
+    let g:formatters_css = ['cssbeautify']
+endif
+
+
+" SCSS
+let g:formatdef_sassconvert = '"sass-convert -F scss -T scss --indent " . (&expandtab ? &shiftwidth : "t")'
+if !exists('g:formatters_scss')
+    let g:formatters_scss = ['sassconvert']
+endif
+
+
+" Typescript
+let g:formatdef_tsfmt = '"tsfmt --stdin %"'
+if !exists('g:formatters_typescript')
+    let g:formatters_typescript = ['tsfmt']
+endif
+
+
+" XML
+let g:formatdef_tidy_xml = '"tidy -q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
+if !exists('g:formatters_xml')
+    let g:formatters_xml = ['tidy_xml']
+endif
+
+
+" XHTML
+let g:formatdef_tidy_xhtml = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth'
+if !exists('g:formatters_xhtml')
+    let g:formatters_xhtml = ['tidy_xhtml']
+endif
+
+

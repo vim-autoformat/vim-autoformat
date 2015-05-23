@@ -55,27 +55,27 @@ function! s:TryAllFormatters(...)
     endif
 
     " Try all formatters, starting with selected one
-    let index = b:current_formatter_index
+    let s:index = b:current_formatter_index
 
     while 1
-        let format_def_var = 'g:format_def_'.b:formatters[index]
+        let formatdef_var = 'g:formatdef_'.b:formatters[s:index]
         " Formatter definition must be existent
-        if !exists(format_def_var)
-            echoerr "No format definition found in '".s:format_def_var."'."
+        if !exists(formatdef_var)
+            echoerr "No format definition found in '".formatdef_var."'."
             return 0
         endif
 
         " Eval twice, once for getting definition content,
         " once for getting the final expression
-        let &formatprg = eval(eval(format_def_var))
+        let &formatprg = eval(eval(formatdef_var))
         if s:TryFormatter()
             return 1
         else
-            let index = (index + 1) % len(b:formatters)
+            let s:index = (s:index + 1) % len(b:formatters)
         endif
 
-        " Tried all formatters, none worked
-        if index == b:current_formatter_index
+        if s:index == b:current_formatter_index
+            " Tried all formatters, none worked
             return 0
         endif
     endwhile
@@ -107,8 +107,10 @@ p = subprocess.Popen(formatprg, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
-        vim.command('echom "Formatter {} has errors: {}. Skipping."'.format(formatprg,
+        formattername = vim.eval('b:formatters[s:index]')
+        vim.command('echom "Formatter {} has errors: {}. Skipping."'.format(formattername,
                                                                             stderrdata))
+        vim.command('echom "Failing config: {} "'.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
     vim.current.buffer[:] = stdoutdata.split('\n')
@@ -132,6 +134,7 @@ function! s:NextFormatter()
         let b:current_formatter_index = 0
     endif
     let b:current_formatter_index = (b:current_formatter_index + 1) % len(b:formatters)
+    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
 function! s:PreviousFormatter()
@@ -141,6 +144,7 @@ function! s:PreviousFormatter()
     endif
     let l = len(b:formatters)
     let b:current_formatter_index = (b:current_formatter_index - 1 + l) % l
+    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
 " Create commands for iterating through formatter list
