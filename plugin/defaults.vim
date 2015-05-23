@@ -1,9 +1,15 @@
-if !exists("g:formatters_python") | let g:formatters_python = [] | endif
-let g:formatters_python += [
-            \ '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")',
-            \ '"asdf"',
-            \ '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
-            \ ]
+let g:format_def_autopep8 = '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+let g:format_def_test = '"asdf"'
+let g:format_def_another_autopep8 = '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+
+if !exists("g:formatters_python")
+    let g:formatters_python = [
+                \ 'test',
+                \ 'another_autopep8',
+                \ 'autopep8',
+                \ ]
+endif
+
 
 "if !exists("g:formatters_cs")
     "let g:formatters_cs = ['"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".&shiftwidth : "t")']

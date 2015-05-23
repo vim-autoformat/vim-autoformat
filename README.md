@@ -148,11 +148,19 @@ For the exact default definitions, have a look in `vim-autoformat/plugin/default
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can define formatters through `g:formatprg_django_python` and so on.
 
+Debugging
+---------
+If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
+verbose-mode. Vim-autoformat will then output errors on formatters that failed.
+```vim
+let g:autoformat_verbosemode = 1
+```
+To read all messages in a vim session type `:messages`.
 
 Things that are not (yet) implemented
-----------------------------------------------------------
+--------------------------------------
 * Support toggling between multiple formatters, as requested and described in #46.
-* Make Autoformat command accept ranges and provide range information to formatter if they support that, as requested and described in #47.
+* Make `:Autoformat` command accept ranges and provide range information to formatter if they support that, as requested and described in #47.
 * Automatically check for formatters of supertypes, as requested and described in #50.
 * Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, I'd be glad to hear.)
 
@@ -162,6 +170,12 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 
 Change log
 ----------
+### May 21 2015
+* Backwards incompatible patch!
+* Multiple formatters per filetype are now supported
+* configuration variable names changed
+* `gq` no longer supported
+
 ### Dec 9 2014
 * Added `rbeautify` to the defaults for formatting ruby files
 
