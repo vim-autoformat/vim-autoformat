@@ -6,7 +6,7 @@
 " Python
 "let g:formatdef_autopep8 = '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 "let g:formatdef_ranged_autopep8 = "'autopep8 - --range '.line(\"'<\").' '.line(\"'>\").' '.(&textwidth ? '--max-line-length='.&textwidth : '')"
-let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline.' '.(&textwidth ? '--max-line-length='.&textwidth : '')"
+let g:formatdef_autopep8 = '"autopep8 - --range ".a:firstline." ".a:lastline." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 let g:formatdef_test = '"asdf"'
 let g:formatdef_another_autopep8 = '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 if !exists('g:formatters_python')
@@ -26,8 +26,7 @@ endif
 
 
 " Generic C, C++, Objective-C
-let g:formatdef_clangformat = '"clang-format --assume-filename=".bufname("%")." -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
-let g:formatdef_ranged_clangformat = "'clang-format -lines='.line(\"'<\").':'.line(\"'>\").' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.&shiftwidth : 'UseTab: Always').'}\"'"
+let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.&shiftwidth : 'UseTab: Always').'}\"'"
 
 
 " C

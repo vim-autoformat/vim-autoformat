@@ -8,7 +8,7 @@ When no formatprogram exists (or no formatprogram is installed) for a certain fi
 
 How to install
 -----------------------
-###Vundle
+####Vundle
 Put this in your .vimrc
 
 ```vim
@@ -18,11 +18,11 @@ Plugin 'Chiel92/vim-autoformat'
 Then restart vim and run `:PluginInstall`.
 To update the plugin to the latest version, you can run `:PluginUpdate`.
 
-###Pathogen
+####Pathogen
 Download the source and extract in your bundle directory.
 Updating has to be done manually, as far as I'm aware.
 
-###Other
+####Other
 It is highly recommended to use a plugin manager such as Vundle, since this makes it easy to update plugins or uninstall them.
 It also keeps your .vim directory clean.
 Still you can decide to download this repository as a zip file or whatever and extract it to your .vim folder.
@@ -62,7 +62,7 @@ Default formatprograms
 ------------------------
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
-* `clang-format` for __C__, __C++__, __Objective-C__.
+* `clang-format` for __C__, __C++__, __Objective-C__ (supports formatting ranges).
 clang-format is a product of LLVM source builds.
 If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
 To to load style configuration from a .clang-format file, add to your .vimrc: `let g:formatdef_clangformat_objc = '"clang-format -style=file"'`.
@@ -73,7 +73,7 @@ Details: http://clang.llvm.org/docs/ClangFormat.html.
 Download it here: http://astyle.sourceforge.net/.
 
 
-* `autopep8` for __Python__.
+* `autopep8` for __Python__ (supports formatting ranges).
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
 Here is the link to the repository: https://github.com/hhatto/autopep8.
@@ -153,10 +153,10 @@ For the exact default definitions, have a look in `vim-autoformat/plugin/default
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
-### Ranged Definitions
-If your format program supports formatting ranges, you can additionally provide a format
+#### Ranged Definitions
+If your format program supports formatting ranges, you can provide a format
 definition which allows to make use of this.
-The first and last line of the range can be retrieved by the variables `a:firstline` and
+The first and last line of the current range can be retrieved by the variables `a:firstline` and
 `a:lastline`. They default to the first and last line of your file, if no range was explicitly
 specified.
 So, a ranged definition could look like this.
@@ -164,6 +164,8 @@ So, a ranged definition could look like this.
 let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
 let g:formatters_python = ['autopep8']
 ```
+This would allow the user to select a part of the file, and then execute `:Autoformat`, which
+would then only format the selected part.
 
 
 Debugging
@@ -179,7 +181,7 @@ Things that are not (yet) implemented
 --------------------------------------
 * Make `:Autoformat` command accept ranges and provide range information to formatter if they support that, as requested and described in #47.
 * Automatically check for formatters of supertypes, as requested and described in #50.
-* Option for on-the-fly code-formatting, like visual studio (If ever. When you have a clever idea about how to do this, I'd be glad to hear.)
+* Allow both nodejs and python version of js-beautify.
 
 Pull requests are welcome.
 Any feedback is welcome.
@@ -192,6 +194,7 @@ Change log
 * Multiple formatters per filetype are now supported
 * Configuration variable names changed
 * `gq` no longer supported
+* `:Autoformat` suppports ranges
 
 ### Dec 9 2014
 * Added `rbeautify` to the defaults for formatting ruby files
