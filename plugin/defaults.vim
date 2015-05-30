@@ -5,14 +5,16 @@
 
 " Python
 let g:formatdef_autopep8 = '"autopep8 - ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+"let g:formatdef_ranged_autopep8 = "'autopep8 - --range '.line(\"'<\").' '.line(\"'>\").' '.(&textwidth ? '--max-line-length='.&textwidth : '')"
+let g:formatdef_ranged_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline.' '.(&textwidth ? '--max-line-length='.&textwidth : '')"
 let g:formatdef_test = '"asdf"'
 let g:formatdef_another_autopep8 = '"autopep8 - --indent-size 2 ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 if !exists('g:formatters_python')
     let g:formatters_python = [
-                \ 'test',
-                \ 'another_autopep8',
                 \ 'autopep8',
                 \ ]
+                "\ 'test',
+                "\ 'another_autopep8',
 endif
 
 
@@ -23,27 +25,29 @@ if !exists('g:formatters_cs')
 endif
 
 
+" Generic C, C++, Objective-C
+let g:formatdef_clangformat = '"clang-format --assume-filename=".bufname("%")." -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
+let g:formatdef_ranged_clangformat = "'clang-format -lines='.line(\"'<\").':'.line(\"'>\").' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.&shiftwidth : 'UseTab: Always').'}\"'"
+
+
 " C
-let g:formatdef_clangformat_c = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
 let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 if !exists('g:formatters_c')
-    "let g:formatters_c = ['clangformat_c', 'astyle_c']
-    let g:formatters_c = ['astyle_c']
+    let g:formatters_c = ['clangformat', 'astyle_c']
+    "let g:formatters_c = ['astyle_c']
 endif
 
 
 " C++
-let g:formatdef_clangformat_cpp = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
 let g:formatdef_astyle_cpp = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 if !exists('g:formatters_cpp')
-    let g:formatters_cpp = ['clangformat_cpp', 'astyle_cpp']
+    let g:formatters_cpp = ['clangformat', 'astyle_cpp']
 endif
 
 
 " Objective C
-let g:formatdef_clangformat_objc = '"clang-format -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, ".(&textwidth ? "ColumnLimit: ".&textwidth.", " : "").(&expandtab ? "UseTab: Never, IndentWidth: ".&shiftwidth : "UseTab: Always")."}\""'
 if !exists('g:formatters_objc')
-    let g:formatters_objc = ['clangformat_objc']
+    let g:formatters_objc = ['clangformat']
 endif
 
 

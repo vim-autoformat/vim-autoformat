@@ -40,7 +40,11 @@ endfunction
 
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
-function! s:TryAllFormatters(...)
+function! s:TryAllFormatters(...) range
+    echom a:firstline.", ".a:lastline
+    "echom line('.')", ".line('v')
+    "echom line("'<")", ".line("'>")
+    "echom mode()
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         return 0
@@ -63,6 +67,12 @@ function! s:TryAllFormatters(...)
         if !exists(formatdef_var)
             echoerr "No format definition found in '".formatdef_var."'."
             return 0
+        endif
+
+        " Check for ranged definition
+        let formatdef_ranged_var = 'g:formatdef_ranged_'.b:formatters[s:index]
+        if exists(formatdef_ranged_var)
+            let formatdef_var = formatdef_ranged_var
         endif
 
         " Eval twice, once for getting definition content,
@@ -104,15 +114,17 @@ text = '\n'.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
 verbose = vim.eval('verbose')
 p = subprocess.Popen(formatprg, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+#print(text)
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
         formattername = vim.eval('b:formatters[s:index]')
-        vim.command('echom "Formatter {} has errors: {}. Skipping."'.format(formattername,
-                                                                            stderrdata))
-        vim.command('echom "Failing config: {} "'.format(repr(formatprg), stderrdata))
+        print('Formatter {} has errors: {}. Skipping.'.format(formattername, stderrdata))
+        print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    #print(stdoutdata)
+    #print('asdf')
     vim.current.buffer[:] = stdoutdata.split('\n')
 EOF
 
@@ -124,7 +136,7 @@ endfunction
 
 
 " Create a command for formatting the entire buffer
-command! -nargs=? -complete=filetype Autoformat call s:TryAllFormatters(<f-args>)
+command! -nargs=? -range=% -complete=filetype Autoformat <line1>,<line2>call s:TryAllFormatters(<f-args>)
 
 
 " Functions for iterating through list of available formatters
