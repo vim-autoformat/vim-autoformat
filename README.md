@@ -69,8 +69,10 @@ To to load style configuration from a .clang-format file, add to your .vimrc: `l
 Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
-*Important*: version `2.0.4` or higher is required, since only those versions correctly support piping.
 Download it here: http://astyle.sourceforge.net/.
+*Important*: 
+ - version `2.0.4` or higher is required, since only those versions correctly support piping.
+ - Astyle is currently bugged: https://sourceforge.net/p/astyle/bugs/368/
 
 
 * `autopep8` for __Python__ (supports formatting ranges).
@@ -82,11 +84,7 @@ And here the link to its page on the python website: http://pypi.python.org/pypi
 * `js-beautify` for __Javascript__ and __JSON__.
 It can be installed by running `npm install -g js-beautify`.
 Note that `nodejs` is needed for this to work.
-The *python version is not supported by default* because it needs different arguments.
-If you want (or need) to use the python version, you manually have to specify a formatter definition that is valid for the python version in your `.vimrc`. Example:
-```vim
-let g:formatdef_jsbeautify_javascript = '"-".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
-```
+The python version version is also supported by default, which does not need `nodejs` to run.
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `typescript-formatter` for __Typescript__.

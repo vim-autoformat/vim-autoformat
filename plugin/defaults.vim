@@ -66,10 +66,12 @@ endif
 
 " Javascript
 let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
+let g:formatdef_pyjsbeautify_javascript = '"-".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
 let g:formatdef_jscs = '"jscs -x"'
 if !exists('g:formatters_javascript')
     let g:formatters_javascript = [
                 \ 'jsbeautify_javascript',
+                \ 'pyjsbeautify_javascript',
                 \ 'jscs'
                 \ ]
 endif

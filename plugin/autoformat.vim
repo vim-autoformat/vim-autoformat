@@ -1,7 +1,3 @@
-" TODO:
-" - Make :Autoformat accept ranges
-
-
 " Function for finding the formatters for this filetype
 " Result is stored in b:formatters
 function! s:find_formatters(...)
@@ -41,10 +37,11 @@ endfunction
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
-    echom a:firstline.", ".a:lastline
+    "echom a:firstline.", ".a:lastline
     "echom line('.')", ".line('v')
     "echom line("'<")", ".line("'>")
     "echom mode()
+
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         return 0
@@ -108,7 +105,6 @@ text = '\n'.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
 verbose = vim.eval('verbose')
 p = subprocess.Popen(formatprg, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-#print(text)
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
@@ -117,8 +113,6 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
-    #print(stdoutdata)
-    #print('asdf')
     vim.current.buffer[:] = stdoutdata.split('\n')
 EOF
 
