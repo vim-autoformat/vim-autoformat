@@ -103,7 +103,7 @@ import vim, subprocess
 from subprocess import Popen, PIPE
 text = '\n'.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
-verbose = vim.eval('verbose')
+verbose = bool(int(vim.eval('verbose')))
 p = subprocess.Popen(formatprg, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
