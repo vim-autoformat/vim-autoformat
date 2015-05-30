@@ -9,6 +9,15 @@ function! s:find_formatters(...)
     " Support composite filetypes by replacing dots with underscores
     let type = substitute(type, "[.]", "_", "g")
 
+    " Warn for backward incompatible configuration
+    let old_formatprg_var = "g:formatprg_".type
+    let old_formatprg_args_var = "g:formatprg_args_".type
+    let old_formatprg_args_expr_var = "g:formatprg_args_expr_".type
+    if exists(old_formatprg_var) || exists(old_formatprg_args_var) || exists(old_formatprg_args_expr_var)
+        echom "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015. Please check the README for help on how to configure your formatters."
+    endif
+
+    " Detect configuration
     let formatters_var = "g:formatters_".type
     let b:formatters = []
 
