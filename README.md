@@ -120,7 +120,7 @@ Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautif
 This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
 
 How can I change the behaviour of formatters, or add one myself?
----------------------------------------------
+----------------------------------------------------------------
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
 *The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.*
 The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
@@ -142,7 +142,7 @@ let g:formatdef_my_custom_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
 let g:formatters_cs = ['my_custom_cs']
 ```
 
-Notice that `g:formatdef_my_custom_cs` now contains an expression that can be evaluated, as required.
+Notice that `g:formatdef_my_custom_cs` contains an expression that can be evaluated, as required.
 As you see, this allows us to dynamically define some parameters.
 In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`, instead of being fixed at 4.
 So if you're editing a csharp file and change the `shiftwidth` (even at runtime), the `g:formatdef_my_custom_cs` will change correspondingly.
@@ -152,6 +152,19 @@ This means that the formatting style will match your current vim settings as muc
 For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
+
+### Ranged Definitions
+If your format program supports formatting ranges, you can additionally provide a format
+definition which allows to make use of this.
+The first and last line of the range can be retrieved by the variables `a:firstline` and
+`a:lastline`. They default to the first and last line of your file, if no range was explicitly
+specified.
+So, a ranged definition could look like this.
+```vim
+let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
+```
+
 
 Debugging
 ---------

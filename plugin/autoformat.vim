@@ -69,12 +69,6 @@ function! s:TryAllFormatters(...) range
             return 0
         endif
 
-        " Check for ranged definition
-        let formatdef_ranged_var = 'g:formatdef_ranged_'.b:formatters[s:index]
-        if exists(formatdef_ranged_var)
-            let formatdef_var = formatdef_ranged_var
-        endif
-
         " Eval twice, once for getting definition content,
         " once for getting the final expression
         let &formatprg = eval(eval(formatdef_var))
