@@ -79,8 +79,12 @@ endif
 
 " JSON
 let g:formatdef_jsbeautify_json = '"js-beautify -f - -".(&expandtab ? "s ".&shiftwidth : "t")'
+let g:formatdef_pyjsbeautify_json = '"js-beautify -".(&expandtab ? "s ".&shiftwidth : "t")." -"'
 if !exists('g:formatters_json')
-    let g:formatters_json = ['jsbeautify_json']
+    let g:formatters_json = [
+                \ 'jsbeautify_json',
+                \ 'pyjsbeautify_json',
+                \ ]
 endif
 
 

@@ -108,12 +108,16 @@ function! s:TryFormatter()
     let winview=winsaveview()
 
 python << EOF
-import vim, subprocess
+import vim, subprocess, os
 from subprocess import Popen, PIPE
 text = '\n'.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
-p = subprocess.Popen(formatprg, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+env = os.environ.copy()
+if int(vim.eval('exists("g:formatterpath")')):
+    extra_path = vim.eval('g:formatterpath')
+    env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
+p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:

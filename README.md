@@ -1,7 +1,7 @@
 vim-autoformat
 ==============
-Format your code with only one button press!
-This plugin makes use of external formatprograms to achieve the best result.
+Format code with one button press!
+This plugin makes use of external formatprograms to achieve the best results.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
 When no formatprogram exists (or no formatprogram is installed) for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
@@ -32,31 +32,31 @@ How to use
 First you should install an external program that can format code of the programming language you are using.
 This can either be one of the programs that are listed below as defaultprograms, or a custom program.
 For using a custom formatprogram, read the text below *How can I change the behaviour of formatters, or add one myself?*
-If the formatprogram you want to use is installed correctly, in one of the following ways, vim automatically detects it.
+If the formatprogram you want to use is installed in one of the following ways, vim automatically detects it:
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
-* Alternatively you can point vim to the the binary by explicitly putting the absolute path in `g:formatdef_<some_indentifier>` in your .vimrc. TODO
+#TODO
+* Alternatively you can point vim-autoformat to folders containing formatters, by putting the absolute paths to these folders in `g:formatpath` in your .vimrc, like:
+```vim
+let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
+```
 
 Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 When you have installed the formatter you need, you can format the entire buffer with the command `:Autoformat`.
 You can provide the command with a file type such as `:Autoformat json`, otherwise the buffer's filetype will be used.
-
+Some formatter support formatting only a part of the file.
+To use this, provide a range to the `:Autoformat` command, for instance by visually selecting a
+part of your file, and then executing `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
 
 ```vim
-noremap <F3> :Autoformat<CR><CR>
+noremap <F3> :Autoformat<CR>
 ```
 
 If you have multiple formatters installed that are supported, vim-autoformat just uses the
 first that occurs in the list of available formatters.
 You can either set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*, or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
-
-<!--If you don't want to format the entire buffer, you can alternatively format visually selected code with `gq`.-->
-<!--However, some formatprograms will behave a bit weird this way, because they need the context of a piece of code.-->
-<!--For more ways to perform autoformatting type `:help gq`.-->
-<!--If you format a piece of code manually by using `gq`, vim will not fallback to auto indentation if there is no formatprogram available.-->
-<!--This way, the default behaviour of `gq` will remain functional.-->
 
 Default formatprograms
 ------------------------
@@ -70,9 +70,7 @@ Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
 Download it here: http://astyle.sourceforge.net/.
-*Important*: 
- - version `2.0.4` or higher is required, since only those versions correctly support piping.
- - Astyle is currently bugged: https://sourceforge.net/p/astyle/bugs/368/
+*Important: version `2.0.5` or higher is required, since only those versions correctly support piping and are stable enough.*
 
 
 * `autopep8` for __Python__ (supports formatting ranges).
@@ -121,10 +119,13 @@ How can I change the behaviour of formatters, or add one myself?
 ----------------------------------------------------------------
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
 *The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.*
-The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
-This is a list containing string indentifiers.
 
-The formatter definitions themselves are defined in `g:formatdef_<identifier>`.
+#### Basic Definitions
+The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
+This is a list containing string indentifiers, which point to corresponding formatter
+definitions.
+The formatter definitions themselves are defined in `g:formatdef_<identifier>` as a string
+expression.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
 So, a complete definition in your .vimrc for C# files could look like this:
 
@@ -140,7 +141,7 @@ let g:formatdef_my_custom_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
 let g:formatters_cs = ['my_custom_cs']
 ```
 
-Notice that `g:formatdef_my_custom_cs` contains an expression that can be evaluated, as required.
+Please notice that `g:formatdef_my_custom_cs` contains an expression that can be evaluated, as required.
 As you see, this allows us to dynamically define some parameters.
 In this example, the indent width that astyle will use, depends on the buffer local value of `&shiftwidth`, instead of being fixed at 4.
 So if you're editing a csharp file and change the `shiftwidth` (even at runtime), the `g:formatdef_my_custom_cs` will change correspondingly.
@@ -152,7 +153,7 @@ For the exact default definitions, have a look in `vim-autoformat/plugin/default
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
 #### Ranged Definitions
-If your format program supports formatting ranges, you can provide a format
+If your format program supports formatting specific ranges, you can provide a format
 definition which allows to make use of this.
 The first and last line of the current range can be retrieved by the variables `a:firstline` and
 `a:lastline`. They default to the first and last line of your file, if no range was explicitly
@@ -162,12 +163,11 @@ So, a ranged definition could look like this.
 let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
 let g:formatters_python = ['autopep8']
 ```
-This would allow the user to select a part of the file, and then execute `:Autoformat`, which
+This would allow the user to select a part of the file and execute `:Autoformat`, which
 would then only format the selected part.
 
 
-Debugging
----------
+#### Debugging
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
 verbose-mode. Vim-autoformat will then output errors on formatters that failed.
 ```vim
@@ -177,10 +177,10 @@ To read all messages in a vim session type `:messages`.
 
 Things that are not (yet) implemented
 --------------------------------------
-* Make `:Autoformat` command accept ranges and provide range information to formatter if they support that, as requested and described in #47.
 * Automatically check for formatters of supertypes, as requested and described in #50.
-* Allow both nodejs and python version of js-beautify.
 
+Contributing
+------------
 Pull requests are welcome.
 Any feedback is welcome.
 If you have any suggestions on this plugin or on this readme, if you have some nice default formatter definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
