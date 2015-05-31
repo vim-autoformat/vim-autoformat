@@ -86,11 +86,7 @@ Note that `nodejs` is needed for this to work.
 The python version version is also supported by default, which does not need `nodejs` to run.
 Here is the link to the repository: https://github.com/einars/js-beautify.
 
-* `typescript-formatter` for __Typescript__.
-`typescript-formatter` is a thin wrapper around the TypeScript compiler services.
-It can be installed by running `npm install -g typescript-formatter`.
-Note that `nodejs` is needed for this to work. 
-Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
+* `JSCS` for __Javascript__. http://jscs.info/
 
 * `html-beautify` for __HTML__.
 It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
@@ -101,6 +97,12 @@ Here is the link to the repository: https://github.com/einars/js-beautify.
 It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
 Note that `nodejs` is needed for this to work.
 Here is the link to the repository: https://github.com/einars/js-beautify.
+
+* `typescript-formatter` for __Typescript__.
+`typescript-formatter` is a thin wrapper around the TypeScript compiler services.
+It can be installed by running `npm install -g typescript-formatter`.
+Note that `nodejs` is needed for this to work. 
+Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
 
 * `sass-convert` for __SCSS__.
 It is shipped with `sass`, a CSS preprocessor written in Ruby, which can be installed by running `gem install sass`.
@@ -184,12 +186,13 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 
 Change log
 ----------
-### May 21 2015
-* *Backwards incompatible patch!*
+### June 2015
+* *Backward incompatible patch!*
 * Multiple formatters per filetype are now supported
 * Configuration variable names changed
 * `gq` no longer supported
 * `:Autoformat` suppports ranges
+* Composite filetypes are fully supported
 
 ### Dec 9 2014
 * Added `rbeautify` to the defaults for formatting ruby files

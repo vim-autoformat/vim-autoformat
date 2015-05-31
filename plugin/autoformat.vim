@@ -16,7 +16,7 @@ function! s:find_formatters(...)
     let old_formatprg_args_var = "g:formatprg_args_".compoundtype
     let old_formatprg_args_expr_var = "g:formatprg_args_expr_".compoundtype
     if exists(old_formatprg_var) || exists(old_formatprg_args_var) || exists(old_formatprg_args_expr_var)
-        echom "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015. Please check the README for help on how to configure your formatters."
+        echom "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015, due to major backward-incompatible improvements. Please check the README for help on how to configure your formatters."
     endif
 
     " Detect configuration for all possible supertypes
