@@ -5,40 +5,46 @@ function! s:find_formatters(...)
     let verbose = &verbose || exists("g:autoformat_verbosemode")
 
     " Extract filetype to be used
-    let type = a:0 ? a:1 : &filetype
+    let ftype = a:0 ? a:1 : &filetype
     " Support composite filetypes by replacing dots with underscores
-    let type = substitute(type, "[.]", "_", "g")
+    let compoundtype = substitute(ftype, "[.]", "_", "g")
+    " Try all super filetypes in search for formatters in a sane order
+    let supertypes = [compoundtype] + split(ftype, "[.]")
 
     " Warn for backward incompatible configuration
-    let old_formatprg_var = "g:formatprg_".type
-    let old_formatprg_args_var = "g:formatprg_args_".type
-    let old_formatprg_args_expr_var = "g:formatprg_args_expr_".type
+    let old_formatprg_var = "g:formatprg_".compoundtype
+    let old_formatprg_args_var = "g:formatprg_args_".compoundtype
+    let old_formatprg_args_expr_var = "g:formatprg_args_expr_".compoundtype
     if exists(old_formatprg_var) || exists(old_formatprg_args_var) || exists(old_formatprg_args_expr_var)
         echom "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015. Please check the README for help on how to configure your formatters."
     endif
 
-    " Detect configuration
-    let formatters_var = "g:formatters_".type
+    " Detect configuration for all possible supertypes
     let b:formatters = []
+    for supertype in supertypes
+        let formatters_var = "g:formatters_".supertype
+        if !exists(formatters_var)
+            " No formatters defined
+            if verbose
+                echoerr "No formatters defined for supertype '".supertype
+            endif
+        else
+            let formatters = eval(formatters_var)
+            if type(formatters) != 3
+                echoerr formatter_var." is not a list"
+            else
+                let b:formatters = b:formatters + formatters
+            endif
+        endif
+    endfor
 
-    if !exists(formatters_var)
+    if len(b:formatters) == 0
         " No formatters defined
         if verbose
-            echoerr "No formatters defined for filetype '".type."'."
+            echoerr "No formatters defined for filetype '".ftype."'."
         endif
         return 0
     endif
-
-    let formatters = eval(formatters_var)
-    if len(formatters) == 0
-        " No formatters defined
-        if verbose
-            echoerr "No formatters defined for filetype '".type."'."
-        endif
-        return 0
-    endif
-
-    let b:formatters = formatters
     return 1
 endfunction
 
@@ -46,11 +52,6 @@ endfunction
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
-    "echom a:firstline.", ".a:lastline
-    "echom line('.')", ".line('v')
-    "echom line("'<")", ".line("'>")
-    "echom mode()
-
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         return 0
@@ -110,6 +111,7 @@ function! s:TryFormatter()
 python << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
+
 text = '\n'.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
@@ -117,6 +119,7 @@ env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
+
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:

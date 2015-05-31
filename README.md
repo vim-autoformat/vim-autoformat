@@ -34,8 +34,7 @@ This can either be one of the programs that are listed below as defaultprograms,
 For using a custom formatprogram, read the text below *How can I change the behaviour of formatters, or add one myself?*
 If the formatprogram you want to use is installed in one of the following ways, vim automatically detects it:
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
-#TODO
-* Alternatively you can point vim-autoformat to folders containing formatters, by putting the absolute paths to these folders in `g:formatpath` in your .vimrc, like:
+* Alternatively you can point vim-autoformat to folders containing formatters, by putting the absolute paths to these folders in `g:formatterpath` in your .vimrc, like:
 ```vim
 let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
 ```
@@ -45,6 +44,8 @@ This will fix at least the indentation of your code, according to vim's indentfi
 
 When you have installed the formatter you need, you can format the entire buffer with the command `:Autoformat`.
 You can provide the command with a file type such as `:Autoformat json`, otherwise the buffer's filetype will be used.
+If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
+
 Some formatter support formatting only a part of the file.
 To use this, provide a range to the `:Autoformat` command, for instance by visually selecting a
 part of your file, and then executing `:Autoformat`.
@@ -120,7 +121,7 @@ How can I change the behaviour of formatters, or add one myself?
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
 *The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.*
 
-#### Basic Definitions
+#### Basic definitions
 The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
 This is a list containing string indentifiers, which point to corresponding formatter
 definitions.
@@ -152,7 +153,7 @@ For the exact default definitions, have a look in `vim-autoformat/plugin/default
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
-#### Ranged Definitions
+#### Ranged definitions
 If your format program supports formatting specific ranges, you can provide a format
 definition which allows to make use of this.
 The first and last line of the current range can be retrieved by the variables `a:firstline` and
@@ -174,10 +175,6 @@ verbose-mode. Vim-autoformat will then output errors on formatters that failed.
 let g:autoformat_verbosemode = 1
 ```
 To read all messages in a vim session type `:messages`.
-
-Things that are not (yet) implemented
---------------------------------------
-* Automatically check for formatters of supertypes, as requested and described in #50.
 
 Contributing
 ------------
