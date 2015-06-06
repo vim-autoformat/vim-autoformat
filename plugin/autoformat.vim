@@ -8,20 +8,26 @@ function! s:find_formatters(...)
     let ftype = a:0 ? a:1 : &filetype
     " Support composite filetypes by replacing dots with underscores
     let compoundtype = substitute(ftype, "[.]", "_", "g")
-    " Try all super filetypes in search for formatters in a sane order
-    let supertypes = [compoundtype] + split(ftype, "[.]")
+    if ftype =~ "[.]"
+        " Try all super filetypes in search for formatters in a sane order
+        let ftypes = [compoundtype] + split(ftype, "[.]")
+    else
+        let ftypes = [compoundtype]
+    endif
 
     " Warn for backward incompatible configuration
     let old_formatprg_var = "g:formatprg_".compoundtype
     let old_formatprg_args_var = "g:formatprg_args_".compoundtype
     let old_formatprg_args_expr_var = "g:formatprg_args_expr_".compoundtype
     if exists(old_formatprg_var) || exists(old_formatprg_args_var) || exists(old_formatprg_args_expr_var)
-        echom "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015, due to major backward-incompatible improvements. Please check the README for help on how to configure your formatters."
+        echohl WarningMsg |
+          \ echomsg "WARNING: the options g:formatprg_<filetype>, g:formatprg_args_<filetype> and g:formatprg_args_expr_<filetype> are no longer supported as of June 2015, due to major backward-incompatible improvements. Please check the README for help on how to configure your formatters." |
+          \ echohl None
     endif
 
-    " Detect configuration for all possible supertypes
+    " Detect configuration for all possible ftypes
     let b:formatters = []
-    for supertype in supertypes
+    for supertype in ftypes
         let formatters_var = "g:formatters_".supertype
         if !exists(formatters_var)
             " No formatters defined

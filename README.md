@@ -31,6 +31,7 @@ How to use
 ----------
 First you should install an external program that can format code of the programming language you are using.
 This can either be one of the programs that are listed below as defaultprograms, or a custom program.
+For defaultprograms, vim-autoformat knows for which filetypes it can be used.
 For using a custom formatprogram, read the text below *How can I change the behaviour of formatters, or add one myself?*
 If the formatprogram you want to use is installed in one of the following ways, vim automatically detects it:
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
@@ -39,14 +40,14 @@ If the formatprogram you want to use is installed in one of the following ways, 
 let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
 ```
 
-Remember that when no formatprogram exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
+Remember that when no formatprograms exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
 
 When you have installed the formatter you need, you can format the entire buffer with the command `:Autoformat`.
 You can provide the command with a file type such as `:Autoformat json`, otherwise the buffer's filetype will be used.
-If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
 
-Some formatter support formatting only a part of the file.
+Some formatters allow you to format only a part of the file, for instance `clang-format` and
+`autopep8`.
 To use this, provide a range to the `:Autoformat` command, for instance by visually selecting a
 part of your file, and then executing `:Autoformat`.
 For convenience it is recommended that you assign a key for this, like so:
@@ -55,9 +56,16 @@ For convenience it is recommended that you assign a key for this, like so:
 noremap <F3> :Autoformat<CR>
 ```
 
-If you have multiple formatters installed that are supported, vim-autoformat just uses the
-first that occurs in the list of available formatters.
+Or to have your code be formatted upon saving your file, you could use something like this:
+
+```vim
+au BufWrite * :Autoformat
+```
+
+For each filetype, vim-autoformat has a list of applicable formatters.
+If you have multiple formatters installed that are supported for some filetype, vim-autoformat just uses the first that occurs in this list of applicable formatters.
 You can either set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*, or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
+If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
 
 Default formatprograms
 ------------------------
@@ -125,17 +133,19 @@ If you need a formatter that is not among the defaults, or if you are not satisf
 
 #### Basic definitions
 The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
-This is a list containing string indentifiers, which point to corresponding formatter
-definitions.
+This is a list containing string indentifiers, which point to corresponding formatter definitions.
 The formatter definitions themselves are defined in `g:formatdef_<identifier>` as a string
 expression.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
-So, a complete definition in your .vimrc for C# files could look like this:
+For example, a complete definition in your .vimrc for C# files could look like this:
 
 ```vim
 let g:formatdef_my_custom_cs = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatters_cs = ['my_custom_cs']
 ```
+
+In this example, `my_custom_cs` is the identifier for our formatter definition.
+The first line defines how to call the external formatter, while the second line tells vim-autoformat that this is the only formatter that we want to use for C# files.
 *Please note the double quotes in `g:formatdef_my_custom_cs`*.
 This allows you to define the arguments dynamically:
 
@@ -151,7 +161,8 @@ So if you're editing a csharp file and change the `shiftwidth` (even at runtime)
 
 For the default formatprogram definitions, the options `expandtab`, `shiftwidth` and `textwidth` are taken into account whenever possible.
 This means that the formatting style will match your current vim settings as much as possible.
-For the exact default definitions, have a look in `vim-autoformat/plugin/defaults.vim`.
+You can have look look at the exact default definitions for more examples.
+They are defined in `vim-autoformat/plugin/defaults.vim`.
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
