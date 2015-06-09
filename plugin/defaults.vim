@@ -83,7 +83,7 @@ endif
 
 
 " Ruby
-let g:formatdef_rbeautify = 'rbeautify (&expandtab ? "-s -c ".&shiftwidth : "-t")'
+let g:formatdef_rbeautify = '"rbeautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 if !exists('g:formatters_ruby')
     let g:formatters_ruby = ['rbeautify']
 endif
