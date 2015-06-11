@@ -111,6 +111,13 @@ function! s:TryFormatter()
     " Detect verbosity
     let verbose = &verbose || exists("g:autoformat_verbosemode")
 
+    if !has("python")
+        echohl WarningMsg |
+            \ echomsg "WARNING: vim has no support for python, but it is necessary to verify the custom formatter!" |
+            \ echohl None
+        return 1
+    endif
+
     " Save window state
     let winview=winsaveview()
 
