@@ -113,7 +113,7 @@ function! s:TryFormatter()
 
     if !has("python")
         echohl WarningMsg |
-            \ echomsg "WARNING: vim has no support for python, but it is necessary to verify the custom formatter!" |
+            \ echomsg "WARNING: vim has no support for python, but it is required to run the formatter!" |
             \ echohl None
         return 1
     endif
