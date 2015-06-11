@@ -153,7 +153,7 @@ endfunction
 
 
 " Create a command for formatting the entire buffer
-command! -nargs=? -range=% -complete=filetype Autoformat <line1>,<line2>call s:TryAllFormatters(<f-args>)
+command! -nargs=? -range=% -complete=filetype Autoformat call s:TryAllFormatters(<f-args>)
 
 
 " Functions for iterating through list of available formatters
