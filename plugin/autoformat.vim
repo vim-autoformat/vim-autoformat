@@ -118,9 +118,6 @@ function! s:TryFormatter()
         return 1
     endif
 
-    " Save window state
-    let winview=winsaveview()
-
 python << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
@@ -145,15 +142,13 @@ else:
     vim.current.buffer[:] = stdoutdata.split('\n')
 EOF
 
-    " Recall window state
-    call winrestview(winview)
-
     return 1
 endfunction
 
 
 " Create a command for formatting the entire buffer
-command! -nargs=? -range=% -complete=filetype Autoformat <line1>,<line2>call s:TryAllFormatters(<f-args>)
+" Save and recall window state to prevent vim from jumping to line 1
+command! -nargs=? -range=% -complete=filetype Autoformat let winview=winsaveview()|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)
 
 
 " Functions for iterating through list of available formatters
