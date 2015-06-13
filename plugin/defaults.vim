@@ -124,3 +124,9 @@ if !exists('g:formatters_xhtml')
 endif
 
 
+" Golang
+let g:formatdef_gofmt = '"gofmt"'
+if !exists('g:formatters_go')
+    let g:formatters_go = ['gofmt']
+endif
+
