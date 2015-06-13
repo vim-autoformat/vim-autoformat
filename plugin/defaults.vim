@@ -51,13 +51,6 @@ if !exists('g:formatters_java')
 endif
 
 
-" HTML
-let g:formatdef_htmlbeautify = '"html-beautify -f - -s ".&shiftwidth'
-if !exists('g:formatters_html')
-    let g:formatters_html = ['htmlbeautify']
-endif
-
-
 " Javascript
 let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
 let g:formatdef_pyjsbeautify_javascript = '"js-beautify -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
@@ -81,6 +74,28 @@ if !exists('g:formatters_json')
                 \ ]
 endif
 
+
+" HTML
+let g:formatdef_htmlbeautify = '"html-beautify -f - -s ".&shiftwidth'
+let g:formatdef_tidy_html = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
+if !exists('g:formatters_html')
+    let g:formatters_html = ['htmlbeautify', 'tidy_html']
+endif
+
+
+
+" XML
+let g:formatdef_tidy_xml = '"tidy -q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
+if !exists('g:formatters_xml')
+    let g:formatters_xml = ['tidy_xml']
+endif
+
+
+" XHTML
+let g:formatdef_tidy_xhtml = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth'
+if !exists('g:formatters_xhtml')
+    let g:formatters_xhtml = ['tidy_xhtml']
+endif
 
 " Ruby
 let g:formatdef_rbeautify = '"rbeautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
@@ -107,20 +122,6 @@ endif
 let g:formatdef_tsfmt = '"tsfmt --stdin %"'
 if !exists('g:formatters_typescript')
     let g:formatters_typescript = ['tsfmt']
-endif
-
-
-" XML
-let g:formatdef_tidy_xml = '"tidy -q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
-if !exists('g:formatters_xml')
-    let g:formatters_xml = ['tidy_xml']
-endif
-
-
-" XHTML
-let g:formatdef_tidy_xhtml = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".&shiftwidth." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth'
-if !exists('g:formatters_xhtml')
-    let g:formatters_xhtml = ['tidy_xhtml']
 endif
 
 

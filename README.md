@@ -119,7 +119,7 @@ Here is the link to the repository: https://github.com/vvakame/typescript-format
 It is shipped with `sass`, a CSS preprocessor written in Ruby, which can be installed by running `gem install sass`.
 Here is the link to the SASS homepage: http://sass-lang.com/.
 
-* `tidy` for __XHTML__ and __XML__.
+* `tidy` for __HTML__, __XHTML__ and __XML__.
 It's probably in your distro's repository, so you can download it as a regular package.
 For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
