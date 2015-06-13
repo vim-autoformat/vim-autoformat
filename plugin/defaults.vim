@@ -125,8 +125,9 @@ endif
 
 
 " Golang
-let g:formatdef_gofmt = '"gofmt"'
+let g:formatdef_gofmt_1 = '"gofmt -tabs=".(&expandtab ? "false" : "true")." -tabwidth=".&shiftwidth'
+let g:formatdef_gofmt_2 = '"gofmt"'
 if !exists('g:formatters_go')
-    let g:formatters_go = ['gofmt']
+    let g:formatters_go = ['gofmt_1', 'gofmt_2']
 endif
 
