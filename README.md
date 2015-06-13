@@ -129,6 +129,10 @@ Note that compatible `ruby-beautify-0.94.0` or higher version.
 Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify.
 This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
 
+* `gofmt` for __Golang__.
+The default golang formatting program is shipped with the golang distribution. Make sure `gofmt` is in your PATH (if golang is installed properly, it should be).
+Here is the link to the installation: https://golang.org/doc/install
+
 How can I change the behaviour of formatters, or add one myself?
 ----------------------------------------------------------------
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
