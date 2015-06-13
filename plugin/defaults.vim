@@ -123,4 +123,8 @@ if !exists('g:formatters_xhtml')
     let g:formatters_xhtml = ['tidy_xhtml']
 endif
 
-
+" Golang
+if !exists("g:formatprg_golang") | let g:formatprg_ruby = "gofmt" | endif
+if !exists("g:formatprg_args_expr_golang") && !exists("g:formatprg_args_golang")
+    let g:formatprg_args_expr_golang = ''
+endif
