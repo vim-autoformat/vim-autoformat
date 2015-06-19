@@ -111,7 +111,7 @@ function! s:TryFormatter()
     " Detect verbosity
     let verbose = &verbose || exists("g:autoformat_verbosemode")
 
-    if !has("python")
+    if !has("python") && !has("python")
         echohl WarningMsg |
             \ echomsg "WARNING: vim has no support for python, but it is required to run the formatter!" |
             \ echohl None
