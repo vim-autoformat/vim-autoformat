@@ -9,7 +9,7 @@ When no formatprogram exists (or no formatprogram is installed) for a certain fi
 How to install
 -----------------------
 It is required that your vim has builtin python support. You can check whether this is the case
-by running `vim --version` and check that `+python` is listed among features.
+by running `vim --version` and check that `+python` or `+python3` is listed among features.
 
 ####Vundle
 Put this in your .vimrc
