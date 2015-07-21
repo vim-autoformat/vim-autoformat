@@ -147,6 +147,8 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    if stdoutdata[-1] == '\n':
+        stdoutdata = stdoutdata[:-1]
     vim.current.buffer[:] = stdoutdata.split('\n')
 EOF
 
@@ -180,6 +182,8 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    if stdoutdata[-1] == '\n':
+        stdoutdata = stdoutdata[:-1]
     #vim.current.buffer[:] = stdoutdata.split('\n')
     vim.current.buffer[:] = stdoutdata.split(b'\n')
 EOF
