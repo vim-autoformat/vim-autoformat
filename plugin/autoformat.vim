@@ -147,6 +147,12 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    # Often shell commands will append a newline at the end of their output.
+    # It is not entirely clear when and why that happens.
+    # However, extra newlines are almost never required, while there are linters that complain
+    # about superfluous newlines, so we remove one empty newline at the end of the file.
+    if stdoutdata[-1] == '\n':
+        stdoutdata = stdoutdata[:-1]
     vim.current.buffer[:] = stdoutdata.split('\n')
 EOF
 
@@ -162,7 +168,6 @@ python3 << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
-#text = '\n'.join(vim.current.buffer[:])
 text = bytes('\n'.join(vim.current.buffer[:]), 'utf-8')
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
@@ -180,7 +185,12 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
-    #vim.current.buffer[:] = stdoutdata.split('\n')
+    # Often shell commands will append a newline at the end of their output.
+    # It is not entirely clear when and why that happens.
+    # However, extra newlines are almost never required, while there are linters that complain
+    # about superfluous newlines, so we remove one empty newline at the end of the file.
+    if stdoutdata[-1] == b'\n':
+        stdoutdata = stdoutdata[:-1]
     vim.current.buffer[:] = stdoutdata.split(b'\n')
 EOF
 
