@@ -6,9 +6,7 @@
 " Python
 let g:formatdef_autopep8 = '"autopep8 - --range ".a:firstline." ".a:lastline." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 if !exists('g:formatters_python')
-    let g:formatters_python = [
-                \ 'autopep8',
-                \ ]
+    let g:formatters_python = ['autopep8']
 endif
 
 
@@ -27,7 +25,6 @@ let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline
 let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 if !exists('g:formatters_c')
     let g:formatters_c = ['clangformat', 'astyle_c']
-    "let g:formatters_c = ['astyle_c']
 endif
 
 
@@ -126,6 +123,8 @@ endif
 
 
 " Golang
+" Two definitions are provided for two versions of gofmt.
+" See issue #59
 let g:formatdef_gofmt_1 = '"gofmt -tabs=".(&expandtab ? "false" : "true")." -tabwidth=".&shiftwidth'
 let g:formatdef_gofmt_2 = '"gofmt"'
 if !exists('g:formatters_go')
