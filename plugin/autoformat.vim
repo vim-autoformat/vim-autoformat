@@ -60,6 +60,7 @@ endfunction
 function! s:TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
+        exe "normal gg=G"
         return 0
     endif
 
@@ -106,6 +107,7 @@ function! s:TryAllFormatters(...) range
 
         if s:index == b:current_formatter_index
             " Tried all formatters, none worked
+            exe "normal gg=G"
             return 0
         endif
     endwhile
