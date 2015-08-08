@@ -60,6 +60,8 @@ endfunction
 function! s:TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
+        " No formatters defined, so autoindent code
+        exe "normal gg=G"
         return 0
     endif
 
@@ -105,14 +107,11 @@ function! s:TryAllFormatters(...) range
         endif
 
         if s:index == b:current_formatter_index
-            " Tried all formatters, none worked
+            " Tried all formatters, none worked so autoindent code
+            exe "normal gg=G"
             return 0
         endif
     endwhile
-
-
-    " Autoindent code if no formatters work
-    exe "normal gg=G"
 
 endfunction
 
