@@ -77,7 +77,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `clang-format` for __C__, __C++__, __Objective-C__ (supports formatting ranges).
 clang-format is a product of LLVM source builds.
 If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
-To to load style configuration from a .clang-format file, add to your .vimrc: `let g:formatdef_clangformat_objc = '"clang-format -style=file"'`.
+To load style configuration from a .clang-format file, add to your .vimrc: `let g:formatdef_clangformat_objc = '"clang-format -style=file"'`.
 Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
