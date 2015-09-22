@@ -129,7 +129,7 @@ python << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
-text = '\n'.join(vim.current.buffer[:])
+text = os.linesep.join(vim.current.buffer[:])
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
@@ -150,9 +150,9 @@ else:
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    if stdoutdata[-1] == '\n':
+    if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split('\n')
+    vim.current.buffer[:] = stdoutdata.split(os.linesep)
 EOF
 
     return 1
@@ -167,7 +167,7 @@ python3 << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
-text = bytes('\n'.join(vim.current.buffer[:]), 'utf-8')
+text = bytes(os.linesep.join(vim.current.buffer[:]), 'utf-8')
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
@@ -188,9 +188,9 @@ else:
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    if stdoutdata[-1] == b'\n':
+    if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split(b'\n')
+    vim.current.buffer[:] = stdoutdata.split(os.linesep)
 EOF
 
     return 1
