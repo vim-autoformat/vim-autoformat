@@ -170,6 +170,8 @@ For the default formatprogram definitions, the options `expandtab`, `shiftwidth`
 This means that the formatting style will match your current vim settings as much as possible.
 You can have look look at the exact default definitions for more examples.
 They are defined in `vim-autoformat/plugin/defaults.vim`.
+As a small side note, in the actual defaults the function `shiftwidth()` is used instead of the
+property. This is because it falls back to the value of `tabstop` if `shiftwidth` is 0.
 
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
