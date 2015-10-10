@@ -5,7 +5,7 @@
 
 " Python
 if !exists('g:formatdef_autopep8')
-    let g:formatdef_autopep8 = '"autopep8 - --range ".a:firstline." ".a:lastline." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+    let g:formatdef_autopep8 = '"autopep8 - --line-range ".a:firstline." ".a:lastline." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 endif
 
 if !exists('g:formatters_python')
