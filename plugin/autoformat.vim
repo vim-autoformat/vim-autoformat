@@ -188,9 +188,9 @@ else:
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    stdoutdata_decoded = stdoutdata.decode('utf-8')
-    if stdoutdata_decoded[-1] == os.linesep:
-        stdoutdata = stdoutdata_decoded[:-1]
+    stdoutdata = stdoutdata.decode('utf-8')
+    if stdoutdata[-1] == os.linesep:
+        stdoutdata = stdoutdata[:-1]
     vim.current.buffer[:] = stdoutdata.split(os.linesep)
 EOF
 
