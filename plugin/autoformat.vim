@@ -58,7 +58,7 @@ set formatexpr=autoformat#formatexpr()
 
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
-function! TryAllFormatters(replace, ...) range
+function! TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         " No formatters defined, so autoindent code.
@@ -66,7 +66,7 @@ function! TryAllFormatters(replace, ...) range
         return 0
     endif
 
-    " Make sure index exist and is valid
+    " Make sure index exists and is valid.
     if !exists('b:current_formatter_index')
         let b:current_formatter_index = 0
     endif
@@ -97,9 +97,9 @@ function! TryAllFormatters(replace, ...) range
             return 1
         endif
         if has("python")
-            let success = s:TryFormatterPython(a:replace)
+            let success = s:TryFormatterPython()
         else
-            let success = s:TryFormatterPython3(a:replace)
+            let success = s:TryFormatterPython3()
         endif
         if success
             return 1
@@ -122,7 +122,7 @@ endfunction
 " Otherwise, return 0
 
 " +python version
-function! s:TryFormatterPython(replace)
+function! s:TryFormatterPython()
     " Detect verbosity
     let verbose = &verbose || exists("g:autoformat_verbosemode")
 
