@@ -60,8 +60,8 @@ endfunction
 function! s:TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
-        " No formatters defined, so autoindent code
-        exe "normal gg=G"
+        " No formatters defined, so autoindent code.
+        exe a:firstline . "normal! =" . (a:lastline - a:firstline) . "j"
         return 0
     endif
 
@@ -107,8 +107,8 @@ function! s:TryAllFormatters(...) range
         endif
 
         if s:index == b:current_formatter_index
-            " Tried all formatters, none worked so autoindent code
-            exe "normal gg=G"
+            " Tried all formatters, none worked so autoindent code.
+            exe a:firstline . "normal! =" . (a:lastline - a:firstline) . "j"
             return 0
         endif
     endwhile
