@@ -54,10 +54,11 @@ function! s:find_formatters(...)
     return 1
 endfunction
 
+set formatexpr=autoformat#formatexpr()
 
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
-function! s:TryAllFormatters(...) range
+function! TryAllFormatters(replace, ...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         " No formatters defined, so autoindent code.
@@ -96,9 +97,9 @@ function! s:TryAllFormatters(...) range
             return 1
         endif
         if has("python")
-            let success = s:TryFormatterPython()
+            let success = s:TryFormatterPython(a:replace)
         else
-            let success = s:TryFormatterPython3()
+            let success = s:TryFormatterPython3(a:replace)
         endif
         if success
             return 1
@@ -121,7 +122,7 @@ endfunction
 " Otherwise, return 0
 
 " +python version
-function! s:TryFormatterPython()
+function! s:TryFormatterPython(replace)
     " Detect verbosity
     let verbose = &verbose || exists("g:autoformat_verbosemode")
 
@@ -200,7 +201,7 @@ endfunction
 
 " Create a command for formatting the entire buffer
 " Save and recall window state to prevent vim from jumping to line 1
-command! -nargs=? -range=% -complete=filetype Autoformat let winview=winsaveview()|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)
+command! -nargs=? -range=% -complete=filetype Autoformat let winview=winsaveview()|<line1>,<line2>call TryAllFormatters(1, <f-args>)|call winrestview(winview)
 
 
 " Functions for iterating through list of available formatters
