@@ -152,7 +152,14 @@ else:
     # about superfluous newlines, so we remove one empty newline at the end of the file.
     if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split(os.linesep)
+
+    # It is not certain what kind of line endings are being used by the format program.
+    # Therefore we simply split on all possible eol characters.
+    lines = [stdoutdata]
+    for eol in ['\r\n', '\r', '\n', os.linesep]:
+        lines = [splitline for line in lines for splitline in line.split(eol)]
+
+    vim.current.buffer[:] = lines
 EOF
 
     return 1
@@ -190,7 +197,16 @@ else:
     # about superfluous newlines, so we remove one empty newline at the end of the file.
     if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split(os.linesep)
+
+    stdoutdata = stdoutdata.decode('utf-8')
+
+    # It is not certain what kind of line endings are being used by the format program.
+    # Therefore we simply split on all possible eol characters.
+    lines = [stdoutdata]
+    for eol in [b'\r\n', b'\r', b'\n', os.linesep.decode('utf-8')]:
+        lines = [splitline for line in lines for splitline in line.split(eol)]
+
+    vim.current.buffer[:] = lines
 EOF
 
     return 1
