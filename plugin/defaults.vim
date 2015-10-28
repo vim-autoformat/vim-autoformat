@@ -171,7 +171,7 @@ endif
 
 " Typescript
 if !exists('g:formatdef_tsfmt')
-    let g:formatdef_tsfmt = '"tsfmt --stdin %"'
+    let g:formatdef_tsfmt = '"tsfmt --stdin '.bufname('%').'"'
 endif
 
 if !exists('g:formatters_typescript')
