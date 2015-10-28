@@ -195,7 +195,6 @@ else:
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    stdoutdata = stdoutdata.decode('utf-8')
     if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
 
