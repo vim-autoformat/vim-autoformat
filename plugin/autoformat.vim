@@ -191,6 +191,8 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    stdoutdata = stdoutdata.decode('utf-8')
+
     # Often shell commands will append a newline at the end of their output.
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
@@ -198,12 +200,10 @@ else:
     if stdoutdata[-1] == os.linesep:
         stdoutdata = stdoutdata[:-1]
 
-    stdoutdata = stdoutdata.decode('utf-8')
-
     # It is not certain what kind of line endings are being used by the format program.
     # Therefore we simply split on all possible eol characters.
     lines = [stdoutdata]
-    for eol in [b'\r\n', b'\r', b'\n', os.linesep.decode('utf-8')]:
+    for eol in ['\r\n', '\r', '\n', os.linesep]:
         lines = [splitline for line in lines for splitline in line.split(eol)]
 
     vim.current.buffer[:] = lines
