@@ -146,13 +146,23 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    # It is not certain what kind of line endings are being used by the format program.
+    # Therefore we simply split on all possible eol characters.
+    possible_eols = ['\r\n', os.linesep, '\r', '\n']
+
     # Often shell commands will append a newline at the end of their output.
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    if stdoutdata[-1] == os.linesep:
-        stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split(os.linesep)
+    for eol in possible_eols:
+        if stdoutdata[-1] == eol:
+            stdoutdata = stdoutdata[:-1]
+
+    lines = [stdoutdata]
+    for eol in possible_eols:
+        lines = [splitline for line in lines for splitline in line.split(eol)]
+
+    vim.current.buffer[:] = lines
 EOF
 
     return 1
@@ -184,14 +194,25 @@ if stderrdata:
         print('Failing config: {} '.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
+    # It is not certain what kind of line endings are being used by the format program.
+    # Therefore we simply split on all possible eol characters.
+    possible_eols = ['\r\n', os.linesep, '\r', '\n']
+
+    stdoutdata = stdoutdata.decode('utf-8')
+
     # Often shell commands will append a newline at the end of their output.
     # It is not entirely clear when and why that happens.
     # However, extra newlines are almost never required, while there are linters that complain
     # about superfluous newlines, so we remove one empty newline at the end of the file.
-    stdoutdata = stdoutdata.decode('utf-8')
-    if stdoutdata[-1] == os.linesep:
-        stdoutdata = stdoutdata[:-1]
-    vim.current.buffer[:] = stdoutdata.split(os.linesep)
+    for eol in possible_eols:
+        if stdoutdata[-1] == eol:
+            stdoutdata = stdoutdata[:-1]
+
+    lines = [stdoutdata]
+    for eol in possible_eols:
+        lines = [splitline for line in lines for splitline in line.split(eol)]
+
+    vim.current.buffer[:] = lines
 EOF
 
     return 1
