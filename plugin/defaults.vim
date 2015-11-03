@@ -194,3 +194,12 @@ if !exists('g:formatters_go')
     let g:formatters_go = ['gofmt_1', 'gofmt_2']
 endif
 
+" Rust
+if !exists('g:formatdef_rustfmt')
+    let g:formatdef_rustfmt = '"rustfmt"'
+endif
+
+if !exists('g:formatters_rust')
+    let g:formatters_rust = ['rustfmt']
+endif
+
