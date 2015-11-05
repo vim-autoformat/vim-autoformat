@@ -203,3 +203,11 @@ if !exists('g:formatters_rust')
     let g:formatters_rust = ['rustfmt']
 endif
 
+" Dart
+if !exists('g:formatdef_dartfmt')
+    let g:formatdef_dartfmt = '"dartfmt"'
+endif
+
+if !exists('g:formatters_dart')
+    let g:formatters_dart = ['dartfmt']
+endif
