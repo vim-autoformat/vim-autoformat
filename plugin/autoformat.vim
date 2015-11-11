@@ -129,7 +129,7 @@ python << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
-text = os.linesep.join(vim.current.buffer[:])
+text = os.linesep.join(vim.current.buffer[:]) + '\n'
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
@@ -177,7 +177,7 @@ python3 << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
-text = bytes(os.linesep.join(vim.current.buffer[:]), 'utf-8')
+text = bytes(os.linesep.join(vim.current.buffer[:]) + '\n', 'utf-8')
 formatprg = vim.eval('&formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
