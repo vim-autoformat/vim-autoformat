@@ -208,17 +208,11 @@ Change log
 ----------
 ### June 2015
 * *Backward incompatible patch!*
-* Multiple formatters per filetype are now supported
-* Configuration variable names changed
-* `gq` no longer supported
-* `:Autoformat` suppports ranges
-* Composite filetypes are fully supported
-
-### Dec 9 2014
-* Added `rbeautify` to the defaults for formatting ruby files
-
-### May 30 2014
-* Added `css-beautify` to the defaults for formatting CSS files
+* Multiple formatters per filetype are now supported.
+* Configuration variable names changed.
+* `gq` is no longer supported.
+* `:Autoformat` now suppports ranges.
+* Composite filetypes are fully supported.
 
 ### December 20 2013
 * `html-beautify` is now the default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
@@ -245,7 +239,7 @@ The `dynamic_indent_width` branch has been merged into the master branch.
 
 ### March 9 2013
 The `custom_config` branch has been merged into the master branch.
-* Customization of formatprograms can be done easily now, as explained above.
+* Customization of formatprograms can be done easily now, as explained in the readme.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
 * phpCB has been removed from the defaults, due to code-breaking behaviour.
