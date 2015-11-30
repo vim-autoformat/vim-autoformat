@@ -139,6 +139,9 @@ It can be installed using `cargo`, the Rust package manager. Up-to-date installa
 * `dartfmt` for __Dart__.
 Part of the Dart SDK (make sure it is on your PATH). See https://www.dartlang.org/tools/dartfmt/ for more info.
 
+* `perltidy` for __Perl__.
+It can be installed from CPAN `cpanm Perl::Tidy` . See https://metacpan.org/pod/Perl::Tidy and http://perltidy.sourceforge.net/ for more info.
+
 How can I change the behaviour of formatters, or add one myself?
 ----------------------------------------------------------------
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
