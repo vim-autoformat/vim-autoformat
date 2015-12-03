@@ -29,7 +29,6 @@ if !exists('g:formatdef_clangformat')
 endif
 
 
-
 " C
 if !exists('g:formatdef_astyle_c')
     let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
@@ -215,7 +214,7 @@ endif
 " Perl
 if !exists('g:formatdef_perltidy')
   " use perltidyrc file if readable
-  if (has("win32") && (filereadable("perltid.ini") || filereadable($HOMEPATH."/perltidy.ini"))) ||
+  if (has("win32") && (filereadable("perltidy.ini") || filereadable($HOMEPATH."/perltidy.ini"))) ||
         \ ((has("unix") || has("mac")) && (filereadable(".perltidyrc") || filereadable("~/.perltidyrc") || filereadable("/usr/local/etc/perltidyrc") || filereadable("/etc/perltidyrc")))
     let g:formatdef_perltidy = '"perltidy -q -st"'
   else
