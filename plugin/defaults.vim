@@ -211,3 +211,18 @@ endif
 if !exists('g:formatters_dart')
     let g:formatters_dart = ['dartfmt']
 endif
+
+" Perl
+if !exists('g:formatdef_perltidy')
+  " use perltidyrc file if readable
+  if (has("win32") && (filereadable("perltid.ini") || filereadable($HOMEPATH."/perltidy.ini"))) ||
+        \ ((has("unix") || has("mac")) && (filereadable(".perltidyrc") || filereadable("~/.perltidyrc") || filereadable("/usr/local/etc/perltidyrc") || filereadable("/etc/perltidyrc")))
+    let g:formatdef_perltidy = '"perltidy -q -st"'
+  else
+    let g:formatdef_perltidy = '"perltidy --perl-best-practices --format-skipping -q "'
+  endif
+endif
+
+if !exists('g:formatters_perl')
+  let g:formatters_perl = ['perltidy']
+endif
