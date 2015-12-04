@@ -58,6 +58,9 @@ endfunction
 " Try all formatters, starting with the currently selected one, until one
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
+    " Detect verbosity
+    let verbose = &verbose || exists("g:autoformat_verbosemode")
+
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         " No formatters defined, so autoindent code
@@ -101,13 +104,22 @@ function! s:TryAllFormatters(...) range
             let success = s:TryFormatterPython3()
         endif
         if success
+            if verbose
+                echo "Definition in '".formatdef_var."' was successful."
+            endif
             return 1
         else
+            if verbose
+                echo "Definition in '".formatdef_var."' was unsuccessful."
+            endif
             let s:index = (s:index + 1) % len(b:formatters)
         endif
 
         if s:index == b:current_formatter_index
             " Tried all formatters, none worked so autoindent code
+            if verbose
+                echo "No format definitions were successful. Trying to autoindent code."
+            endif
             exe "normal gg=G"
             return 0
         endif
@@ -142,8 +154,8 @@ stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
         formattername = vim.eval('b:formatters[s:index]')
-        print('Formatter {} has errors: {}. Skipping.'.format(formattername, stderrdata))
-        print('Failing config: {} '.format(repr(formatprg), stderrdata))
+        print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
+        print('Failing config: {}'.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
     # It is not certain what kind of line endings are being used by the format program.
@@ -190,8 +202,8 @@ stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
         formattername = vim.eval('b:formatters[s:index]')
-        print('Formatter {} has errors: {}. Skipping.'.format(formattername, stderrdata))
-        print('Failing config: {} '.format(repr(formatprg), stderrdata))
+        print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
+        print('Failing config: {}'.format(repr(formatprg), stderrdata))
     vim.command('return 0')
 else:
     # It is not certain what kind of line endings are being used by the format program.
@@ -244,6 +256,15 @@ function! s:PreviousFormatter()
     echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
+function! s:CurrentFormatter()
+    call s:find_formatters()
+    if !exists('b:current_formatter_index')
+        let b:current_formatter_index = 0
+    endif
+    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
+endfunction
+
 " Create commands for iterating through formatter list
 command! NextFormatter call s:NextFormatter()
 command! PreviousFormatter call s:PreviousFormatter()
+command! CurrentFormatter call s:CurrentFormatter()

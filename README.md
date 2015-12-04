@@ -67,7 +67,9 @@ au BufWrite * :Autoformat
 
 For each filetype, vim-autoformat has a list of applicable formatters.
 If you have multiple formatters installed that are supported for some filetype, vim-autoformat just uses the first that occurs in this list of applicable formatters.
-You can either set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*, or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
+You can either set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*,
+or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
+To print the currently selected formatter use `:CurrentFormatter`.
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
 
 Default formatprograms
@@ -75,9 +77,11 @@ Default formatprograms
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
 * `clang-format` for __C__, __C++__, __Objective-C__ (supports formatting ranges).
-clang-format is a product of LLVM source builds.
+Clang-format is a product of LLVM source builds.
 If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
-To load style configuration from a .clang-format file, add to your .vimrc: `let g:formatdef_clangformat_objc = '"clang-format -style=file"'`.
+Vim-autoformat checks whether there exists a `.clang-format` or a `_clang-format` file up in
+the current directory's ancestry. Based on that it eithers uses that file or tries to match
+vim options as much as possible.
 Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
@@ -203,7 +207,9 @@ would then only format the selected part.
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
 verbose-mode. Vim-autoformat will then output errors on formatters that failed.
 ```vim
-let g:autoformat_verbosemode = 1
+let g:autoformat_verbosemode=1
+" OR:
+let verbose=1
 ```
 To read all messages in a vim session type `:messages`.
 

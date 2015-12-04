@@ -25,8 +25,15 @@ endif
 
 " Generic C, C++, Objective-C
 if !exists('g:formatdef_clangformat')
-    let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.shiftwidth() : 'UseTab: Always').'}\"'"
+    let s:configfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=file'"
+    let s:noconfigfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.shiftwidth() : 'UseTab: Always').'}\"'"
+    let g:formatdef_clangformat = "g:ClangConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
+
+function! g:ClangConfigFileExists()
+    return len(findfile(".clang-format", ".;")) || len(findfile("_clang-format", ".;"))
+endfunction
+
 
 
 " C
