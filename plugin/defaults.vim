@@ -27,11 +27,11 @@ endif
 if !exists('g:formatdef_clangformat')
     let s:configfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=file'"
     let s:noconfigfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.shiftwidth() : 'UseTab: Always').'}\"'"
-    let g:formatdef_clangformat = "g:ClangConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
+    let g:formatdef_clangformat = "g:ClangFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
 
-function! g:ClangConfigFileExists()
-    return len(findfile(".clang-format", ".;")) || len(findfile("_clang-format", ".;"))
+function! g:ClangFormatConfigFileExists()
+    return len(findfile(".clang-format", expand("%:p:h").";")) || len(findfile("_clang-format", expand("%:p:h").";"))
 endfunction
 
 
