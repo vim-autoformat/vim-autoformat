@@ -225,3 +225,12 @@ endif
 if !exists('g:formatters_perl')
   let g:formatters_perl = ['perltidy']
 endif
+
+" Haskell
+if !exists('g:formatdef_stylish_haskell')
+    let g:formatdef_stylish_haskell = '"stylish-haskell"'
+endif
+
+if !exists('g:formatters_haskell')
+    let g:formatters_haskell = ['stylish_haskell']
+endif
