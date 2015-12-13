@@ -61,7 +61,7 @@ function! s:TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         " No formatters defined, so autoindent code
-        exe "normal gg=G"
+        " exe "normal gg=G"
         return 0
     endif
 
