@@ -1,5 +1,10 @@
 " Function for finding the formatters for this filetype
 " Result is stored in b:formatters
+
+if !exists('g:autoformat_autoindent')
+    let g:autoformat_autoindent = 1
+endif
+
 function! s:find_formatters(...)
     " Detect verbosity
     let verbose = &verbose || exists("g:autoformat_verbosemode")
@@ -62,7 +67,13 @@ function! s:TryAllFormatters(...) range
     if !call('<SID>find_formatters', a:000)
         " No formatters defined, so autoindent code
         " exe "normal gg=G"
-        return 0
+        if g:autoformat_autoindent == 1
+            " No formatters defined, so autoindent code
+            exe "normal gg=G"
+            return 0
+        else
+            return 0
+        endif
     endif
 
     " Make sure index exist and is valid
@@ -108,8 +119,13 @@ function! s:TryAllFormatters(...) range
 
         if s:index == b:current_formatter_index
             " Tried all formatters, none worked so autoindent code
-            exe "normal gg=G"
-            return 0
+            if g:autoformat_autoindent == 1
+                " No formatters defined, so autoindent code
+                exe "normal gg=G"
+                return 0
+            else
+                return 0
+            endif
         endif
     endwhile
 
