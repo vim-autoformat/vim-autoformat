@@ -1,6 +1,16 @@
 "
-" This file contains all default format program definitions and links them to filetypes
+" This file contains default settings and all format program definitions and links these to filetypes
 "
+
+
+" Vim-autoformat configuration variables
+if !exists('g:autoformat_autoindent')
+    let g:autoformat_verbosemode = 0
+endif
+
+if !exists('g:autoformat_verbosemode')
+    let g:autoformat_verbosemode = 0
+endif
 
 
 " Python
@@ -231,4 +241,13 @@ endif
 
 if !exists('g:formatters_perl')
   let g:formatters_perl = ['perltidy']
+endif
+
+" Haskell
+if !exists('g:formatdef_stylish_haskell')
+    let g:formatdef_stylish_haskell = '"stylish-haskell"'
+endif
+
+if !exists('g:formatters_haskell')
+    let g:formatters_haskell = ['stylish_haskell']
 endif
