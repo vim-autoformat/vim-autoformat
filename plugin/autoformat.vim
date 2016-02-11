@@ -13,7 +13,7 @@ function! s:find_formatters(...)
     let ftype = a:0 ? a:1 : &filetype
     " Support composite filetypes by replacing dots with underscores
     let compoundtype = substitute(ftype, "[.]", "_", "g")
-    if ftype =~ "[.]"
+    if ftype =~? "[.]"
         " Try all super filetypes in search for formatters in a sane order
         let ftypes = [compoundtype] + split(ftype, "[.]")
     else
@@ -37,11 +37,11 @@ function! s:find_formatters(...)
         if !exists(formatters_var)
             " No formatters defined
             if verbose
-                echoerr "No formatters defined for supertype '".supertype
+                echoerr "No formatters defined for supertype ".supertype
             endif
         else
             let formatters = eval(formatters_var)
-            if type(formatters) != 3
+            if type(formatters) != type([])
                 echoerr formatter_var." is not a list"
             else
                 let b:formatters = b:formatters + formatters
