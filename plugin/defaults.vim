@@ -74,7 +74,7 @@ endif
 
 " Java
 if !exists('g:formatdef_astyle_java')
-    let g:formatdef_astyle_java = '"astyle --mode=java --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    let g:formatdef_astyle_java = '"astyle --mode=java --style=java -pcH".(&expandtab ? "s".shiftwidth() : "t")'
 endif
 
 if !exists('g:formatters_java')
