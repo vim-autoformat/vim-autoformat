@@ -1,17 +1,18 @@
-vim-autoformat
-==============
+# vim-autoformat
+
 Format code with one button press!
 This plugin makes use of external formatprograms to achieve the best results.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
 When no formatprogram exists (or no formatprogram is installed) for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
 
-How to install
------------------------
+## How to install
+
 It is required that your vim has builtin python support. You can check whether this is the case
 by running `vim --version` and check that `+python` or `+python3` is listed among features.
 
-####Vundle
+#### Vundle
+
 Put this in your .vimrc
 
 ```vim
@@ -21,24 +22,28 @@ Plugin 'Chiel92/vim-autoformat'
 Then restart vim and run `:PluginInstall`.
 To update the plugin to the latest version, you can run `:PluginUpdate`.
 
-####Pathogen
+#### Pathogen
+
 Download the source and extract in your bundle directory.
 Updating has to be done manually, as far as I'm aware.
 
-####Other
+#### Other
+
 It is highly recommended to use a plugin manager such as Vundle, since this makes it easy to update plugins or uninstall them.
 It also keeps your .vim directory clean.
 Still you can decide to download this repository as a zip file or whatever and extract it to your .vim folder.
 
-How to use
-----------
+## How to use
+
 First you should install an external program that can format code of the programming language you are using.
 This can either be one of the programs that are listed below as defaultprograms, or a custom program.
 For defaultprograms, vim-autoformat knows for which filetypes it can be used.
 For using a custom formatprogram, read the text below *How can I change the behaviour of formatters, or add one myself?*
 If the formatprogram you want to use is installed in one of the following ways, vim automatically detects it:
+
 * It suffices to make the formatprogram globally available, which is the case if you install it via your package manager.
 * Alternatively you can point vim-autoformat to folders containing formatters, by putting the absolute paths to these folders in `g:formatterpath` in your .vimrc, like:
+
 ```vim
 let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
 ```
@@ -66,6 +71,7 @@ au BufWrite * :Autoformat
 ```
 
 To disable the fallback to vim's indent file, set the following variable to be 0.
+
 ```vim
 let g:autoformat_autoindent = 0
 ```
@@ -77,89 +83,89 @@ or change the formatter with the highest priority by the commands `:NextFormatte
 To print the currently selected formatter use `:CurrentFormatter`.
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
 
-Default formatprograms
-------------------------
+## Default formatprograms
+
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
 * `clang-format` for __C__, __C++__, __Objective-C__ (supports formatting ranges).
-Clang-format is a product of LLVM source builds.
-If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
-Vim-autoformat checks whether there exists a `.clang-format` or a `_clang-format` file up in
-the current directory's ancestry. Based on that it eithers uses that file or tries to match
-vim options as much as possible.
-Details: http://clang.llvm.org/docs/ClangFormat.html.
+  Clang-format is a product of LLVM source builds.
+  If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
+  Vim-autoformat checks whether there exists a `.clang-format` or a `_clang-format` file up in
+  the current directory's ancestry. Based on that it eithers uses that file or tries to match
+  vim options as much as possible.
+  Details: http://clang.llvm.org/docs/ClangFormat.html.
 
 * `astyle` for __C#__, __C++__, __C__ and __Java__.
-Download it here: http://astyle.sourceforge.net/.
-*Important: version `2.0.5` or higher is required, since only those versions correctly support piping and are stable enough.*
-
+  Download it here: http://astyle.sourceforge.net/.
+  *Important: version `2.0.5` or higher is required, since only those versions correctly support piping and are stable enough.*
 
 * `autopep8` for __Python__ (supports formatting ranges).
-It's probably in your distro's repository, so you can download it as a regular package.
-For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
-Here is the link to the repository: https://github.com/hhatto/autopep8.
-And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
+  It's probably in your distro's repository, so you can download it as a regular package.
+  For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
+  Here is the link to the repository: https://github.com/hhatto/autopep8.
+  And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
 * `js-beautify` for __Javascript__ and __JSON__.
-It can be installed by running `npm install -g js-beautify`.
-Note that `nodejs` is needed for this to work.
-The python version version is also supported by default, which does not need `nodejs` to run.
-Here is the link to the repository: https://github.com/einars/js-beautify.
+  It can be installed by running `npm install -g js-beautify`.
+  Note that `nodejs` is needed for this to work.
+  The python version version is also supported by default, which does not need `nodejs` to run.
+  Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `JSCS` for __Javascript__. http://jscs.info/
 
 * `html-beautify` for __HTML__.
-It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
-Note that `nodejs` is needed for this to work.
-Here is the link to the repository: https://github.com/einars/js-beautify.
+  It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
+  Note that `nodejs` is needed for this to work.
+  Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `css-beautify` for __CSS__.
-It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
-Note that `nodejs` is needed for this to work.
-Here is the link to the repository: https://github.com/einars/js-beautify.
+  It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
+  Note that `nodejs` is needed for this to work.
+  Here is the link to the repository: https://github.com/einars/js-beautify.
 
 * `typescript-formatter` for __Typescript__.
-`typescript-formatter` is a thin wrapper around the TypeScript compiler services.
-It can be installed by running `npm install -g typescript-formatter`.
-Note that `nodejs` is needed for this to work. 
-Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
+  `typescript-formatter` is a thin wrapper around the TypeScript compiler services.
+  It can be installed by running `npm install -g typescript-formatter`.
+  Note that `nodejs` is needed for this to work.
+  Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
 
 * `sass-convert` for __SCSS__.
-It is shipped with `sass`, a CSS preprocessor written in Ruby, which can be installed by running `gem install sass`.
-Here is the link to the SASS homepage: http://sass-lang.com/.
+  It is shipped with `sass`, a CSS preprocessor written in Ruby, which can be installed by running `gem install sass`.
+  Here is the link to the SASS homepage: http://sass-lang.com/.
 
 * `tidy` for __HTML__, __XHTML__ and __XML__.
-It's probably in your distro's repository, so you can download it as a regular package.
-For Ubuntu type `sudo apt-get install tidy` in a terminal.
+  It's probably in your distro's repository, so you can download it as a regular package.
+  For Ubuntu type `sudo apt-get install tidy` in a terminal.
 
 * `rbeautify` for __Ruby__.
-It is shipped with `ruby-beautify`, which can be installed by running `gem install ruby-beautify`.
-Note that compatible `ruby-beautify-0.94.0` or higher version.
-Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify.
-This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
+  It is shipped with `ruby-beautify`, which can be installed by running `gem install ruby-beautify`.
+  Note that compatible `ruby-beautify-0.94.0` or higher version.
+  Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify.
+  This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
 
 * `gofmt` for __Golang__.
-The default golang formatting program is shipped with the golang distribution. Make sure `gofmt` is in your PATH (if golang is installed properly, it should be).
-Here is the link to the installation: https://golang.org/doc/install
+  The default golang formatting program is shipped with the golang distribution. Make sure `gofmt` is in your PATH (if golang is installed properly, it should be).
+  Here is the link to the installation: https://golang.org/doc/install
 
 * `rustfmt` for __Rust__.
-It can be installed using `cargo`, the Rust package manager. Up-to-date installation instructions are on the project page: https://github.com/nrc/rustfmt/#installation.
+  It can be installed using `cargo`, the Rust package manager. Up-to-date installation instructions are on the project page: https://github.com/nrc/rustfmt/#installation.
 
 * `dartfmt` for __Dart__.
-Part of the Dart SDK (make sure it is on your PATH). See https://www.dartlang.org/tools/dartfmt/ for more info.
+  Part of the Dart SDK (make sure it is on your PATH). See https://www.dartlang.org/tools/dartfmt/ for more info.
 
 * `perltidy` for __Perl__.
-It can be installed from CPAN `cpanm Perl::Tidy` . See https://metacpan.org/pod/Perl::Tidy and http://perltidy.sourceforge.net/ for more info.
+  It can be installed from CPAN `cpanm Perl::Tidy` . See https://metacpan.org/pod/Perl::Tidy and http://perltidy.sourceforge.net/ for more info.
 
 * `stylish-haskell` for __Haskell__
-It can be installed using [`cabal`](https://www.haskell.org/cabal/) build tool. Installation instructions are available at https://github.com/jaspervdj/stylish-haskell#installation
+  It can be installed using [`cabal`](https://www.haskell.org/cabal/) build tool. Installation instructions are available at https://github.com/jaspervdj/stylish-haskell#installation
 
-How can I change the behaviour of formatters, or add one myself?
-----------------------------------------------------------------
+## How can I change the behaviour of formatters, or add one myself?
+
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
 *The formatprogram must read the unformatted code from the standard input, and write the formatted code to the standard output.*
 
 #### Basic definitions
+
 The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
 This is a list containing string indentifiers, which point to corresponding formatter definitions.
 The formatter definitions themselves are defined in `g:formatdef_<identifier>` as a string
@@ -197,39 +203,45 @@ property. This is because it falls back to the value of `tabstop` if `shiftwidth
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
 
 #### Ranged definitions
+
 If your format program supports formatting specific ranges, you can provide a format
 definition which allows to make use of this.
 The first and last line of the current range can be retrieved by the variables `a:firstline` and
 `a:lastline`. They default to the first and last line of your file, if no range was explicitly
 specified.
 So, a ranged definition could look like this.
+
 ```vim
 let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
 let g:formatters_python = ['autopep8']
 ```
+
 This would allow the user to select a part of the file and execute `:Autoformat`, which
 would then only format the selected part.
 
-
 #### Debugging
+
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
 verbose-mode. Vim-autoformat will then output errors on formatters that failed.
+
 ```vim
 let g:autoformat_verbosemode=1
 " OR:
 let verbose=1
 ```
+
 To read all messages in a vim session type `:messages`.
 
-Contributing
-------------
+## Contributing
+
 Pull requests are welcome.
 Any feedback is welcome.
 If you have any suggestions on this plugin or on this readme, if you have some nice default formatter definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
 
-Change log
-----------
+## Change log
+
 ### June 2015
+
 * *Backward incompatible patch!*
 * Multiple formatters per filetype are now supported.
 * Configuration variable names changed.
@@ -238,30 +250,38 @@ Change log
 * Composite filetypes are fully supported.
 
 ### December 20 2013
+
 * `html-beautify` is now the default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
 * The `formatters/` folder is no longer supported anymore, because it is unnecessary.
 * `js-beautify` can no longer be installed as a bundle, since it only makes this plugin unnecessarily complex.
 
 ### March 27 2013
+
 * The default behaviour of gq is enabled again by removing the fallback on auto-indenting.
-Instead, the fallback is only used when running the command `:Autoformat`.
+  Instead, the fallback is only used when running the command `:Autoformat`.
 * For HTML,XML and XHTML, the option `textwidth` is taken into account when formatting.
-This extends the way the formatting style will match your current vim settings.
+  This extends the way the formatting style will match your current vim settings.
 
 ### March 16 2013
+
 The `dynamic_indent_width` branch has been merged into the master branch.
+
 * The options `expandtab`, `shiftwidth`, `tabstop` and `softtabstop` are not overwritten anymore.
 * This obsoletes `g:autoformat_no_default_shiftwidth`
 * `g:formatprg_args_expr_<filetype>` is introduced.
 
 ### March 13 2013
+
 * It is now possible to prevent vim-autoformat from overwriting your settings for  `tabstop`, `softtabstop`, `shiftwidth` and `expandtab` in your .vimrc.
 
 ### March 10 2013
+
 * When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
 
 ### March 9 2013
+
 The `custom_config` branch has been merged into the master branch.
+
 * Customization of formatprograms can be done easily now, as explained in the readme.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
