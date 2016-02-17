@@ -64,7 +64,9 @@ endfunction
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
     " Detect verbosity
-    let verbose = &verbose || exists("g:autoformat_verbosemode")
+    if exists("g:autoformat_verbosemode")
+      let verbose = g:autoformat_verbosemode
+    endif
 
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
