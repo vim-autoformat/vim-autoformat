@@ -64,7 +64,7 @@ endfunction
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
     " Detect verbosity
-    let verbose = &verbose || exists("g:autoformat_verbosemode")
+    let verbose = &verbose || g:autoformat_verbosemode == 1
 
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
@@ -113,24 +113,24 @@ function! s:TryAllFormatters(...) range
         endif
         if success
             if verbose
-                echo "Definition in '".formatdef_var."' was successful."
+                echomsg "Definition in '".formatdef_var."' was successful."
             endif
             return 1
         else
             if verbose
-                echo "Definition in '".formatdef_var."' was unsuccessful."
+                echomsg "Definition in '".formatdef_var."' was unsuccessful."
             endif
             let s:index = (s:index + 1) % len(b:formatters)
         endif
 
         if s:index == b:current_formatter_index
             if verbose
-                echo "No format definitions were successful."
+                echomsg "No format definitions were successful."
             endif
             " Tried all formatters, none worked
             if g:autoformat_autoindent == 1
                 if verbose
-                    echo "Trying to autoindent code."
+                    echomsg "Trying to autoindent code."
                 endif
                 " Autoindent code
                 exe "normal gg=G"
@@ -257,7 +257,7 @@ function! s:NextFormatter()
         let b:current_formatter_index = 0
     endif
     let b:current_formatter_index = (b:current_formatter_index + 1) % len(b:formatters)
-    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
+    echomsg 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
 function! s:PreviousFormatter()
@@ -267,7 +267,7 @@ function! s:PreviousFormatter()
     endif
     let l = len(b:formatters)
     let b:current_formatter_index = (b:current_formatter_index - 1 + l) % l
-    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
+    echomsg 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
 function! s:CurrentFormatter()
@@ -275,7 +275,7 @@ function! s:CurrentFormatter()
     if !exists('b:current_formatter_index')
         let b:current_formatter_index = 0
     endif
-    echom 'Selected formatter: '.b:formatters[b:current_formatter_index]
+    echomsg 'Selected formatter: '.b:formatters[b:current_formatter_index]
 endfunction
 
 " Create commands for iterating through formatter list
