@@ -25,7 +25,13 @@ endif
 
 " C#
 if !exists('g:formatdef_astyle_cs')
-    let g:formatdef_astyle_cs = '"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    if filereadable('.astylerc')
+        let g:formatdef_astyle_cs = '"astyle --mode=cs --options=.astyle"'
+    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+        let g:formatdef_astyle_cs = '"astyle --mode=cs"'
+    else
+        let g:formatdef_astyle_cs = '"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    endif
 endif
 
 if !exists('g:formatters_cs')
@@ -48,7 +54,13 @@ endfunction
 
 " C
 if !exists('g:formatdef_astyle_c')
-    let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    if filereadable('.astylerc')
+        let g:formatdef_astyle_c = '"astyle --mode=c --options=.astyle"'
+    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+        let g:formatdef_astyle_c = '"astyle --mode=c"'
+    else
+        let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    endif
 endif
 
 if !exists('g:formatters_c')
@@ -58,7 +70,13 @@ endif
 
 " C++
 if !exists('g:formatdef_astyle_cpp')
-    let g:formatdef_astyle_cpp = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    if filereadable('.astylerc')
+        let g:formatdef_astyle_cpp = '"astyle --mode=c --options=.astyle"'
+    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+        let g:formatdef_astyle_cpp = '"astyle --mode=c"'
+    else
+        let g:formatdef_astyle_cpp = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    endif
 endif
 
 if !exists('g:formatters_cpp')
@@ -74,7 +92,13 @@ endif
 
 " Java
 if !exists('g:formatdef_astyle_java')
-    let g:formatdef_astyle_java = '"astyle --mode=java --style=java -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    if filereadable('.astylerc')
+        let g:formatdef_astyle_java = '"astyle --mode=java --options=.astyle"'
+    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+        let g:formatdef_astyle_java = '"astyle --mode=java"'
+    else
+        let g:formatdef_astyle_java = '"astyle --mode=java --style=java -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+    endif
 endif
 
 if !exists('g:formatters_java')
