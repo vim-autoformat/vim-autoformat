@@ -206,8 +206,12 @@ if !exists('g:formatdef_gofmt_2')
     let g:formatdef_gofmt_2 = '"gofmt"'
 endif
 
+if !exists('g:formatdef_goimports')
+    let g:formatdef_goimports = '"goimports"'
+endif
+
 if !exists('g:formatters_go')
-    let g:formatters_go = ['gofmt_1', 'gofmt_2']
+    let g:formatters_go = ['gofmt_1', 'goimports', 'gofmt_2']
 endif
 
 " Rust
