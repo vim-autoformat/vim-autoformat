@@ -84,7 +84,13 @@ endif
 
 " Javascript
 if !exists('g:formatdef_jsbeautify_javascript')
-    let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
+    if filereadable('.jsbeautifyrc')
+        let g:formatdef_jsbeautify_javascript = '"js-beautify"'
+    elseif filereadable(expand('~/.jsbeautifyrc'))
+        let g:formatdef_jsbeautify_javascript = '"js-beautify"'
+    else
+        let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
+    endif
 endif
 
 if !exists('g:formatdef_pyjsbeautify_javascript')
