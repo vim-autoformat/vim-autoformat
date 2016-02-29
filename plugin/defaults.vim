@@ -112,7 +112,13 @@ endif
 
 " JSON
 if !exists('g:formatdef_jsbeautify_json')
-    let g:formatdef_jsbeautify_json = '"js-beautify -f - -".(&expandtab ? "s ".shiftwidth() : "t")'
+    if filereadable('.jsbeautifyrc')
+        let g:formatdef_jsbeautify_json = '"js-beautify"'
+    elseif filereadable(expand('~/.jsbeautifyrc'))
+        let g:formatdef_jsbeautify_json = '"js-beautify"'
+    else
+        let g:formatdef_jsbeautify_json = '"js-beautify -f - -".(&expandtab ? "s ".shiftwidth() : "t")'
+    endif
 endif
 
 if !exists('g:formatdef_pyjsbeautify_json')
