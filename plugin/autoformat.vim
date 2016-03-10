@@ -97,7 +97,7 @@ function! s:TryAllFormatters(...) range
 
         " Eval twice, once for getting definition content,
         " once for getting the final expression
-        let &formatprg = eval(eval(formatdef_var))
+        let b:formatprg = eval(eval(formatdef_var))
 
         " Detect if +python or +python3 is available, and call the corresponding function
         if !has("python") && !has("python3")
@@ -156,7 +156,7 @@ import vim, subprocess, os
 from subprocess import Popen, PIPE
 
 text = os.linesep.join(vim.current.buffer[:]) + os.linesep
-formatprg = vim.eval('&formatprg')
+formatprg = vim.eval('b:formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
@@ -204,7 +204,7 @@ import vim, subprocess, os
 from subprocess import Popen, PIPE
 
 text = bytes(os.linesep.join(vim.current.buffer[:]) + os.linesep, 'utf-8')
-formatprg = vim.eval('&formatprg')
+formatprg = vim.eval('b:formatprg')
 verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):

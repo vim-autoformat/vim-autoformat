@@ -245,7 +245,7 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 * *Backward incompatible patch!*
 * Multiple formatters per filetype are now supported.
 * Configuration variable names changed.
-* `gq` is no longer supported.
+* Using `gq` as alias for `:Autoformat` is no longer supported.
 * `:Autoformat` now suppports ranges.
 * Composite filetypes are fully supported.
 
