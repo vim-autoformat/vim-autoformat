@@ -4,7 +4,8 @@ Format code with one button press!
 This plugin makes use of external formatprograms to achieve the best results.
 Check the list of formatprograms to see which languages are supported by default.
 You can easily customize or add your own formatprogram.
-When no formatprogram exists (or no formatprogram is installed) for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
+When no formatprogram exists (or no formatprogram is installed) for a certain filetype,
+vim-autoformat falls back by default to indenting, (using vim's auto indent functionality), retabbing and removing trailing whitespace.
 
 ## How to install
 
@@ -48,8 +49,9 @@ If the formatprogram you want to use is installed in one of the following ways, 
 let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
 ```
 
-Remember that when no formatprograms exists for a certain filetype, vim-autoformat uses vim's indent functionality as a fallback.
-This will fix at least the indentation of your code, according to vim's indentfile for that filetype.
+Remember that when no formatprograms exists for a certain filetype,
+vim-autoformat falls back by default to indenting, retabbing and removing trailing whitespace.
+This will fix at least the most basic things, according to vim's indentfile for that filetype.
 
 When you have installed the formatter you need, you can format the entire buffer with the command `:Autoformat`.
 You can provide the command with a file type such as `:Autoformat json`, otherwise the buffer's filetype will be used.
@@ -70,18 +72,33 @@ Or to have your code be formatted upon saving your file, you could use something
 au BufWrite * :Autoformat
 ```
 
-To disable the fallback to vim's indent file, set the following variable to be 0.
+To disable the fallback to vim's indent file, retabbing and removing trailing whitespace, set the following variables to 0.
 
 ```vim
 let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+```
+
+You can manually autoindent, retab or remove trailing whitespace with the following respective
+commands.
+
+```vim
+gg=G
+:retab
+:RemoveTrailingSpaces
 ```
 
 For each filetype, vim-autoformat has a list of applicable formatters.
-If you have multiple formatters installed that are supported for some filetype, vim-autoformat tries all formatters in this list of applicable formatters, until one succeeds.
+If you have multiple formatters installed that are supported for some filetype, vim-autoformat
+tries all formatters in this list of applicable formatters, until one succeeds.
 You can set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*,
 or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
 To print the currently selected formatter use `:CurrentFormatter`.
-If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat first tries to detect and use formatters for the exact original filetype, and then tries the same for all supertypes occuring from left to right in the original filetype separated by dots (`.`).
+If you have a composite filetype with dots (like `django.python` or `php.wordpress`),
+vim-autoformat first tries to detect and use formatters for the exact original filetype, and
+then tries the same for all supertypes occuring from left to right in the original filetype
+separated by dots (`.`).
 
 ## Default formatprograms
 
@@ -179,7 +196,8 @@ let g:formatters_cs = ['my_custom_cs']
 ```
 
 In this example, `my_custom_cs` is the identifier for our formatter definition.
-The first line defines how to call the external formatter, while the second line tells vim-autoformat that this is the only formatter that we want to use for C# files.
+The first line defines how to call the external formatter, while the second line tells
+vim-autoformat that this is the only formatter that we want to use for C# files.
 *Please note the double quotes in `g:formatdef_my_custom_cs`*.
 This allows you to define the arguments dynamically:
 
@@ -200,7 +218,9 @@ They are defined in `vim-autoformat/plugin/defaults.vim`.
 As a small side note, in the actual defaults the function `shiftwidth()` is used instead of the
 property. This is because it falls back to the value of `tabstop` if `shiftwidth` is 0.
 
-If you have a composite filetype with dots (like `django.python` or `php.wordpress`), vim-autoformat internally replaces the dots with underscores so you can specify formatters through `g:formatters_django_python` and so on.
+If you have a composite filetype with dots (like `django.python` or `php.wordpress`),
+vim-autoformat internally replaces the dots with underscores so you can specify formatters
+through `g:formatters_django_python` and so on.
 
 #### Ranged definitions
 
@@ -236,9 +256,16 @@ To read all messages in a vim session type `:messages`.
 
 Pull requests are welcome.
 Any feedback is welcome.
-If you have any suggestions on this plugin or on this readme, if you have some nice default formatter definition that can be added to the defaults, or if you experience problems, please contact me by creating an issue in this repository.
+If you have any suggestions on this plugin or on this readme, if you have some nice default
+formatter definition that can be added to the defaults, or if you experience problems, please
+contact me by creating an issue in this repository.
 
 ## Change log
+
+### March 2016
+* Add more fallback options.
+* Don't use the option formatprg at all, to always have the possible of using the default `gq`
+  command.
 
 ### June 2015
 

@@ -69,10 +69,10 @@ function! s:TryAllFormatters(...) range
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
         " No formatters defined
-        if g:autoformat_autoindent == 1
-            " Autoindent code
-            exe "normal gg=G"
+        if verbose
+            echomsg "No format definitions are defined for this filetype."
         endif
+        call s:Fallback()
         return 0
     endif
 
@@ -128,17 +128,35 @@ function! s:TryAllFormatters(...) range
                 echomsg "No format definitions were successful."
             endif
             " Tried all formatters, none worked
-            if g:autoformat_autoindent == 1
-                if verbose
-                    echomsg "Trying to autoindent code."
-                endif
-                " Autoindent code
-                exe "normal gg=G"
-            endif
-            return 0
+            call s:Fallback()
         endif
     endwhile
+endfunction
 
+function! s:Fallback()
+    " Detect verbosity
+    let verbose = &verbose || g:autoformat_verbosemode == 1
+
+    if g:autoformat_remove_trailing_spaces == 1
+        if verbose
+            echomsg "Removing trailing whitespace..."
+        endif
+        call s:RemoveTrailingSpaces()
+    endif
+    if g:autoformat_retab == 1
+        if verbose
+            echomsg "Retabbing..."
+        endif
+        retab
+    endif
+    if g:autoformat_autoindent == 1
+        if verbose
+            echomsg "Autoindenting..."
+        endif
+        " Autoindent code
+        exe "normal gg=G"
+    endif
+    return 0
 endfunction
 
 
@@ -282,3 +300,15 @@ endfunction
 command! NextFormatter call s:NextFormatter()
 command! PreviousFormatter call s:PreviousFormatter()
 command! CurrentFormatter call s:CurrentFormatter()
+
+" Other commands
+function! s:RemoveTrailingSpaces()
+    let user_gdefault = &gdefault
+    try
+        set nogdefault
+        silent! %s/\s\+$
+    finally
+        let &gdefault = user_gdefault
+    endtry
+endfunction
+command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
