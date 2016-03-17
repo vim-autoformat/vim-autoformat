@@ -129,6 +129,7 @@ function! s:TryAllFormatters(...) range
             endif
             " Tried all formatters, none worked
             call s:Fallback()
+            return 0
         endif
     endwhile
 endfunction
