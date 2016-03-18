@@ -176,6 +176,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `stylish-haskell` for __Haskell__
   It can be installed using [`cabal`](https://www.haskell.org/cabal/) build tool. Installation instructions are available at https://github.com/jaspervdj/stylish-haskell#installation
 
+* `remark` for __Markdown__.
+  A Javascript based markdown processor that can be installed with `npm install -g remark`. More info is available at https://github.com/wooorm/remark.
+
 ## How can I change the behaviour of formatters, or add one myself?
 
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
