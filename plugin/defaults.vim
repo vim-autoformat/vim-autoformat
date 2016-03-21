@@ -304,3 +304,12 @@ endif
 if !exists('g:formatters_haskell')
     let g:formatters_haskell = ['stylish_haskell']
 endif
+
+" Markdown
+if !exists('g:formatdef_remark_markdown')
+    let g:formatdef_remark_markdown = '"remark --silent --no-color"'
+endif
+
+if !exists('g:formatters_markdown')
+    let g:formatters_markdown = ['remark_markdown']
+endif
