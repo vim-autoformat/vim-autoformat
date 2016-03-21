@@ -106,10 +106,10 @@ function! s:TryAllFormatters(...) range
                 \ echohl None
             return 1
         endif
-        if has("python")
-            let success = s:TryFormatterPython()
-        else
+        if has("python3")
             let success = s:TryFormatterPython3()
+        else
+            let success = s:TryFormatterPython()
         endif
         if success
             if verbose
@@ -173,17 +173,21 @@ function! s:TryFormatterPython()
 python << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
-
 text = os.linesep.join(vim.current.buffer[:]) + os.linesep
 formatprg = vim.eval('b:formatprg')
 verbose = bool(int(vim.eval('verbose')))
+
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
 
+# When an entry is unicode, Popen can't deal with it in Python 2.
+# As a pragmatic fix, we'll omit that entry.
+env = {key : val for key, val in env.iteritems() if type(key) == type(val) == str}
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
+
 if stderrdata:
     if verbose:
         formattername = vim.eval('b:formatters[s:index]')
