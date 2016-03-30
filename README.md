@@ -80,6 +80,8 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 ```
 
+To disable or re-enable these option for specific buffers, use the buffer local variants:
+`b:autoformat_autoindent`, `b:autoformat_retab` and `b:autoformat_remove_trailing_spaces`.
 You can manually autoindent, retab or remove trailing whitespace with the following respective
 commands.
 
@@ -95,6 +97,7 @@ tries all formatters in this list of applicable formatters, until one succeeds.
 You can set this list manually in your vimrc (see section *How can I change the behaviour of formatters, or add one myself?*,
 or change the formatter with the highest priority by the commands `:NextFormatter` and `:PreviousFormatter`.
 To print the currently selected formatter use `:CurrentFormatter`.
+These latter commands are mostly useful for debugging purposes.
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`),
 vim-autoformat first tries to detect and use formatters for the exact original filetype, and
 then tries the same for all supertypes occuring from left to right in the original filetype

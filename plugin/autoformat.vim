@@ -138,26 +138,28 @@ function! s:Fallback()
     " Detect verbosity
     let verbose = &verbose || g:autoformat_verbosemode == 1
 
-    if g:autoformat_remove_trailing_spaces == 1
+    if exists('b:autoformat_remove_trailing_spaces') ? b:autoformat_remove_trailing_spaces == 1 : g:autoformat_remove_trailing_spaces == 1
         if verbose
             echomsg "Removing trailing whitespace..."
         endif
         call s:RemoveTrailingSpaces()
     endif
-    if g:autoformat_retab == 1
+
+    if exists('b:autoformat_retab') ? b:autoformat_retab == 1 : g:autoformat_retab == 1
         if verbose
             echomsg "Retabbing..."
         endif
         retab
     endif
-    if g:autoformat_autoindent == 1
+
+    if exists('b:autoformat_autoindent') ? b:autoformat_autoindent == 1 : g:autoformat_autoindent == 1
         if verbose
             echomsg "Autoindenting..."
         endif
         " Autoindent code
         exe "normal gg=G"
     endif
-    return 0
+
 endfunction
 
 
