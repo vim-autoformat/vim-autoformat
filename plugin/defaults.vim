@@ -23,8 +23,19 @@ endif
 
 " Python
 if !exists('g:formatdef_autopep8')
-    let g:formatdef_autopep8 = '"autopep8 - --range ".a:firstline." ".a:lastline." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+    " Autopep8 will not do indentation fixes when a range is specified, so we
+    " only pass a range when there is a visual selection that is not the
+    " entire file. See #125.
+    let g:formatdef_autopep8 = '"autopep8 -".(g:DoesRangeEqualBuffer(a:firstline, a:lastline) ? " --range ".a:firstline." ".a:lastline : "")." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 endif
+
+" There doesn't seem to be a reliable way to detect if are in some kind of visual mode,
+" so we use this as a workaround. We compare the length of the file against
+" the range arguments. If there is no range given, the range arguments default
+" to the entire file, so we return false if the range comprises the entire file.
+function! g:DoesRangeEqualBuffer(first, last)
+    return line('$') != a:last - a:first + 1
+endfunction
 
 if !exists('g:formatters_python')
     let g:formatters_python = ['autopep8']

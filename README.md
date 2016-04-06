@@ -82,6 +82,12 @@ let g:autoformat_remove_trailing_spaces = 0
 
 To disable or re-enable these option for specific buffers, use the buffer local variants:
 `b:autoformat_autoindent`, `b:autoformat_retab` and `b:autoformat_remove_trailing_spaces`.
+So to disable autoindent for filetypes that have incompetent indent files, use
+
+```vim
+autocmd FileType vim,tex let b:autoformat_autoindent=0
+```
+
 You can manually autoindent, retab or remove trailing whitespace with the following respective
 commands.
 
