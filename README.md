@@ -140,7 +140,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
   let g:formatter_yapf_style = 'pep8'
    ```
 
-  `pep8` is the default value, or you can choose: `google`, `facebook`, `chormium`.
+  `pep8` is the default value, or you can choose: `google`, `facebook`, `chromium`.
 
   Here is the link to the repository: https://github.com/google/yapf
 
