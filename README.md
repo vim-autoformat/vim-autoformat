@@ -131,6 +131,19 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Here is the link to the repository: https://github.com/hhatto/autopep8.
   And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
+* `yapf` for __Python__ (supports formatting ranges).
+  It is readily available through PIP. Most users can install with the terminal command `sudo pip install yapf` or `pip --user install yapf`.
+  YAPF has one optional configuration variable to control the formatter style.
+  For example:
+
+  ```vim
+  let g:formatter_yapf_style = 'pep8'
+   ```
+
+  `pep8` is the default value, or you can choose: `google`, `facebook`, `chormium`.
+
+  Here is the link to the repository: https://github.com/google/yapf
+
 * `js-beautify` for __Javascript__ and __JSON__.
   It can be installed by running `npm install -g js-beautify`.
   Note that `nodejs` is needed for this to work.
@@ -273,6 +286,9 @@ formatter definition that can be added to the defaults, or if you experience pro
 contact me by creating an issue in this repository.
 
 ## Change log
+
+### April 2016
+* Add `yapf` as a secondary Python formatter.
 
 ### March 2016
 * Add more fallback options.
