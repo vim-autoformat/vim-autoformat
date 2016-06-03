@@ -9,6 +9,7 @@ vim-autoformat falls back by default to indenting, (using vim's auto indent func
 
 ## How to install
 
+This plugin is supported by Vim 7.4+.
 It is required that your vim has builtin python support. You can check whether this is the case
 by running `vim --version` and check that `+python` or `+python3` is listed among features.
 
