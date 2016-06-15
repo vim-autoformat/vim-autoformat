@@ -202,6 +202,20 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `remark` for __Markdown__.
   A Javascript based markdown processor that can be installed with `npm install -g remark`. More info is available at https://github.com/wooorm/remark.
 
+## Debugging
+
+If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
+verbose-mode. Vim-autoformat will then output errors on formatters that failed.
+
+```vim
+let g:autoformat_verbosemode=1
+" OR:
+let verbose=1
+```
+
+To read all messages in a vim session type `:messages`.  Since one cannot always easily copy
+the contents of messages (e.g. for posting it in an issue), vim-autoformats command `:PutMessages` may
+help. It puts the messages in the current buffer, allowing you to do whatever you want.
 ## How can I change the behaviour of formatters, or add one myself?
 
 If you need a formatter that is not among the defaults, or if you are not satisfied with the default formatting behaviour that is provided by vim-autoformat, you can define it yourself.
@@ -265,18 +279,6 @@ let g:formatters_python = ['autopep8']
 This would allow the user to select a part of the file and execute `:Autoformat`, which
 would then only format the selected part.
 
-#### Debugging
-
-If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
-verbose-mode. Vim-autoformat will then output errors on formatters that failed.
-
-```vim
-let g:autoformat_verbosemode=1
-" OR:
-let verbose=1
-```
-
-To read all messages in a vim session type `:messages`.
 
 ## Contributing
 

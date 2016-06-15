@@ -319,3 +319,6 @@ function! s:RemoveTrailingSpaces()
     endtry
 endfunction
 command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
+
+" Put the uncopyable messages text into the buffer
+command! PutMessages redir @" | messages | redir END | put
