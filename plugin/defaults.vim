@@ -140,12 +140,12 @@ if !exists('g:formatdef_jsbeautify_javascript')
     elseif filereadable(expand('~/.jsbeautifyrc'))
         let g:formatdef_jsbeautify_javascript = '"js-beautify"'
     else
-        let g:formatdef_jsbeautify_javascript = '"js-beautify -f - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
+        let g:formatdef_jsbeautify_javascript = '"js-beautify -X -f - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
     endif
 endif
 
 if !exists('g:formatdef_pyjsbeautify_javascript')
-    let g:formatdef_pyjsbeautify_javascript = '"js-beautify -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
+    let g:formatdef_pyjsbeautify_javascript = '"js-beautify -X -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")." -"'
 endif
 
 if !exists('g:formatdef_jscs')
