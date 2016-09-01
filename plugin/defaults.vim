@@ -332,3 +332,13 @@ endif
 if !exists('g:formatters_markdown')
     let g:formatters_markdown = ['remark_markdown']
 endif
+
+" Fortran
+if !exists('g:formatdef_fprettify')
+    let g:formatdef_fprettify = '"fprettify --no-report-errors --indent=".&shiftwidth'
+endif
+
+if !exists('g:formatters_fortran')
+    let g:formatters_fortran = ['fprettify']
+endif
+
