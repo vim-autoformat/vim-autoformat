@@ -186,7 +186,11 @@ if int(vim.eval('exists("g:formatterpath")')):
 
 # When an entry is unicode, Popen can't deal with it in Python 2.
 # As a pragmatic fix, we'll omit that entry.
-env = {key : val for key, val in env.iteritems() if type(key) == type(val) == str}
+newenv = {}
+for key,val in env.iteritems():
+    if type(key) == type(val) == str:
+        newenv[key] = val
+env=newenv
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 
