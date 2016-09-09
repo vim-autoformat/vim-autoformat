@@ -33,7 +33,10 @@ function! s:find_formatters(...)
     " Detect configuration for all possible ftypes
     let b:formatters = []
     for supertype in ftypes
-        let formatters_var = "g:formatters_".supertype
+        let formatters_var = "b:formatters_".supertype
+        if !exists(formatters_var)
+            let formatters_var = "g:formatters_".supertype
+        endif
         if !exists(formatters_var)
             " No formatters defined
             if verbose
@@ -42,7 +45,7 @@ function! s:find_formatters(...)
         else
             let formatters = eval(formatters_var)
             if type(formatters) != type([])
-                echoerr formatter_var." is not a list"
+                echoerr formatters_var." is not a list"
             else
                 let b:formatters = b:formatters + formatters
             endif
@@ -88,8 +91,11 @@ function! s:TryAllFormatters(...) range
     let s:index = b:current_formatter_index
 
     while 1
-        let formatdef_var = 'g:formatdef_'.b:formatters[s:index]
         " Formatter definition must be existent
+        let formatdef_var = 'b:formatdef_'.b:formatters[s:index]
+        if !exists(formatdef_var)
+            let formatdef_var = 'g:formatdef_'.b:formatters[s:index]
+        endif
         if !exists(formatdef_var)
             echoerr "No format definition found in '".formatdef_var."'."
             return 0

@@ -107,7 +107,7 @@ To print the currently selected formatter use `:CurrentFormatter`.
 These latter commands are mostly useful for debugging purposes.
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`),
 vim-autoformat first tries to detect and use formatters for the exact original filetype, and
-then tries the same for all supertypes occuring from left to right in the original filetype
+then tries the same for all supertypes occurring from left to right in the original filetype
 separated by dots (`.`).
 
 ## Default formatprograms
@@ -118,7 +118,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Clang-format is a product of LLVM source builds.
   If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
   Vim-autoformat checks whether there exists a `.clang-format` or a `_clang-format` file up in
-  the current directory's ancestry. Based on that it eithers uses that file or tries to match
+  the current directory's ancestry. Based on that it either uses that file or tries to match
   vim options as much as possible.
   Details: http://clang.llvm.org/docs/ClangFormat.html.
 
@@ -227,7 +227,7 @@ If you need a formatter that is not among the defaults, or if you are not satisf
 #### Basic definitions
 
 The formatprograms that available for a certain `<filetype>` are defined in `g:formatters_<filetype>`.
-This is a list containing string indentifiers, which point to corresponding formatter definitions.
+This is a list containing string identifiers, which point to corresponding formatter definitions.
 The formatter definitions themselves are defined in `g:formatdef_<identifier>` as a string
 expression.
 Defining any of these variable manually in your .vimrc, will override the default value, if existing.
@@ -264,6 +264,16 @@ property. This is because it falls back to the value of `tabstop` if `shiftwidth
 If you have a composite filetype with dots (like `django.python` or `php.wordpress`),
 vim-autoformat internally replaces the dots with underscores so you can specify formatters
 through `g:formatters_django_python` and so on.
+
+To override these options for a local buffer, use the buffer local variants:
+`b:formatters_<filetype>` and `b:formatdef_<identifier>`. This can be useful, for example, when
+working with different projects with conflicting formatting rules, with each project having settings
+in its own vimrc or exrc file:
+
+```vim
+let b:formatdef_custom_c='"astyle --mode=c --suffix=none --options=/home/user/special_project/astylerc"'
+let b:formatters_c = ['custom_c']
+```
 
 #### Ranged definitions
 
