@@ -153,6 +153,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
 
 * `JSCS` for __Javascript__. http://jscs.info/
 
+* `standard` for __Javascript__.
+  It can be installed by running `npm install -g standard` (`nodejs` is required). No more configuration needed.
+  More information about the style guide can be found here: http://standardjs.com/.
+
 * `html-beautify` for __HTML__.
   It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
   Note that `nodejs` is needed for this to work.
@@ -302,6 +306,9 @@ formatter definition that can be added to the defaults, or if you experience pro
 contact me by creating an issue in this repository.
 
 ## Change log
+
+### October 2016
+* Add `standard` formatter for JavaScript.
 
 ### April 2016
 * Add `yapf` as a secondary Python formatter.
