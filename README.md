@@ -307,16 +307,10 @@ contact me by creating an issue in this repository.
 
 ## Change log
 
-### October 2016
-* Add `standard` formatter for JavaScript.
-
-### April 2016
-* Add `yapf` as a secondary Python formatter.
-
 ### March 2016
-* Add more fallback options.
-* Don't use the option formatprg at all, to always have the possible of using the default `gq`
+* Don't use the option formatprg internally anymore, to always have the possible of using the default `gq`
   command.
+* Add more fallback options.
 
 ### June 2015
 
