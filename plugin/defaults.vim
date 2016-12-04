@@ -42,7 +42,7 @@ if !exists('g:formatter_yapf_style')
     let g:formatter_yapf_style = 'pep8'
 endif
 if !exists('g:formatdef_yapf')
-    let g:formatdef_yapf = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.'}\" -l '.a:firstline.'-'.a:lastline"
+    let g:formatdef_yapf = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.',column_limit:'.&textwidth.'}\" -l '.a:firstline.'-'.a:lastline"
 endif
 
 if !exists('g:formatters_python')
