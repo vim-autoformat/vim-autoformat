@@ -191,6 +191,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Here is the link to the repository: https://github.com/erniebrodeur/ruby-beautify.
   This beautifier developed and tested with ruby `2.0+`, so you can have weird results with earlier ruby versions.
 
+* `rubocop` for __Ruby__.
+  It can be installed by running `gem install rubocop`.
+  Here is the link to the repository: https://github.com/bbatsov/rubocop
+
 * `gofmt` for __Golang__.
   The default golang formatting program is shipped with the golang distribution. Make sure `gofmt` is in your PATH (if golang is installed properly, it should be).
   Here is the link to the installation: https://golang.org/doc/install
