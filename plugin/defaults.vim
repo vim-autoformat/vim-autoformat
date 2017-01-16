@@ -156,12 +156,17 @@ if !exists('g:formatdef_standard_javascript')
     let g:formatdef_standard_javascript = '"standard --fix --stdin"'
 endif
 
+if !exists('g:formatdef_xo_javascript')
+    let g:formatdef_xo_javascript = '"xo --fix --stdin"'
+endif
+
 if !exists('g:formatters_javascript')
     let g:formatters_javascript = [
                 \ 'jsbeautify_javascript',
                 \ 'pyjsbeautify_javascript',
                 \ 'jscs',
-                \ 'standard_javascript'
+                \ 'standard_javascript',
+                \ 'xo_javascript'
                 \ ]
 endif
 

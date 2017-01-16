@@ -157,6 +157,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed by running `npm install -g standard` (`nodejs` is required). No more configuration needed.
   More information about the style guide can be found here: http://standardjs.com/.
 
+* `xo` for __Javascript__.
+  It can be installed by running `npm install -g xo` (`nodejs` is required).
+  Here is the link to the repository: https://github.com/sindresorhus/xo.
+
 * `html-beautify` for __HTML__.
   It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
   Note that `nodejs` is needed for this to work.
@@ -306,6 +310,10 @@ formatter definition that can be added to the defaults, or if you experience pro
 contact me by creating an issue in this repository.
 
 ## Change log
+
+### January 2017
+
+* Add `xo` formatter for JavaScript.
 
 ### March 2016
 * Don't use the option formatprg internally anymore, to always have the possible of using the default `gq`
