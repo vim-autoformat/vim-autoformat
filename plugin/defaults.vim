@@ -362,7 +362,11 @@ if !exists('g:autoformat_showdiff')
     let g:autoformat_showdiff = 0
 endif
 
+if !exists('g:autoformat_showdiff_synmatch')
+    let g:autoformat_showdiff_synmatch = "ErrorMsg"
+endif
+
 if !exists('g:autoformat_diffcmd')
-    let g:autoformat_diffcmd = "diff -u"
+    let g:autoformat_diffcmd = "diff"
 endif
 
