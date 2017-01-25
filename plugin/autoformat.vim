@@ -295,6 +295,7 @@ function! s:TryFormatterPython3()
 
 python3 << EOF
 import vim, subprocess, os
+from tempfile import NamedTemporaryFile
 from subprocess import Popen, PIPE
 
 text = bytes(os.linesep.join(vim.current.buffer[:]) + os.linesep, 'utf-8')
@@ -344,16 +345,17 @@ else:
     if showdiff:
         f = NamedTemporaryFile(delete=False)
         f.truncate()
-        f.write(os.linesep.join(vim.current.buffer[:]))
+        f.write(bytes(os.linesep.join(vim.current.buffer[:]), 'utf-8'))
         f.flush()
         p = subprocess.Popen(diffcmd + f.name + " -", env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-        stdoutdata, stderrdata = p.communicate(stdoutdata)
+        stdoutdata, stderrdata = p.communicate(bytes(stdoutdata, 'utf-8'))
         os.remove(f.name)
         f.close()
 
     lines = [stdoutdata]
     for eol in possible_eols:
-        lines = [splitline for line in lines for splitline in line.split(eol)]
+        lines = [splitline for line in lines for splitline in line.split(eol.encode('utf-8'))]
+    lines = [str(line, 'utf-8') for line in lines]
 
     if showdiff:
         if int(vim.eval("exists('b:autoformat_difpath')")):
@@ -361,7 +363,7 @@ else:
         else:
             dif = NamedTemporaryFile(delete=False)
         dif.truncate()
-        dif.write(os.linesep.join(lines))
+        dif.write(bytes(os.linesep.join(lines), 'utf-8'))
         dif.close()
         vim.command("let b:autoformat_difpath='" + dif.name + "'")
 
