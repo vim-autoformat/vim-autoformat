@@ -106,7 +106,7 @@ function! s:TryAllFormatters(...) range
         let b:formatprg = eval(eval(formatdef_var))
 
         " Detect if +python or +python3 is available, and call the corresponding function
-        if !has("python") && !has("python3")
+        if !has("python") or !has("python3")
             echohl WarningMsg |
                 \ echomsg "WARNING: vim has no support for python, but it is required to run the formatter!" |
                 \ echohl None
