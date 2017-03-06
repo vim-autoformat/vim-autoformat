@@ -113,11 +113,17 @@ function! s:TryAllFormatters(...) range
             return 1
         endif
         if has("python3")
+            if verbose
+                echomsg "Using python 3 code..."
+            endif
             let success = s:TryFormatterPython3()
         else
+            if verbose
+                echomsg "Using python 2 code..."
+            endif
             let success = s:TryFormatterPython()
         endif
-        if success
+        if success == 0
             if verbose
                 echomsg "Definition in '".formatdef_var."' was successful."
             endif
@@ -170,8 +176,8 @@ endfunction
 
 
 " Call formatter
-" If stderr is empty, apply result, return 1
-" Otherwise, return 0
+" If stderr is empty, apply result, return 0
+" Otherwise, return 1
 
 " +python version
 function! s:TryFormatterPython()
@@ -205,7 +211,7 @@ if stderrdata:
         formattername = vim.eval('b:formatters[s:index]')
         print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
         print('Failing config: {}'.format(repr(formatprg), stderrdata))
-    vim.command('return 0')
+    vim.command('return 1')
 else:
     # It is not certain what kind of line endings are being used by the format program.
     # Therefore we simply split on all possible eol characters.
@@ -226,7 +232,7 @@ else:
     vim.current.buffer[:] = lines
 EOF
 
-    return 1
+    return 0
 endfunction
 
 " +python3 version
@@ -238,6 +244,9 @@ python3 << EOF
 import vim, subprocess, os
 from subprocess import Popen, PIPE
 
+# The return code is `failure`, unless otherwise specified
+vim.command('return 1')
+
 text = bytes(os.linesep.join(vim.current.buffer[:]) + os.linesep, 'utf-8')
 formatprg = vim.eval('b:formatprg')
 verbose = bool(int(vim.eval('verbose')))
@@ -246,37 +255,44 @@ if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
 
-p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-stdoutdata, stderrdata = p.communicate(text)
-if stderrdata:
+try:
+    p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    stdoutdata, stderrdata = p.communicate(text)
+except (BrokenPipeError, IOError):
     if verbose:
-        formattername = vim.eval('b:formatters[s:index]')
-        print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
-        print('Failing config: {}'.format(repr(formatprg), stderrdata))
-    vim.command('return 0')
+        raise
 else:
-    # It is not certain what kind of line endings are being used by the format program.
-    # Therefore we simply split on all possible eol characters.
-    possible_eols = ['\r\n', os.linesep, '\r', '\n']
+    if stderrdata:
+        if verbose:
+            formattername = vim.eval('b:formatters[s:index]')
+            print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
+            print('Failing config: {}'.format(repr(formatprg), stderrdata))
+    elif not stdoutdata:
+        if verbose:
+            print('Formatter {} gives empty result: {} Skipping.'.format(formattername, stderrdata))
+            print('Failing config: {}'.format(repr(formatprg), stderrdata))
+    else:
+        # It is not certain what kind of line endings are being used by the format program.
+        # Therefore we simply split on all possible eol characters.
+        possible_eols = ['\r\n', os.linesep, '\r', '\n']
 
-    stdoutdata = stdoutdata.decode('utf-8')
+        stdoutdata = stdoutdata.decode('utf-8')
 
-    # Often shell commands will append a newline at the end of their output.
-    # It is not entirely clear when and why that happens.
-    # However, extra newlines are almost never required, while there are linters that complain
-    # about superfluous newlines, so we remove one empty newline at the end of the file.
-    for eol in possible_eols:
-        if len(stdoutdata) > 0 and stdoutdata[-1] == eol:
-            stdoutdata = stdoutdata[:-1]
+        # Often shell commands will append a newline at the end of their output.
+        # It is not entirely clear when and why that happens.
+        # However, extra newlines are almost never required, while there are linters that complain
+        # about superfluous newlines, so we remove one empty newline at the end of the file.
+        for eol in possible_eols:
+            if len(stdoutdata) > 0 and stdoutdata[-1] == eol:
+                stdoutdata = stdoutdata[:-1]
 
-    lines = [stdoutdata]
-    for eol in possible_eols:
-        lines = [splitline for line in lines for splitline in line.split(eol)]
+        lines = [stdoutdata]
+        for eol in possible_eols:
+            lines = [splitline for line in lines for splitline in line.split(eol)]
 
-    vim.current.buffer[:] = lines
+        vim.current.buffer[:] = lines
+        vim.command('return 0')
 EOF
-
-    return 1
 endfunction
 
 
