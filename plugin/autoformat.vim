@@ -180,6 +180,7 @@ function! s:TryFormatterPython()
 
 python << EOF
 import vim, subprocess, os
+from tempfile import NamedTemporaryFile
 from subprocess import Popen, PIPE
 text = os.linesep.join(vim.current.buffer[:]) + os.linesep
 formatprg = vim.eval('b:formatprg')
@@ -189,6 +190,19 @@ env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
+
+if int(vim.eval('exists("b:autoformat_showdiff")')):
+    showdiff = int(vim.eval('b:autoformat_showdiff'))
+else:
+    showdiff = int(vim.eval('g:autoformat_showdiff'))
+if showdiff:
+    if int(vim.eval('exists("b:autoformat_diffcmd")')):
+        diffcmd = vim.eval('b:autoformat_diffcmd')
+    else: diffcmd = vim.eval('g:autoformat_diffcmd')
+    diffcmd += " -u "
+    if int(vim.eval('exists("b:autoformat_showdiff_synmatch")')):
+        synmatch = vim.eval("b:autoformat_showdiff_synmatch")
+    else: synmatch = vim.eval("g:autoformat_showdiff_synmatch")
 
 # When an entry is unicode, Popen can't deal with it in Python 2.
 # As a pragmatic fix, we'll omit that entry.
@@ -219,11 +233,56 @@ else:
         if len(stdoutdata) > 0 and stdoutdata[-1] == eol:
             stdoutdata = stdoutdata[:-1]
 
+    if showdiff:
+        f = NamedTemporaryFile(delete=False)
+        f.truncate()
+        f.write(os.linesep.join(vim.current.buffer[:]))
+        f.flush()
+        p = subprocess.Popen(diffcmd + f.name + " -", env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        stdoutdata, stderrdata = p.communicate(stdoutdata)
+        os.remove(f.name)
+        f.close()
+
     lines = [stdoutdata]
     for eol in possible_eols:
         lines = [splitline for line in lines for splitline in line.split(eol)]
 
-    vim.current.buffer[:] = lines
+    if showdiff:
+        if int(vim.eval("exists('b:autoformat_difpath')")):
+            dif = open(vim.eval("b:autoformat_difpath"), "w")
+        else:
+            dif = NamedTemporaryFile(delete=False)
+        dif.truncate()
+        dif.write(os.linesep.join(lines))
+        dif.close()
+        vim.command("let b:autoformat_difpath='" + dif.name + "'")
+
+        hlines  = []
+        lnfirst = -1
+        deletelast = False
+        for i in range(len(lines)):
+            line = lines[i]
+            if len(line) < 1:
+                continue
+            if line[0] == '@':
+                lnfirst = int(line[4:line.find(',')])
+                continue
+            elif lnfirst == -1:
+                continue
+            if line[0] == '-': hlines += [lnfirst]
+            if line[0] != '+': lnfirst += 1
+            if line == "\\ No newline at end of file" and \
+                i == len(lines)-2 and not len(lines[i+1]):
+                deletelast = True
+
+        if deletelast and len(hlines):
+            hlines = hlines[:-1]
+        vim.command('syn clear')
+        vim.command('syn on')
+        for hl in hlines:
+            vim.command('syn match %s \".*\\%%%dl.*\" containedin=ALL' % (synmatch, hl))
+    else:
+        vim.current.buffer[:] = lines
 EOF
 
     return 1
@@ -245,6 +304,19 @@ env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
+
+if int(vim.eval('exists("b:autoformat_showdiff")')):
+    showdiff = int(vim.eval('b:autoformat_showdiff'))
+else:
+    showdiff = int(vim.eval('g:autoformat_showdiff'))
+if showdiff:
+    if int(vim.eval('exists("b:autoformat_diffcmd")')):
+        diffcmd = vim.eval('b:autoformat_diffcmd')
+    else: diffcmd = vim.eval('g:autoformat_diffcmd')
+    diffcmd += " -u "
+    if int(vim.eval('exists("b:autoformat_showdiff_synmatch")')):
+        synmatch = vim.eval("b:autoformat_showdiff_synmatch")
+    else: synmatch = vim.eval("g:autoformat_showdiff_synmatch")
 
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
@@ -269,11 +341,56 @@ else:
         if len(stdoutdata) > 0 and stdoutdata[-1] == eol:
             stdoutdata = stdoutdata[:-1]
 
+    if showdiff:
+        f = NamedTemporaryFile(delete=False)
+        f.truncate()
+        f.write(os.linesep.join(vim.current.buffer[:]))
+        f.flush()
+        p = subprocess.Popen(diffcmd + f.name + " -", env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        stdoutdata, stderrdata = p.communicate(stdoutdata)
+        os.remove(f.name)
+        f.close()
+
     lines = [stdoutdata]
     for eol in possible_eols:
         lines = [splitline for line in lines for splitline in line.split(eol)]
 
-    vim.current.buffer[:] = lines
+    if showdiff:
+        if int(vim.eval("exists('b:autoformat_difpath')")):
+            dif = open(vim.eval("b:autoformat_difpath"), "w")
+        else:
+            dif = NamedTemporaryFile(delete=False)
+        dif.truncate()
+        dif.write(os.linesep.join(lines))
+        dif.close()
+        vim.command("let b:autoformat_difpath='" + dif.name + "'")
+
+        hlines  = []
+        lnfirst = -1
+        deletelast = False
+        for i in range(len(lines)):
+            line = lines[i]
+            if len(line) < 1:
+                continue
+            if line[0] == '@':
+                lnfirst = int(line[4:line.find(',')])
+                continue
+            elif lnfirst == -1:
+                continue
+            if line[0] == '-': hlines += [lnfirst]
+            if line[0] != '+': lnfirst += 1
+            if line == "\\ No newline at end of file" and \
+                i == len(lines)-2 and not len(lines[i+1]):
+                deletelast = True
+
+        if deletelast and len(hlines):
+            hlines = hlines[:-1]
+        vim.command('syn clear')
+        vim.command('syn on')
+        for hl in hlines:
+            vim.command('syn match %s \".*\\%%%dl.*\" containedin=ALL' % (synmatch, hl))
+    else:
+        vim.current.buffer[:] = lines
 EOF
 
     return 1
@@ -317,6 +434,31 @@ endfunction
 command! NextFormatter call s:NextFormatter()
 command! PreviousFormatter call s:PreviousFormatter()
 command! CurrentFormatter call s:CurrentFormatter()
+
+function! s:ShowDiff() abort
+    if exists("b:autoformat_difpath")
+        exec "sp " . b:autoformat_difpath
+        setl buftype=nofile ft=diff bufhidden=wipe ro nobuflisted noswapfile nowrap
+    endif
+endfunction
+
+function! s:BufDeleted(bufnr) abort
+    let l:nr = str2nr(a:bufnr)
+    if bufexists(l:nr) && !buflisted(l:nr)
+        return
+    endif
+    let l:difpath = getbufvar(l:nr, "autoformat_difpath")
+    if l:difpath != ""
+        call delete(l:difpath)
+    endif
+    call setbufvar(l:nr, "autoformat_difpath", "")
+endfunction
+
+command! AutoformatShowDiff call s:ShowDiff()
+augroup Autoformat
+    autocmd!
+    autocmd BufDelete * call s:BufDeleted(expand('<abuf>'))
+augroup END
 
 " Other commands
 function! s:RemoveTrailingSpaces()
