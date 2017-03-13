@@ -160,84 +160,45 @@ if !exists('g:formatdef_xo_javascript')
     let g:formatdef_xo_javascript = '"xo --fix --stdin"'
 endif
 
-" Setup ESLint local. Setup is done for each file in an autocmd to make sure
-" the most local instance of ESLint and corresponding config is used.
+" Setup ESLint local. Setup is done on formatter execution if ESLint and
+" corresponding config is found they are used, otherwiese the formatter fails.
 " No windows support at the moment.
 if !exists('g:formatdef_eslint_local') && !has('win32')
 	" set disable flag when not defined already
 	let g:formatters_javascript_eslint_local = exists('g:formatters_javascript_eslint_local') ? g:formatters_javascript_eslint_local : 1
-	" find file upwards the filesystem
-	function! s:find_upward(path, filename)  
-		let l:current_folder = fnamemodify(a:path, ':p:h')
-		if l:current_folder == "/"
-			return
-		endif
-		let l:prog = l:current_folder.a:filename
-		if filereadable(l:prog)
-			return l:prog
-		elseif l:current_folder == "/"
-			return
-		else
-			return s:find_upward(fnamemodify(l:current_folder, ':h'), a:filename)
-		endif
-	endfunction
 
-	" add 'eslint_local' as first javscript formatter
-	function s:register_eslint_local() 
-		let l:index = index(g:formatters_javascript, 'eslint_local')
-		if l:index == -1
-			call insert(g:formatters_javascript, 'eslint_local', 0)
-		endif
-	endfunction
-
-	" remmove 'eslint_local' from javscript formatters
-	function s:unregister_eslint_local() 
-		let l:index = index(g:formatters_javascript, 'eslint_local')
-		if l:index != -1
-			call remove(g:formatters_javascript, l:index)
-		endif
-	endfunction
-
-	function! s:setup_eslint_local_cmd(path)
+	function! g:SetupESLintLocalCmd()
+		let l:path = fnamemodify(expand('%'), ':p')
 		let verbose = &verbose || g:autoformat_verbosemode == 1
 		if g:formatters_javascript_eslint_local == 0
-			echomsg 'Disable ESLint local'
-			call s:unregister_eslint_local()
-			return
+			return "(>&2 echo 'ESLint local is disbaled')"
 		endif
 		" find formatter & config file
-		let l:prog = s:find_upward(a:path, '/node_modules/.bin/eslint')
-		let l:cfg = s:find_upward(a:path, '/.eslintrc.json')
+		let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
+		let l:cfg = findfile('.eslintrc.json', l:path.";")
 		if empty(l:cfg)
-			let l:cfg = s:find_upward(a:path, '/.eslintrc')
+			let l:cfg = findfile('.eslintrc', l:path.";")
 		endif
 		if (empty(l:cfg) || empty(l:prog))
 			if verbose
-				echomsg 'No local ESLint program and/or config found'
+				return "(>&2 echo 'No local ESLint program and/or config found')"
 			endif
-			call s:unregister_eslint_local();
 			return 
 		endif
 
-		" This formatter uses a temporary file as ESLint has not option to only
-		" print the formatted source to stdout. It will allways modify the file 
-		" in place.
-		if !exists('l:eslint_js_tmp_file')
-			let l:eslint_js_tmp_file = fnameescape(tempname().".js")
-		endif
-		let g:formatdef_eslint_local = 
-					\ '"rm -f '.l:eslint_js_tmp_file.';
-					\ cat '.expand('%').' > '.l:eslint_js_tmp_file.'; '
-					\ .l:prog.' -c '.l:cfg.' --fix '.l:eslint_js_tmp_file.' 1> /dev/null; exit_code=$?
-					\ cat '.l:eslint_js_tmp_file.'; rm -f '.l:eslint_js_tmp_file.'; exit $exit_code"'
-		call s:register_eslint_local()	
+		" This formatter uses a temporary file as ESLint has not option to print 
+		" the formatted source to stdout without modifieing the file.
+		let l:eslint_js_tmp_file = fnameescape(tempname().".js")
+		return "rm -f ".l:eslint_js_tmp_file."; cat ".l:path." > ".l:eslint_js_tmp_file.";"
+					 \ .l:prog." -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
+					 \ cat ".l:eslint_js_tmp_file."; rm -f ".l:eslint_js_tmp_file."; exit $exit_code"
 	endfunction
-	" register hook to setup lint command correctly for the current file
-	autocmd FileType javascript call s:setup_eslint_local_cmd(expand('<afile>'))
+	let g:formatdef_eslint_local = "g:SetupESLintLocalCmd()"
 endif
 
 if !exists('g:formatters_javascript')
     let g:formatters_javascript = [
+				\ 'eslint_local',
                 \ 'jsbeautify_javascript',
                 \ 'pyjsbeautify_javascript',
                 \ 'jscs',
@@ -245,7 +206,6 @@ if !exists('g:formatters_javascript')
                 \ 'xo_javascript'
                 \ ]
 endif
-
 
 " JSON
 if !exists('g:formatdef_jsbeautify_json')

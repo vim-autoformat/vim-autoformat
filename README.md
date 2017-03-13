@@ -160,8 +160,8 @@ Here is a list of formatprograms that are supported by default, and thus will be
 
 * `ESlint (local)` for __Javascript__. http://eslint.org/
   It can be installed by running `npm install eslint`. The linter is then installed locally at ```node_modules/.bin/eslint```
-  When opening a javascript file (```vim autocmd FileType javscript```) vim will walk up from the current file to search for such local installation and a
-  ESLint configuration file (either .eslintrc or eslintrc.json). When both are   found eslint will 	be configured as first javascript formatter.
+  When running formatter vim will walk up from the current file to search for such local installation and a
+  ESLint configuration file (either .eslintrc or eslintrc.json). When both are found eslint is executed with the --fix argument.
   This linter can be disabled using global setting
   ```vim
   let g:formatters_javascript_eslint_local = 0
