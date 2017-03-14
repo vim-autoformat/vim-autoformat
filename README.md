@@ -162,10 +162,6 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed by running `npm install eslint`. The linter is then installed locally at ```node_modules/.bin/eslint```
   When running formatter vim will walk up from the current file to search for such local installation and a
   ESLint configuration file (either .eslintrc or eslintrc.json). When both are found eslint is executed with the --fix argument.
-  This linter can be disabled using global setting
-  ```vim
-  let g:formatters_javascript_eslint_local = 0
-  ```
   Currently only working on *nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
 
 * `xo` for __Javascript__.
