@@ -186,8 +186,9 @@ if !exists('g:formatdef_eslint_local')
 		" This formatter uses a temporary file as ESLint has not option to print 
 		" the formatted source to stdout without modifieing the file.
 		let l:eslint_js_tmp_file = fnameescape(tempname().".js")
-		return "rm -f ".l:eslint_js_tmp_file."; cat ".l:path." > ".l:eslint_js_tmp_file.";"
-					 \ .l:prog." -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
+		let content = getline('1', '$')
+		call writefile(content, l:eslint_js_tmp_file)
+		return l:prog." -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
 					 \ cat ".l:eslint_js_tmp_file."; rm -f ".l:eslint_js_tmp_file."; exit $exit_code"
 	endfunction
 	let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
