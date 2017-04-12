@@ -160,8 +160,43 @@ if !exists('g:formatdef_xo_javascript')
     let g:formatdef_xo_javascript = '"xo --fix --stdin"'
 endif
 
+" Setup ESLint local. Setup is done on formatter execution if ESLint and
+" corresponding config is found they are used, otherwiese the formatter fails.
+" No windows support at the moment.
+if !exists('g:formatdef_eslint_local')
+	function! g:BuildESLintLocalCmd()
+		let l:path = fnamemodify(expand('%'), ':p')
+		let verbose = &verbose || g:autoformat_verbosemode == 1
+		if has('win32')
+			return "(>&2 echo 'ESLint Local not supported on win32')"
+		endif
+		" find formatter & config file
+		let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
+		let l:cfg = findfile('.eslintrc.json', l:path.";")
+		if empty(l:cfg)
+			let l:cfg = findfile('.eslintrc', l:path.";")
+		endif
+		if (empty(l:cfg) || empty(l:prog))
+			if verbose
+				return "(>&2 echo 'No local ESLint program and/or config found')"
+			endif
+			return 
+		endif
+
+		" This formatter uses a temporary file as ESLint has not option to print 
+		" the formatted source to stdout without modifieing the file.
+		let l:eslint_js_tmp_file = fnameescape(tempname().".js")
+		let content = getline('1', '$')
+		call writefile(content, l:eslint_js_tmp_file)
+		return l:prog." -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
+					 \ cat ".l:eslint_js_tmp_file."; rm -f ".l:eslint_js_tmp_file."; exit $exit_code"
+	endfunction
+	let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
+endif
+
 if !exists('g:formatters_javascript')
     let g:formatters_javascript = [
+				\ 'eslint_local',
                 \ 'jsbeautify_javascript',
                 \ 'pyjsbeautify_javascript',
                 \ 'jscs',
@@ -169,7 +204,6 @@ if !exists('g:formatters_javascript')
                 \ 'xo_javascript'
                 \ ]
 endif
-
 
 " JSON
 if !exists('g:formatdef_jsbeautify_json')
