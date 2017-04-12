@@ -158,6 +158,12 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed by running `npm install -g standard` (`nodejs` is required). No more configuration needed.
   More information about the style guide can be found here: http://standardjs.com/.
 
+* `ESlint (local)` for __Javascript__. http://eslint.org/
+  It can be installed by running `npm install eslint`. The linter is then installed locally at ```node_modules/.bin/eslint```
+  When running formatter vim will walk up from the current file to search for such local installation and a
+  ESLint configuration file (either .eslintrc or eslintrc.json). When both are found eslint is executed with the --fix argument.
+  Currently only working on *nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
+
 * `xo` for __Javascript__.
   It can be installed by running `npm install -g xo` (`nodejs` is required).
   Here is the link to the repository: https://github.com/sindresorhus/xo.
@@ -213,7 +219,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed using [`cabal`](https://www.haskell.org/cabal/) build tool. Installation instructions are available at https://github.com/jaspervdj/stylish-haskell#installation
 
 * `remark` for __Markdown__.
-  A Javascript based markdown processor that can be installed with `npm install -g remark`. More info is available at https://github.com/wooorm/remark.
+  A Javascript based markdown processor that can be installed with `npm install -g remark-cli`. More info is available at https://github.com/wooorm/remark.
 
 * `fprettify` for modern __Fortran__.
   Download from [official repository](https://github.com/pseewald/fprettify). Install with `./setup.py install` or `./setup.py install --user`.
