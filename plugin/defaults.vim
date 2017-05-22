@@ -203,9 +203,37 @@ if !exists('g:formatdef_eslint_local')
 	let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
 endif
 
+if !exists('g:formatdef_eslint_global')
+    function! g:BuildESLintGlobalCmd()
+        let l:path = systemlist('npm bin -g')[0]
+
+		let l:prog = findfile('eslint', l:path.";")
+        if empty(l:prog)
+            return "(>&2 echo 'No global ESLint program found')"
+        endif
+
+        let l:cfg = findfile('.eslintrc', $HOME.";")
+        if empty(l:cfg)
+				return "(>&2 echo 'No global ESLint config found')"
+        end
+
+        " This formatter uses a temporary file as ESLint has not option to print
+        " the formatted source to stdout without modifieing the file.
+        let l:eslint_js_tmp_file = fnameescape(tempname().".js")
+        let content = getline('1', '$')
+        call writefile(content, l:eslint_js_tmp_file)
+
+        return "eslint -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
+                    \ cat ".l:eslint_js_tmp_file."; rm -f ".l:eslint_js_tmp_file."; exit $exit_code"
+    endfunction
+
+    let g:formatdef_eslint_global = "g:BuildESLintGlobalCmd()"
+endif
+
 if !exists('g:formatters_javascript')
     let g:formatters_javascript = [
 				\ 'eslint_local',
+				\ 'eslint_global',
                 \ 'jsbeautify_javascript',
                 \ 'pyjsbeautify_javascript',
                 \ 'jscs',
