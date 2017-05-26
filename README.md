@@ -22,7 +22,7 @@ Put this in your `.vimrc`.
 Plugin 'Chiel92/vim-autoformat'
 ```
 
-Then restart vim and run `:PluginInstall`. Alternatively, you could run `:source .vimrc`
+Then restart vim and run `:PluginInstall`. Alternatively, you could run `:source $MYVIMRC`
 to reload your `.vimrc` without restarting vim.
 To update the plugin to the latest version, you can run `:PluginUpdate`.
 
