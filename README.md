@@ -16,13 +16,14 @@ by running `vim --version` and check that `+python` or `+python3` is listed amon
 
 #### Vundle
 
-Put this in your .vimrc
+Put this in your `.vimrc`.
 
 ```vim
 Plugin 'Chiel92/vim-autoformat'
 ```
 
-Then restart vim and run `:PluginInstall`.
+Then restart vim and run `:PluginInstall`. Alternatively, you could run `:source $MYVIMRC`
+to reload your `.vimrc` without restarting vim.
 To update the plugin to the latest version, you can run `:PluginUpdate`.
 
 #### Pathogen
