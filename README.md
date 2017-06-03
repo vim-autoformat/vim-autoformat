@@ -165,6 +165,12 @@ Here is a list of formatprograms that are supported by default, and thus will be
   ESLint configuration file (either .eslintrc or eslintrc.json). When both are found eslint is executed with the --fix argument.
   Currently only working on *nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
 
+* `ESlint (global)` for __Javascript__. http://eslint.org/
+  It can be installed by running `npm install -g eslint`. The linter is then installed globally at ```npm bin -g```
+  When running formatter vim will search for such global installation and a ESLint configuration file ($HOME/.eslintrc). 
+  When both are found eslint is executed with the --fix argument.
+  Currently only working on *nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
+
 * `xo` for __Javascript__.
   It can be installed by running `npm install -g xo` (`nodejs` is required).
   Here is the link to the repository: https://github.com/sindresorhus/xo.
