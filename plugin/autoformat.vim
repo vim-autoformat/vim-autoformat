@@ -105,6 +105,11 @@ function! s:TryAllFormatters(...) range
         " once for getting the final expression
         let b:formatprg = eval(eval(formatdef_var))
 
+        if verbose
+            echomsg "Trying definition from ".formatdef_var
+            echomsg "Evaluated formatprg: ".b:formatprg
+        endif
+
         " Detect if +python or +python3 is available, and call the corresponding function
         if !has("python") && !has("python3")
             echohl WarningMsg |
@@ -209,8 +214,7 @@ stdoutdata, stderrdata = p.communicate(text)
 if stderrdata:
     if verbose:
         formattername = vim.eval('b:formatters[s:index]')
-        print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
-        print('Failing config: {}'.format(repr(formatprg), stderrdata))
+        print('Formatter {} has errors: {}'.format(formattername, stderrdata))
     vim.command('return 1')
 else:
     # It is not certain what kind of line endings are being used by the format program.
@@ -265,12 +269,10 @@ else:
     if stderrdata:
         if verbose:
             formattername = vim.eval('b:formatters[s:index]')
-            print('Formatter {} has errors: {} Skipping.'.format(formattername, stderrdata))
-            print('Failing config: {}'.format(repr(formatprg), stderrdata))
+            print('Formatter {} has errors: {}'.format(formattername, stderrdata))
     elif not stdoutdata:
         if verbose:
-            print('Formatter {} gives empty result: {} Skipping.'.format(formattername, stderrdata))
-            print('Failing config: {}'.format(repr(formatprg), stderrdata))
+            print('Formatter {} gives empty result: {}'.format(formattername, stderrdata))
     else:
         # It is not certain what kind of line endings are being used by the format program.
         # Therefore we simply split on all possible eol characters.
