@@ -42,8 +42,14 @@ if !exists('g:formatter_yapf_style')
     let g:formatter_yapf_style = 'pep8'
 endif
 if !exists('g:formatdef_yapf')
-    let g:formatdef_yapf = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
+    let s:configfile_def   = "'yapf -l '.a:firstline.'-'.a:lastline"
+    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.'}\" -l '.a:firstline.'-'.a:lastline"
+    let g:formatdef_yapf   = "g:YAPFFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
+
+function! g:YAPFFormatConfigFileExists()
+    return len(findfile(".style.yapf", expand("%:p:h").";")) || len(findfile("setup.cfg", expand("%:p:h").";"))
+endfunction
 
 if !exists('g:formatters_python')
     let g:formatters_python = ['autopep8','yapf']
