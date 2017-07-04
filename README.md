@@ -135,7 +135,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
   And here the link to its page on the python website: http://pypi.python.org/pypi/autopep8/0.5.2.
 
 * `yapf` for __Python__ (supports formatting ranges).
-  It is readily available through PIP. Most users can install with the terminal command `sudo pip install yapf` or `pip  install --user yapf`.
+  Vim-autoformat checks whether there exists a `.style.yapf` or a `setup.cfg` file up in the current directory's ancestry.
+  Based on that it either uses that file or tries to match vim options as much as possible.
+  It is readily available through PIP.
+  Most users can install with the terminal command `sudo pip install yapf` or `pip  install --user yapf`.
   YAPF has one optional configuration variable to control the formatter style.
   For example:
 
