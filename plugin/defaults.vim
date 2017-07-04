@@ -185,10 +185,10 @@ if !exists('g:formatdef_eslint_local')
             if verbose
                 return "(>&2 echo 'No local ESLint program and/or config found')"
             endif
-            return 
+            return
         endif
 
-        " This formatter uses a temporary file as ESLint has not option to print 
+        " This formatter uses a temporary file as ESLint has not option to print
         " the formatted source to stdout without modifieing the file.
         let l:eslint_js_tmp_file = fnameescape(tempname().".js")
         let content = getline('1', '$')
