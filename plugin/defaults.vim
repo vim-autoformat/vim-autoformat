@@ -43,7 +43,7 @@ if !exists('g:formatter_yapf_style')
 endif
 if !exists('g:formatdef_yapf')
     let s:configfile_def   = "'yapf -l '.a:firstline.'-'.a:lastline"
-    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.'}\" -l '.a:firstline.'-'.a:lastline"
+    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
     let g:formatdef_yapf   = "g:YAPFFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
 
