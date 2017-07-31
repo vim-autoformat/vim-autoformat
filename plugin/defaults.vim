@@ -42,8 +42,14 @@ if !exists('g:formatter_yapf_style')
     let g:formatter_yapf_style = 'pep8'
 endif
 if !exists('g:formatdef_yapf')
-    let g:formatdef_yapf = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
+    let s:configfile_def   = "'yapf -l '.a:firstline.'-'.a:lastline"
+    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
+    let g:formatdef_yapf   = "g:YAPFFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
+
+function! g:YAPFFormatConfigFileExists()
+    return len(findfile(".style.yapf", expand("%:p:h").";")) || len(findfile("setup.cfg", expand("%:p:h").";"))
+endfunction
 
 if !exists('g:formatters_python')
     let g:formatters_python = ['autopep8','yapf']
@@ -185,10 +191,10 @@ if !exists('g:formatdef_eslint_local')
             if verbose
                 return "(>&2 echo 'No local ESLint program and/or config found')"
             endif
-            return 
+            return
         endif
 
-        " This formatter uses a temporary file as ESLint has not option to print 
+        " This formatter uses a temporary file as ESLint has not option to print
         " the formatted source to stdout without modifieing the file.
         let l:eslint_js_tmp_file = fnameescape(tempname().".js")
         let content = getline('1', '$')
