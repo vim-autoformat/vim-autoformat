@@ -1,3 +1,4 @@
+
 "
 " This file contains default settings and all format program definitions and links these to filetypes
 "
@@ -158,8 +159,18 @@ if !exists('g:formatdef_standard_javascript')
     let g:formatdef_standard_javascript = '"standard --fix --stdin"'
 endif
 
+" This is an xo formatter (inspired by the above eslint formatter)
+" To support ignore and overrides options, we need to use a tmp file
+" So we create a tmp file here and then remove it afterwards
 if !exists('g:formatdef_xo_javascript')
-    let g:formatdef_xo_javascript = '"xo --fix --stdin"'
+    function! g:BuildXOLocalCmd()
+        let l:xo_js_tmp_file = fnameescape(tempname().".js")
+        let content = getline('1', '$')
+        call writefile(content, l:xo_js_tmp_file)
+        return "xo --fix ".l:xo_js_tmp_file." 1> /dev/null; exit_code=$?
+                     \ cat ".l:xo_js_tmp_file."; rm -f ".l:xo_js_tmp_file."; exit $exit_code"
+    endfunction
+    let g:formatdef_xo_javascript = "g:BuildXOLocalCmd()"
 endif
 
 " Setup ESLint local. Setup is done on formatter execution if ESLint and
@@ -397,4 +408,3 @@ endif
 if !exists('g:formatters_fortran')
     let g:formatters_fortran = ['fprettify']
 endif
-
