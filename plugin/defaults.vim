@@ -346,7 +346,7 @@ endif
 
 " Rust
 if !exists('g:formatdef_rustfmt')
-    let g:formatdef_rustfmt = '"rustfmt"'
+    let g:formatdef_rustfmt = "'rustfmt --file-lines ''[{\"file\": \"' . expand('%:p') . '\", \"range\": [' . a:firstline . ',' . a:lastline . ']}]'''"
 endif
 
 if !exists('g:formatters_rust')
