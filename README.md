@@ -331,16 +331,12 @@ If you have any suggestions on this plugin or on this readme, if you have some n
 formatter definition that can be added to the defaults, or if you experience problems, please
 contact me by creating an issue in this repository.
 
-## Change log
-
-### January 2017
-
-* Add `xo` formatter for JavaScript.
+## Major Change Log
 
 ### March 2016
-* Don't use the option formatprg internally anymore, to always have the possible of using the default `gq`
+* We don't use the option formatprg internally anymore, to always have the possible of using the default `gq`
   command.
-* Add more fallback options.
+* More fallback options have been added.
 
 ### June 2015
 
@@ -366,8 +362,6 @@ contact me by creating an issue in this repository.
 
 ### March 16 2013
 
-The `dynamic_indent_width` branch has been merged into the master branch.
-
 * The options `expandtab`, `shiftwidth`, `tabstop` and `softtabstop` are not overwritten anymore.
 * This obsoletes `g:autoformat_no_default_shiftwidth`
 * `g:formatprg_args_expr_<filetype>` is introduced.
@@ -381,8 +375,6 @@ The `dynamic_indent_width` branch has been merged into the master branch.
 * When no formatter is installed or defined, vim will now auto-indent the file instead. This uses the indentfile for that specific filetype.
 
 ### March 9 2013
-
-The `custom_config` branch has been merged into the master branch.
 
 * Customization of formatprograms can be done easily now, as explained in the readme.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
