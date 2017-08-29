@@ -164,10 +164,10 @@ endif
 " So we create a tmp file here and then remove it afterwards
 if !exists('g:formatdef_xo_javascript')
     function! g:BuildXOLocalCmd()
-        let l:xo_js_tmp_file = fnameescape(tempname().".js")
+        let l:xo_js_tmp_file = fnameescape(expand("%:p:h")."/xo-tmp-".localtime().".js")
         let content = getline('1', '$')
         call writefile(content, l:xo_js_tmp_file)
-        return "xo --fix ".l:xo_js_tmp_file." 1> /dev/null; exit_code=$?
+        return "xo --fix ".fnamemodify(l:xo_js_tmp_file, ":.")." 1> /dev/null; exit_code=$?
                      \ cat ".l:xo_js_tmp_file."; rm -f ".l:xo_js_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_xo_javascript = "g:BuildXOLocalCmd()"
