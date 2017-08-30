@@ -1,10 +1,5 @@
 " Function for finding the formatters for this filetype
 " Result is stored in b:formatters
-
-if !exists('g:autoformat_autoindent')
-    let g:autoformat_autoindent = 1
-endif
-
 function! s:find_formatters(...)
     " Detect verbosity
     let verbose = &verbose || g:autoformat_verbosemode == 1
@@ -347,6 +342,3 @@ function! s:RemoveTrailingSpaces()
     endtry
 endfunction
 command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
-
-" Put the uncopyable messages text into the buffer
-command! PutMessages redir @" | messages | redir END | put
