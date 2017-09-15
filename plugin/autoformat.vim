@@ -203,7 +203,16 @@ for key,val in env.iteritems():
     if type(key) == type(val) == str:
         newenv[key] = val
 env=newenv
-p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+buffer_name = vim.current.buffer.name
+if buffer_name:
+    cwd = os.path.dirname(buffer_name)
+else:
+    cwd = os.getcwd()
+if verbose:
+    print('Current working directory: {}'.format(cwd))
+
+p = subprocess.Popen(formatprg, env=env, cwd=cwd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 
 if stderrdata:
@@ -254,8 +263,16 @@ if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
     env['PATH'] = ':'.join(extra_path) + ':' + env['PATH']
 
+buffer_name = vim.current.buffer.name
+if buffer_name:
+    cwd = os.path.dirname(buffer_name)
+else:
+    cwd = os.getcwd()
+if verbose:
+    print('Current working directory: {}'.format(cwd))
+    
 try:
-    p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    p = subprocess.Popen(formatprg, env=env, cwd=cwd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     stdoutdata, stderrdata = p.communicate(text)
 except (BrokenPipeError, IOError):
     if verbose:
