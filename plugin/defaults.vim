@@ -185,6 +185,9 @@ if !exists('g:formatdef_eslint_local')
         endif
         " find formatter & config file
         let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
+        if empty(l:prog)
+            let l:prog = findfile('~/.npm-global/bin/eslint')
+        endif
         let l:cfg = findfile('.eslintrc.js', l:path.";")
         if empty(l:cfg)
             let l:cfg = findfile('.eslintrc.yaml', l:path.";")
@@ -197,6 +200,21 @@ if !exists('g:formatdef_eslint_local')
         endif
         if empty(l:cfg)
             let l:cfg = findfile('.eslintrc', l:path.";")
+        endif
+        if empty(l:cfg)
+            let l:cfg = findfile('~/.eslintrc.js')
+        endif
+        if empty(l:cfg)
+            let l:cfg = findfile('~/.eslintrc.yaml')
+        endif
+        if empty(l:cfg)
+            let l:cfg = findfile('~/.eslintrc.yml')
+        endif
+        if empty(l:cfg)
+            let l:cfg = findfile('~/.eslintrc.json')
+        endif
+        if empty(l:cfg)
+            let l:cfg = findfile('~/.eslintrc')
         endif
         if (empty(l:cfg) || empty(l:prog))
             if verbose
