@@ -162,11 +162,11 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed by running `npm install -g standard` (`nodejs` is required). No more configuration needed.
   More information about the style guide can be found here: http://standardjs.com/.
 
-* `ESlint (local)` for __Javascript__. http://eslint.org/
-  It can be installed by running `npm install eslint`. The linter is then installed locally at ```node_modules/.bin/eslint```
-  When running formatter vim will walk up from the current file to search for such local installation and a
-  ESLint configuration file (either .eslintrc or eslintrc.json). When both are found eslint is executed with the --fix argument.
-  Currently only working on *nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
+* `ESlint (support local&global)` for __Javascript__. http://eslint.org/
+  It can be installed by running `npm install eslint` for local project or by running `npm install -g eslint` for global use. The linter is then installed locally at `$YOUR_PROJECT/node_modules/.bin/eslint` for local or `~/.npm-global/bin/eslint` for global.
+  When running formatter vim will walk up from the current file to search for such local installation and a ESLint configuration file (either .eslintrc.js or eslintrc.json). When local version is missing it will fallback to global version. When both requirements are found eslint is executed with the --fix argument.
+  Note that the formatter's name is still `eslint_local` for legacy reason while it has already support global `eslint`.
+  Currently only working on \*nix like OS (Linux, MacOS etc.) requires OS to provide sh like shell syntax
 
 * `xo` for __Javascript__.
   It can be installed by running `npm install -g xo` (`nodejs` is required).
