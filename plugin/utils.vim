@@ -1,6 +1,6 @@
 
 " Simple python-based random number generator
-function! g:Random()
+function! g:RandomInt()
 if has("python3")
 python3 << EOF
 import random
