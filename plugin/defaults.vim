@@ -218,7 +218,7 @@ if !exists('g:formatdef_eslint_local')
         endif
         if (empty(l:cfg) || empty(l:prog))
             if verbose
-                return "(>&2 echo 'No local&global ESLint program and/or config found')"
+                return "(>&2 echo 'No local or global ESLint program and/or config found')"
             endif
             return
         endif
