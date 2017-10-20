@@ -228,7 +228,8 @@ else:
     for eol in possible_eols:
         lines = [splitline for line in lines for splitline in line.split(eol)]
 
-    vim.current.buffer[:] = lines
+    if vim.current.buffer[:] != lines:
+        vim.current.buffer[:] = lines
 EOF
 
     return 0
@@ -287,7 +288,8 @@ else:
         for eol in possible_eols:
             lines = [splitline for line in lines for splitline in line.split(eol)]
 
-        vim.current.buffer[:] = lines
+        if vim.current.buffer[:] != lines:
+            vim.current.buffer[:] = lines
         vim.command('return 0')
 EOF
 endfunction
