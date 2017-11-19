@@ -287,6 +287,10 @@ if !exists('g:formatters_xml')
     let g:formatters_xml = ['tidy_xml']
 endif
 
+" SVG
+if !exists('g:formatters_svg')
+    let g:formatters_svg = ['tidy_xml']
+endif
 
 " XHTML
 if !exists('g:formatdef_tidy_xhtml')
