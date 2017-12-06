@@ -179,6 +179,7 @@ endif
 if !exists('g:formatdef_eslint_local')
     function! g:BuildESLintLocalCmd()
         let l:path = fnamemodify(expand('%'), ':p')
+        let l:ext = ".".expand('%:p:e')
         let verbose = &verbose || g:autoformat_verbosemode == 1
         if has('win32')
             return "(>&2 echo 'ESLint not supported on win32')"
@@ -225,11 +226,11 @@ if !exists('g:formatdef_eslint_local')
 
         " This formatter uses a temporary file as ESLint has not option to print
         " the formatted source to stdout without modifieing the file.
-        let l:eslint_js_tmp_file = fnameescape(tempname().".js")
+        let l:eslint_tmp_file = fnameescape(tempname().l:ext)
         let content = getline('1', '$')
-        call writefile(content, l:eslint_js_tmp_file)
-        return l:prog." -c ".l:cfg." --fix ".l:eslint_js_tmp_file." 1> /dev/null; exit_code=$?
-                     \ cat ".l:eslint_js_tmp_file."; rm -f ".l:eslint_js_tmp_file."; exit $exit_code"
+        call writefile(content, l:eslint_tmp_file)
+        return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
+                     \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
 endif
