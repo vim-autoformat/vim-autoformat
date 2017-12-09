@@ -164,7 +164,7 @@ endif
 " So we create a tmp file here and then remove it afterwards
 if !exists('g:formatdef_xo_javascript')
     function! g:BuildXOLocalCmd()
-        let l:xo_js_tmp_file = fnameescape(tempname().".js")
+        let l:xo_js_tmp_file = fnameescape(g:RandomInt().".js")
         let content = getline('1', '$')
         call writefile(content, l:xo_js_tmp_file)
         return "xo --fix ".l:xo_js_tmp_file." 1> /dev/null; exit_code=$?
