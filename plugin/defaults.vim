@@ -49,7 +49,7 @@ if !exists('g:formatdef_yapf')
 endif
 
 function! g:YAPFFormatConfigFileExists()
-    return len(findfile(".style.yapf", expand("%:p:h").";")) || len(findfile("setup.cfg", expand("%:p:h").";"))
+    return len(findfile(".style.yapf", expand("%:p:h").";")) || len(findfile("setup.cfg", expand("%:p:h").";")) || filereadable(exists('$XDG_CONFIG_HOME') ? expand('$XDG_CONFIG_HOME/yapf/style') : expand('~/.config/yapf/style'))
 endfunction
 
 if !exists('g:formatters_python')
