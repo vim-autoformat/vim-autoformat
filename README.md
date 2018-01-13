@@ -228,6 +228,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `fprettify` for modern __Fortran__.
   Download from [official repository](https://github.com/pseewald/fprettify). Install with `./setup.py install` or `./setup.py install --user`.
 
+* `mix format` for __Elixir__.
+  `mix format` is included with Elixir 1.6+.
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
