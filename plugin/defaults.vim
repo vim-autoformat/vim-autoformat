@@ -444,3 +444,12 @@ endif
 if !exists('g:formatters_fortran')
     let g:formatters_fortran = ['fprettify']
 endif
+
+" Elixir
+if !exists('g:formatdef_mix_format')
+    let g:formatdef_mix_format = '"mix format -"'
+endif
+
+if !exists('g:formatters_elixir')
+    let g:formatters_elixir = ['mix_format']
+endif
