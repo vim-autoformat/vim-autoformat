@@ -231,6 +231,11 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `mix format` for __Elixir__.
   `mix format` is included with Elixir 1.6+.
 
+* `fixjson` for JSON.
+  It is a JSON file fixer/formatter for humans using (relaxed) JSON5. It fixes various failures while humans writing JSON and formats JSON codes.
+  It can be installed with `npm install -g fixjson`. More info is available at https://github.com/rhysd/fixjson.
+
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in

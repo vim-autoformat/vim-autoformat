@@ -264,10 +264,15 @@ if !exists('g:formatdef_jsbeautify_json')
     endif
 endif
 
+if !exists('g:formatdef_fixjson')
+    let g:formatdef_fixjson =  '"fixjson"'
+endif
+
 
 if !exists('g:formatters_json')
     let g:formatters_json = [
                 \ 'jsbeautify_json',
+                \ 'fixjson',
                 \ ]
 endif
 
