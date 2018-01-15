@@ -228,6 +228,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `fprettify` for modern __Fortran__.
   Download from [official repository](https://github.com/pseewald/fprettify). Install with `./setup.py install` or `./setup.py install --user`.
 
+* `fixjson` for JSON.
+  It is a JSON file fixer/formatter for humans using (relaxed) JSON5. It fixes various failures while humans writing JSON and formats JSON codes.
+  It can be installed with `npm install -g fixjson`. More info is available at https://github.com/rhysd/fixjson.
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
