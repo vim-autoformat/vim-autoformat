@@ -453,3 +453,12 @@ endif
 if !exists('g:formatters_elixir')
     let g:formatters_elixir = ['mix_format']
 endif
+
+" Shell
+if !exists('g:formatdef_shfmt')
+    let g:formatdef_shfmt = '"shfmt -i ".(&expandtab ? shiftwidth() : "0")'
+endif
+
+if !exists('g:formatters_sh')
+    let g:formatters_sh = ['shfmt']
+endif
