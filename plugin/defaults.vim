@@ -188,6 +188,9 @@ if !exists('g:formatdef_eslint_local')
         let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
         if empty(l:prog)
             let l:prog = findfile('~/.npm-global/bin/eslint')
+            if empty(l:prog)
+                let l:prog = findfile('/usr/local/bin/eslint')
+            endif
         endif
         "initial
         let l:cfg = fnamemodify(findfile('.eslintrc.js', l:path.";"),':p')
