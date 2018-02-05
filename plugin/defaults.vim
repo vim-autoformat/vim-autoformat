@@ -189,42 +189,38 @@ if !exists('g:formatdef_eslint_local')
         if empty(l:prog)
             let l:prog = findfile('~/.npm-global/bin/eslint')
         endif
+
         "initial
-        let l:cfg = fnamemodify(findfile('.eslintrc.js', l:path.";"),':p')
+        let l:cfg = findfile('.eslintrc.js', l:path.";")
 
-        let l:tcfg = fnamemodify(findfile('.eslintrc.yaml', l:path.";"),':p')
-        if len(l:tcfg) > len(l:cfg)
-          let l:cfg = l:tcfg
-        endif
-        let l:tcfg = fnamemodify(findfile('.eslintrc.yml', l:path.";"),':p')
-        if len(l:tcfg) > len(l:cfg)
-          let l:cfg = l:tcfg
-        endif
-        let l:tcfg = fnamemodify(findfile('.eslintrc.json', l:path.";"),':p')
-        if len(l:tcfg) > len(l:cfg)
-          let l:cfg = l:tcfg
-        endif
-        let l:tcfg = fnamemodify(findfile('.eslintrc', l:path.";"),':p')
-        if len(l:tcfg) > len(l:cfg)
-          let l:cfg = l:tcfg
+        if empty(l:cfg)
+            let l:cfg_fallbacks = [
+                \'.eslintrc.yaml',
+                \'.eslintrc.yml',
+                \'.eslintrc.json',
+                \'.eslintrc',
+            \]
+
+            for i in l:cfg_fallbacks
+                let l:tcfg = findfile(i, l:path.";")
+                if !empty(l:tcfg)
+                    break
+                endif
+            endfor
+
+            if !empty(l:tcfg)
+                let l:cfg = fnamemodify(l:tcfg, ":p")
+            else
+                let l:cfg = findfile('~/.eslintrc.js')
+                for i in l:cfg_fallbacks
+                    if !empty(l:cfg)
+                        break
+                    endif
+                    let l:cfg = findfile("~/".i)
+                endfor
+            endif
         endif
 
-        " This is in case we are outside home folder
-        if empty(l:cfg)
-            let l:cfg = findfile('~/.eslintrc.js')
-        endif
-        if empty(l:cfg)
-            let l:cfg = findfile('~/.eslintrc.yaml')
-        endif
-        if empty(l:cfg)
-            let l:cfg = findfile('~/.eslintrc.yml')
-        endif
-        if empty(l:cfg)
-            let l:cfg = findfile('~/.eslintrc.json')
-        endif
-        if empty(l:cfg)
-            let l:cfg = findfile('~/.eslintrc')
-        endif
         if (empty(l:cfg) || empty(l:prog))
             if verbose
                 return "(>&2 echo 'No local or global ESLint program and/or config found')"
