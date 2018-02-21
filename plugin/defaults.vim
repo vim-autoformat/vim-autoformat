@@ -159,6 +159,12 @@ if !exists('g:formatdef_standard_javascript')
     let g:formatdef_standard_javascript = '"standard --fix --stdin"'
 endif
 
+if !exists('g:formatdef_prettier_javascript')
+    if filereadable('.prettierrc')
+        let g:formatdef_prettier_javascript = '"prettier"'
+    endif
+endif
+
 " This is an xo formatter (inspired by the above eslint formatter)
 " To support ignore and overrides options, we need to use a tmp file
 " So we create a tmp file here and then remove it afterwards
@@ -248,7 +254,8 @@ if !exists('g:formatters_javascript')
                 \ 'jsbeautify_javascript',
                 \ 'jscs',
                 \ 'standard_javascript',
-                \ 'xo_javascript'
+                \ 'prettier_javascript',
+                \ 'xo_javascript',
                 \ ]
 endif
 
