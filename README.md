@@ -286,7 +286,7 @@ vim-autoformat that this is the only formatter that we want to use for C# files.
 This allows you to define the arguments dynamically:
 
 ```vim
-let g:formatdef_my_custom_cs = '"--mode=cs --style=ansi -pcHs".&shiftwidth'
+let g:formatdef_my_custom_cs = '"astyle --mode=cs --style=ansi -pcHs".&shiftwidth'
 let g:formatters_cs = ['my_custom_cs']
 ```
 
