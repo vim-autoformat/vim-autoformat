@@ -180,59 +180,61 @@ if !exists('g:formatdef_xo_javascript')
 endif
 
 " Setup ESLint local. Setup is done on formatter execution if ESLint and
-" corresponding config is found they are used, otherwiese the formatter fails.
-" No windows support at the moment.
+" corresponding config is found they are used, otherwise the formatter fails.
 if !exists('g:formatdef_eslint_local')
     function! g:BuildESLintLocalCmd()
         let l:path = fnamemodify(expand('%'), ':p')
         let l:ext = ".".expand('%:p:e')
         let verbose = &verbose || g:autoformat_verbosemode == 1
+
+        " TODO: Add Windows support
         if has('win32')
             return "(>&2 echo 'ESLint not supported on win32')"
         endif
-        " find formatter & config file
+        " find eslint binary; it might be installed locally in the project
+        " directory
         let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
         if empty(l:prog)
-            let l:prog = findfile('~/.npm-global/bin/eslint')
+            " if eslint isn't installed locally, then it needs to be installed
+            " somewhere on the PATH, so this is sufficient
             if empty(l:prog)
-                let l:prog = findfile('/usr/local/bin/eslint')
+                let l:prog = 'eslint'
             endif
         endif
 
-        "initial
-        let l:cfg = findfile('.eslintrc.js', l:path.";")
+        " find eslintrc file; this may be one of several formats
+        let l:cfg_files = [
+            \'.eslintrc.js',
+            \'.eslintrc.yaml',
+            \'.eslintrc.yml',
+            \'.eslintrc.json',
+            \'.eslintrc',
+        \]
 
-        if empty(l:cfg)
-            let l:cfg_fallbacks = [
-                \'.eslintrc.yaml',
-                \'.eslintrc.yml',
-                \'.eslintrc.json',
-                \'.eslintrc',
-            \]
+        " try to find local, project specific configuration first
+        for f in l:cfg_files
+            let l:local_cfg = findfile(f, l:path.";")
+            if !empty(l:local_cfg)
+                break
+            endif
+        endfor
 
-            for i in l:cfg_fallbacks
-                let l:tcfg = findfile(i, l:path.";")
-                if !empty(l:tcfg)
+        if !empty(l:local_cfg)
+            let l:cfg = fnamemodify(l:local_cfg, ":p")
+        else
+            " couldn't find local config, so search for global config in home
+            " directory
+            for f in l:cfg_files
+                if !empty(l:cfg)
                     break
                 endif
+                let l:cfg = findfile("~/".f)
             endfor
-
-            if !empty(l:tcfg)
-                let l:cfg = fnamemodify(l:tcfg, ":p")
-            else
-                let l:cfg = findfile('~/.eslintrc.js')
-                for i in l:cfg_fallbacks
-                    if !empty(l:cfg)
-                        break
-                    endif
-                    let l:cfg = findfile("~/".i)
-                endfor
-            endif
         endif
 
-        if (empty(l:cfg) || empty(l:prog))
+        if empty(l:prog)
             if verbose
-                return "(>&2 echo 'No local or global ESLint program and/or config found')"
+                return "(>&2 echo 'Could not find `eslint` in PATH.')"
             endif
             return
         endif
@@ -242,8 +244,13 @@ if !exists('g:formatdef_eslint_local')
         let l:eslint_tmp_file = fnameescape(tempname().l:ext)
         let content = getline('1', '$')
         call writefile(content, l:eslint_tmp_file)
-        return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
-                     \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
+        if empty(l:cfg)
+            return l:prog." --no-eslintrc --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
+                \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
+        else
+            return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
+                \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
+        endif
     endfunction
     let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
 endif
