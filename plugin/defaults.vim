@@ -199,47 +199,13 @@ if !exists('g:formatdef_eslint_local')
             endif
         endif
 
-        " find eslintrc file; this may be one of several formats
-        let l:cfg_files = [
-            \'.eslintrc.js',
-            \'.eslintrc.yaml',
-            \'.eslintrc.yml',
-            \'.eslintrc.json',
-            \'.eslintrc',
-        \]
-
-        " try to find local, project specific configuration first
-        for f in l:cfg_files
-            let l:local_cfg = findfile(f, l:path.";")
-            if !empty(l:local_cfg)
-                break
-            endif
-        endfor
-
-        if !empty(l:local_cfg)
-            let l:cfg = fnamemodify(l:local_cfg, ":p")
-        else
-            " no local config in project dir, find global config in home dir
-            for f in l:cfg_files
-                if !empty(l:cfg)
-                    break
-                endif
-                let l:cfg = findfile("~/".f)
-            endfor
-        endif
-
         " This formatter uses a temporary file as ESLint has no option to print
         " the formatted source to stdout without modifying the file.
         let l:eslint_tmp_file = fnameescape(tempname().l:ext)
         let content = getline('1', '$')
         call writefile(content, l:eslint_tmp_file)
-        if empty(l:cfg)
-            return l:prog." --no-eslintrc --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
-                \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
-        else
-            return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
-                \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
-        endif
+        return l:prog." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
+            \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
 endif
