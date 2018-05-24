@@ -160,9 +160,7 @@ if !exists('g:formatdef_standard_javascript')
 endif
 
 if !exists('g:formatdef_prettier_javascript')
-    if filereadable('.prettierrc')
-        let g:formatdef_prettier_javascript = '"prettier"'
-    endif
+    let g:formatdef_prettier_javascript = '"prettier"'
 endif
 
 " This is an xo formatter (inspired by the above eslint formatter)
