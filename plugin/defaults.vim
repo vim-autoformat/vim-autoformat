@@ -21,10 +21,6 @@ if !exists('g:autoformat_verbosemode')
     let g:autoformat_verbosemode = 0
 endif
 
-if !exists('g:formatdef_prettier')
-    let g:formatdef_prettier = '"prettier"'
-endif
-
 
 " Python
 if !exists('g:formatdef_autopep8')
@@ -162,6 +158,12 @@ endif
 if !exists('g:formatdef_standard_javascript')
     let g:formatdef_standard_javascript = '"standard --fix --stdin"'
 endif
+
+
+if !exists('g:formatdef_prettier')
+    let g:formatdef_prettier = '"prettier --stdin --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+endif
+
 
 " This is an xo formatter (inspired by the above eslint formatter)
 " To support ignore and overrides options, we need to use a tmp file
