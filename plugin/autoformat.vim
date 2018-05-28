@@ -169,7 +169,7 @@ function! s:Fallback()
             echomsg "Autoindenting..."
         endif
         " Autoindent code
-        exe "normal gg=G"
+        exe "normal! gg=G"
     endif
 
 endfunction
