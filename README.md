@@ -238,6 +238,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `shfmt` for __Shell__.
   A shell formatter written in Go supporting POSIX Shell, Bash and mksh that can be installed with `go get -u mvdan.cc/sh/cmd/shfmt`. See https://github.com/mvdan/sh for more info.
 
+* `prettier` for __JavaScript, TypeScript, CSS, SCSS, Less, JSX, GraphQL, JSON, Markdown__
+  `prettier` is a code formatter written in JavaScript. To install it, run `npm install -g prettier`.
+  It is the default formatter for Less and GraphQL.
+
 
 ## Help, the formatter doesn't work as expected!
 
