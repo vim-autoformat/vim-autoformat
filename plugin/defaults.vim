@@ -44,7 +44,7 @@ if !exists('g:formatter_yapf_style')
 endif
 if !exists('g:formatdef_yapf')
     let s:configfile_def   = "'yapf -l '.a:firstline.'-'.a:lastline"
-    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.&shiftwidth.(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
+    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.shiftwidth().(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
     let g:formatdef_yapf   = "g:YAPFFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
 
@@ -452,7 +452,7 @@ endif
 
 " Fortran
 if !exists('g:formatdef_fprettify')
-    let g:formatdef_fprettify = '"fprettify --no-report-errors --indent=".&shiftwidth'
+    let g:formatdef_fprettify = '"fprettify --no-report-errors --indent=".shiftwidth()'
 endif
 
 if !exists('g:formatters_fortran')
@@ -475,4 +475,12 @@ endif
 
 if !exists('g:formatters_sh')
     let g:formatters_sh = ['shfmt']
+endif
+
+" SQL
+if !exists('g:formatdef_sqlformat')
+    let g:formatdef_sqlformat = '"sqlformat --reindent --indent_width ".shiftwidth()." --keywords upper --identifiers lower -"'
+endif
+if !exists('g:formatters_sql')
+    let g:formatters_sql = ['sqlformat']
 endif

@@ -238,6 +238,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `shfmt` for __Shell__.
   A shell formatter written in Go supporting POSIX Shell, Bash and mksh that can be installed with `go get -u mvdan.cc/sh/cmd/shfmt`. See https://github.com/mvdan/sh for more info.
 
+* `sqlformat` for __SQL__.
+  Install `sqlparse` with `pip`.
+
 
 ## Help, the formatter doesn't work as expected!
 
