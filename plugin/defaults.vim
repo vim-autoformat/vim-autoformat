@@ -414,7 +414,7 @@ if !exists('g:formatdef_perltidy')
                 \ filereadable($HOMEPATH."/perltidy.ini"))) ||
                 \ ((has("unix") ||
                 \ has("mac")) && (filereadable(".perltidyrc") ||
-                \ filereadable("~/.perltidyrc") ||
+                \ filereadable(expand("~/.perltidyrc")) ||
                 \ filereadable("/usr/local/etc/perltidyrc") ||
                 \ filereadable("/etc/perltidyrc")))
         let g:formatdef_perltidy = '"perltidy -q -st"'
