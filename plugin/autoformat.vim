@@ -297,7 +297,7 @@ endfunction
 
 " Create a command for formatting the entire buffer
 " Save and recall window state to prevent vim from jumping to line 1
-command! -nargs=? -range=% -complete=filetype -bar Autoformat let winview=winsaveview()|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)
+command! -nargs=? -range=% -complete=filetype -bar Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
 
 
 " Functions for iterating through list of available formatters
