@@ -1,8 +1,8 @@
 # vim-autoformat
 
-Format code with one button press.
+Format code with one button press (or automatically on save).
 
-This plugin makes use of external formatting programs to achieve the best results.
+This plugin makes use of external formatting programs to achieve the most decent results.
 Check the list of formatprograms below to see which languages are supported by default.
 Most formatprograms will obey vim settings, such as `textwidth` and `shiftwidth()`.
 You can easily customize existing formatprogram definitions or add your own formatprogram.
@@ -367,7 +367,7 @@ contact me by creating an issue in this repository.
 
 ### December 20 2013
 
-* `html-beautify` is now the default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
+* `html-beautify` is now the new default for HTML since it seems to be better maintained, and seems to handle inline javascript neatly.
 * The `formatters/` folder is no longer supported anymore, because it is unnecessary.
 * `js-beautify` can no longer be installed as a bundle, since it only makes this plugin unnecessarily complex.
 
@@ -375,8 +375,6 @@ contact me by creating an issue in this repository.
 
 * The default behaviour of gq is enabled again by removing the fallback on auto-indenting.
   Instead, the fallback is only used when running the command `:Autoformat`.
-* For HTML,XML and XHTML, the option `textwidth` is taken into account when formatting.
-  This extends the way the formatting style will match your current vim settings.
 
 ### March 16 2013
 
@@ -396,6 +394,4 @@ contact me by creating an issue in this repository.
 
 * Customization of formatprograms can be done easily now, as explained in the readme.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
-* The default parameters for astyle have been slightly modified: it will wrap spaces around operators.
 * phpCB has been removed from the defaults, due to code-breaking behaviour.
-* XHTML default definition added
