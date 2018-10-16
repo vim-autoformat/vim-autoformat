@@ -4,7 +4,8 @@ Format code with one button press.
 
 This plugin makes use of external formatting programs to achieve the best results.
 Check the list of formatprograms below to see which languages are supported by default.
-You can easily customize these or add your own formatprogram.
+Most formatprograms will obey vim settings, such as `textwidth` and `shiftwidth()`.
+You can easily customize existing formatprogram definitions or add your own formatprogram.
 When no formatprogram exists (or no formatprogram is installed) for a certain filetype,
 vim-autoformat falls back by default to indenting, (using vim's auto indent functionality), retabbing and removing trailing whitespace.
 
