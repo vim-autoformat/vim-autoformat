@@ -137,8 +137,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `yapf` for __Python__ (supports formatting ranges).
   Vim-autoformat checks whether there exists a `.style.yapf` or a `setup.cfg` file up in the current directory's ancestry.
   Based on that it either uses that file or tries to match vim options as much as possible.
-  It is readily available through PIP.
-  Most users can install with the terminal command `sudo pip install yapf` or `pip  install --user yapf`.
+  Most users can install with the terminal command `sudo pip install yapf` or `pip install --user yapf`.
   YAPF has one optional configuration variable to control the formatter style.
   For example:
 
@@ -149,6 +148,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
   `pep8` is the default value, or you can choose: `google`, `facebook`, `chromium`.
 
   Here is the link to the repository: https://github.com/google/yapf
+
+* `black` for __Python__.
+  Most users can install with the terminal command `sudo pip install black` or `pip install --user black`.
+  Here is the link to the repository: https://github.com/ambv/black
 
 * `js-beautify` for __Javascript__ and __JSON__.
   It can be installed by running `npm install -g js-beautify`.
