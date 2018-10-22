@@ -206,11 +206,14 @@ env=newenv
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 
+formattername = vim.eval('b:formatters[s:index]')
 if stderrdata:
     if verbose:
-        formattername = vim.eval('b:formatters[s:index]')
         print('Formatter {} has errors: {}'.format(formattername, stderrdata))
     vim.command('return 1')
+elif p.returncode > 0:
+    if verbose:
+        print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
 else:
     # It is not certain what kind of line endings are being used by the format program.
     # Therefore we simply split on all possible eol characters.
@@ -262,10 +265,13 @@ except (BrokenPipeError, IOError):
     if verbose:
         raise
 else:
+    formattername = vim.eval('b:formatters[s:index]')
     if stderrdata:
         if verbose:
-            formattername = vim.eval('b:formatters[s:index]')
             print('Formatter {} has errors: {}'.format(formattername, stderrdata))
+    elif p.returncode > 0:
+        if verbose:
+            print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
     elif not stdoutdata:
         if verbose:
             print('Formatter {} gives empty result: {}'.format(formattername, stderrdata))
@@ -297,6 +303,7 @@ endfunction
 
 " Create a command for formatting the entire buffer
 " Save and recall window state to prevent vim from jumping to line 1
+" Write and read viminfo to restore marks
 command! -nargs=? -range=% -complete=filetype -bar Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
 
 

@@ -351,9 +351,11 @@ contact me by creating an issue in this repository.
 
 ## Major Change Log
 
+### October 2018
+* We also take the returncode of the formatter process into account, not just the presence of output on stderr.
+
 ### March 2016
-* We don't use the option formatprg internally anymore, to always have the possible of using the default `gq`
-  command.
+* We don't use the option formatprg internally anymore, to always have the possible of using the default `gq` command.
 * More fallback options have been added.
 
 ### June 2015
