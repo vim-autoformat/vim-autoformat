@@ -185,7 +185,7 @@ function! s:TryFormatterPython()
     let verbose = &verbose || g:autoformat_verbosemode == 1
 
 python << EOF
-import vim, subprocess, os, platform
+import vim, subprocess, os
 from subprocess import Popen, PIPE
 text = os.linesep.join(vim.current.buffer[:]) + os.linesep
 formatprg = vim.eval('b:formatprg')
@@ -194,8 +194,7 @@ verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
-    pathsep = ';' if platform.system() == 'Windows' else ':'
-    env['PATH'] = pathsep.join(extra_path) + pathsep + env['PATH']
+    env['PATH'] = os.pathsep.join(extra_path) + os.pathsep + env['PATH']
 
 # When an entry is unicode, Popen can't deal with it in Python 2.
 # As a pragmatic fix, we'll omit that entry.
@@ -242,7 +241,7 @@ function! s:TryFormatterPython3()
     let verbose = &verbose || g:autoformat_verbosemode == 1
 
 python3 << EOF
-import vim, subprocess, os, platform
+import vim, subprocess, os
 from subprocess import Popen, PIPE
 
 # The return code is `failure`, unless otherwise specified
@@ -254,8 +253,7 @@ verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
-    pathsep = ';' if platform.system() == 'Windows' else ':'
-    env['PATH'] = pathsep.join(extra_path) + pathsep + env['PATH']
+    env['PATH'] = os.pathsep.join(extra_path) + os.pathsep + env['PATH']
 
 try:
     p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
