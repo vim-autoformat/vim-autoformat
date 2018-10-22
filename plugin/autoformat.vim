@@ -185,7 +185,7 @@ function! s:TryFormatterPython()
     let verbose = &verbose || g:autoformat_verbosemode == 1
 
 python << EOF
-import vim, subprocess, os, platform
+import vim, subprocess, os
 from subprocess import Popen, PIPE
 text = os.linesep.join(vim.current.buffer[:]) + os.linesep
 formatprg = vim.eval('b:formatprg')
@@ -194,8 +194,7 @@ verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
-    pathsep = ';' if platform.system() == 'Windows' else ':'
-    env['PATH'] = pathsep.join(extra_path) + pathsep + env['PATH']
+    env['PATH'] = os.pathsep.join(extra_path) + os.pathsep + env['PATH']
 
 # When an entry is unicode, Popen can't deal with it in Python 2.
 # As a pragmatic fix, we'll omit that entry.
@@ -207,11 +206,14 @@ env=newenv
 p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = p.communicate(text)
 
+formattername = vim.eval('b:formatters[s:index]')
 if stderrdata:
     if verbose:
-        formattername = vim.eval('b:formatters[s:index]')
         print('Formatter {} has errors: {}'.format(formattername, stderrdata))
     vim.command('return 1')
+elif p.returncode > 0:
+    if verbose:
+        print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
 else:
     # It is not certain what kind of line endings are being used by the format program.
     # Therefore we simply split on all possible eol characters.
@@ -242,7 +244,7 @@ function! s:TryFormatterPython3()
     let verbose = &verbose || g:autoformat_verbosemode == 1
 
 python3 << EOF
-import vim, subprocess, os, platform
+import vim, subprocess, os
 from subprocess import Popen, PIPE
 
 # The return code is `failure`, unless otherwise specified
@@ -254,8 +256,7 @@ verbose = bool(int(vim.eval('verbose')))
 env = os.environ.copy()
 if int(vim.eval('exists("g:formatterpath")')):
     extra_path = vim.eval('g:formatterpath')
-    pathsep = ';' if platform.system() == 'Windows' else ':'
-    env['PATH'] = pathsep.join(extra_path) + pathsep + env['PATH']
+    env['PATH'] = os.pathsep.join(extra_path) + os.pathsep + env['PATH']
 
 try:
     p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
@@ -264,10 +265,13 @@ except (BrokenPipeError, IOError):
     if verbose:
         raise
 else:
+    formattername = vim.eval('b:formatters[s:index]')
     if stderrdata:
         if verbose:
-            formattername = vim.eval('b:formatters[s:index]')
             print('Formatter {} has errors: {}'.format(formattername, stderrdata))
+    elif p.returncode > 0:
+        if verbose:
+            print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
     elif not stdoutdata:
         if verbose:
             print('Formatter {} gives empty result: {}'.format(formattername, stderrdata))
@@ -299,6 +303,7 @@ endfunction
 
 " Create a command for formatting the entire buffer
 " Save and recall window state to prevent vim from jumping to line 1
+" Write and read viminfo to restore marks
 command! -nargs=? -range=% -complete=filetype -bar Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
 
 
