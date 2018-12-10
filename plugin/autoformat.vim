@@ -214,6 +214,7 @@ if stderrdata:
 elif p.returncode > 0:
     if verbose:
         print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
+    vim.command('return 1')
 else:
     # It is not certain what kind of line endings are being used by the format program.
     # Therefore we simply split on all possible eol characters.
