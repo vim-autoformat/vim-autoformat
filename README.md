@@ -226,6 +226,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `stylish-haskell` for __Haskell__
   It can be installed using [`cabal`](https://www.haskell.org/cabal/) build tool. Installation instructions are available at https://github.com/jaspervdj/stylish-haskell#installation
 
+* `purty` for __Purescript__
+  It can be installed using `npm install purty`. Further instructions available at https://gitlab.com/joneshf/purty
+
 * `remark` for __Markdown__.
   A Javascript based markdown processor that can be installed with `npm install -g remark-cli`. More info is available at https://github.com/wooorm/remark.
 

@@ -440,6 +440,15 @@ if !exists('g:formatters_haskell')
     let g:formatters_haskell = ['stylish_haskell']
 endif
 
+" Purescript
+if !exists('g:formatdef_purty')
+    let g:formatdef_purty = '"purty -"'
+endif
+
+if !exists('g:formatters_purescript')
+    let g:formatters_purescript = ['purty']
+endif
+
 " Markdown
 if !exists('g:formatdef_remark_markdown')
     let g:formatdef_remark_markdown = '"remark --silent --no-color"'
