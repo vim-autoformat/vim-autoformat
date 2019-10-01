@@ -117,7 +117,7 @@ separated by dots (`.`).
 
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
-* `clang-format` for __C__, __C++__, __Objective-C__ (supports formatting ranges).
+* `clang-format` for __C__, __C++__, __Objective-C__, __Protobuf__ (supports formatting ranges).
   Clang-format is a product of LLVM source builds.
   If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
   Vim-autoformat checks whether there exists a `.clang-format` or a `_clang-format` file up in
