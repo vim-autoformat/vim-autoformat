@@ -128,6 +128,12 @@ if !exists('g:formatters_objc')
 endif
 
 
+" Protobuf
+if !exists('g:formatters_proto')
+    let g:formatters_proto = ['clangformat']
+endif
+
+
 " Java
 if !exists('g:formatdef_astyle_java')
     if filereadable('.astylerc')
