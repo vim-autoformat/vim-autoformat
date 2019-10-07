@@ -503,3 +503,12 @@ endif
 if !exists('g:formatters_sql')
     let g:formatters_sql = ['sqlformat']
 endif
+
+" CMake
+if !exists('g:formatdef_cmake_format')
+    let g:formatdef_cmake_format = '"cmake-format - --tab-size ".shiftwidth()." ".(&textwidth ? "--line-width=".&textwidth : "")'
+endif
+
+if !exists('g:formatters_cmake')
+    let g:formatters_cmake = ['cmake_format']
+endif
