@@ -251,6 +251,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `cmake-format` for __CMake__.
   Install `cmake_format` with `pip`. See https://github.com/cheshirekow/cmake_format for more info.
 
+* `latexindent.pl` for __LaTeX__.
+  Installation instructions at https://github.com/cmhughes/latexindent.pl.
+
 
 ## Help, the formatter doesn't work as expected!
 

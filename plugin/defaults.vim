@@ -512,3 +512,12 @@ endif
 if !exists('g:formatters_cmake')
     let g:formatters_cmake = ['cmake_format']
 endif
+
+" Latex
+if !exists('g:formatdef_latexindent')
+    let g:formatdef_latexindent = '"latexindent.pl -"'
+endif
+
+if !exists('g:formatters_latex')
+    let g:formatters_tex = ['latexindent']
+endif
