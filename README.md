@@ -352,11 +352,13 @@ would then only format the selected part.
 
 ## Contributing
 
-Pull requests are welcome.
-Any feedback is welcome.
-If you have any suggestions on this plugin or on this readme, if you have some nice default
+This project is community driven. I don't actively do development on vim-autoformat myself, 
+as it's current state fulfills my personal needs.
+However, I will review pull requests and keep an eye on the general sanity of the code.
+
+If you have any improvements on this plugin or on this readme, if you have some
 formatter definition that can be added to the defaults, or if you experience problems, please
-contact me by creating an issue in this repository.
+open a pull request or an issue in this repository.
 
 ## Major Change Log
 
