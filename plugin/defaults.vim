@@ -401,7 +401,7 @@ endif
 
 " Rust
 if !exists('g:formatdef_rustfmt')
-    let g:formatdef_rustfmt = '"rustfmt"'
+    let g:formatdef_rustfmt = '"rustfmt --edition 2018"'
 endif
 
 if !exists('g:formatters_rust')
