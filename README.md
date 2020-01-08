@@ -254,6 +254,10 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `latexindent.pl` for __LaTeX__.
   Installation instructions at https://github.com/cmhughes/latexindent.pl.
 
+* `ocamlformat` for __OCaml__.
+  OCamlFormat can be installed with opam: `opam install ocamlformat`.
+  Details: https://github.com/ocaml-ppx/ocamlformat.
+  We also provide `ocp-indent` as reserve formatter.
 
 ## Help, the formatter doesn't work as expected!
 
@@ -352,7 +356,7 @@ would then only format the selected part.
 
 ## Contributing
 
-This project is community driven. I don't actively do development on vim-autoformat myself, 
+This project is community driven. I don't actively do development on vim-autoformat myself,
 as it's current state fulfills my personal needs.
 However, I will review pull requests and keep an eye on the general sanity of the code.
 
