@@ -532,5 +532,5 @@ if !exists('g:formatdef_ocamlformat')
 endif
 
 if !exists('g:formatters_ocaml')
-    let g:formatters_ocaml = ['ocamlformat']
+    let g:formatters_ocaml = ['ocamlformat', 'ocp_indent']
 endif
