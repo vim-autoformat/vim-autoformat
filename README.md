@@ -257,6 +257,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `ocamlformat` for __OCaml__.
   OCamlFormat can be installed with opam: `opam install ocamlformat`.
   Details: https://github.com/ocaml-ppx/ocamlformat.
+  We also provide `ocp-indent` for OCaml, but it's not enabled by default, if you prefer `ocp-indent` rather than `ocamlformat`, you can set `let g:formatters_ocaml = ['ocp_indent']` in your `.vimrc`.
 
 
 ## Help, the formatter doesn't work as expected!
