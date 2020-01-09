@@ -207,6 +207,8 @@ if !exists('g:formatdef_eslint_local')
             if empty(l:prog)
                 let l:prog = findfile('/usr/local/bin/eslint')
             endif
+        else
+            let l:prog = getcwd()."/".l:prog
         endif
 
         "initial
