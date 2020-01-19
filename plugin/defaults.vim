@@ -517,7 +517,7 @@ endif
 
 " Latex
 if !exists('g:formatdef_latexindent')
-    let g:formatdef_latexindent = '"latexindent.pl -"'
+    let g:formatdef_latexindent = '"latexindent.pl - 2>/dev/null"'
 endif
 
 if !exists('g:formatters_latex')
