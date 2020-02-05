@@ -20,7 +20,7 @@ First install [pynvim](https://github.com/neovim/pynvim)
 python3 -m pip install pynvim
 ```
 
-And add the following configuration in your vimdc
+And add the following configuration in your `.vimrc`
 
 ```
 let g:python3_host_prog=/path/to/python/executable/
