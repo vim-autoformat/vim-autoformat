@@ -530,7 +530,11 @@ if !exists('g:formatdef_ocp_indent')
 endif
 
 if !exists('g:formatdef_ocamlformat')
-    let g:formatdef_ocamlformat = '"ocamlformat --name " . expand("%:p") . " -"'
+    if filereadable('.ocamlformat')
+        let g:formatdef_ocamlformat = '"ocamlformat --enable-outside-detected-project --name " . expand("%:p") . " -"'
+    else
+        let g:formatdef_ocamlformat = '"ocamlformat --profile=ocamlformat --enable-outside-detected-project --name " . expand("%:p") . " -"'
+    endif
 endif
 
 if !exists('g:formatters_ocaml')
