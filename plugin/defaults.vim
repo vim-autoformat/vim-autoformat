@@ -195,8 +195,6 @@ endif
 if !exists('g:formatdef_eslint_local')
     " returns unique file name near original
     function! g:BuildESLintTmpFile(path, ext)
-        echomsg a:path
-        echomsg a:ext
         let l:i = 0
         let l:result = a:path.'_eslint_tmp_'.l:i.a:ext
         while filereadable(l:result) && l:i < 100000
