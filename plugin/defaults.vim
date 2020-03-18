@@ -193,6 +193,22 @@ endif
 " corresponding config is found they are used, otherwiese the formatter fails.
 " No windows support at the moment.
 if !exists('g:formatdef_eslint_local')
+    " returns unique file name near original
+    function! g:BuildESLintTmpFile(path, ext)
+        let l:i = 0
+        let l:result = a:path.'_eslint_tmp_'.l:i.a:ext
+        while filereadable(l:result) && l:i < 100000
+            let l:i = l:i + 1
+            let l:result = a:path.'_eslint_tmp_'.l:i.a:ext
+        endwhile
+        if filereadable(l:result)
+            echoerr "Temporary file could not be created for ".a:path
+            echoerr "Tried from ".a:path.'_eslint_tmp_0'.a:ext." to ".a:path.'_eslint_tmp_'.l:i.a:ext
+            return ''
+        endif
+        return l:result
+    endfunction
+
     function! g:BuildESLintLocalCmd()
         let l:path = fnamemodify(expand('%'), ':p')
         let l:ext = ".".expand('%:p:e')
@@ -251,7 +267,7 @@ if !exists('g:formatdef_eslint_local')
 
         " This formatter uses a temporary file as ESLint has not option to print
         " the formatted source to stdout without modifieing the file.
-        let l:eslint_tmp_file = fnameescape(tempname().l:ext)
+        let l:eslint_tmp_file = g:BuildESLintTmpFile(l:path, l:ext)
         let content = getline('1', '$')
         call writefile(content, l:eslint_tmp_file)
         return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
