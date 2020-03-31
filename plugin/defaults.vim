@@ -399,7 +399,7 @@ endif
 
 " Haxe
 if !exists('g:formatdef_haxe_formatter')
-    let g:formatdef_haxe_formatter = "'haxelib run formatter --stdin '.bufname('%').' > /dev/null 2>&1'"
+    let g:formatdef_haxe_formatter = "'haxelib run formatter --stdin > /dev/null'"
 endif
 
 if !exists('g:formatters_haxe')
