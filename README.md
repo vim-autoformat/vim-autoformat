@@ -206,6 +206,11 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Note that `nodejs` is needed for this to work.
   Here is the link to the repository: https://github.com/vvakame/typescript-formatter.
 
+* `haxe-formatter` for __Haxe__.
+  `haxe-formatter` is a thin wrapper around the haxelib formatter library.
+  It can be installed by running `haxelib install formatter`.
+  Here is the link to the repository: https://github.com/HaxeCheckstyle/haxe-formatter
+
 * `sass-convert` for __SCSS__.
   It is shipped with `sass`, a CSS preprocessor written in Ruby, which can be installed by running `gem install sass`.
   Here is the link to the SASS homepage: http://sass-lang.com/.
