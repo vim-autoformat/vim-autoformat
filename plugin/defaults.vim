@@ -171,7 +171,7 @@ endif
 
 
 if !exists('g:formatdef_prettier')
-    let g:formatdef_prettier = '"prettier --stdin --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+    let g:formatdef_prettier = '"prettier --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
 endif
 
 
