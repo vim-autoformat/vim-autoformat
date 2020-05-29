@@ -401,7 +401,7 @@ open a pull request or an issue in this repository.
 * Multiple formatters per filetype are now supported.
 * Configuration variable names changed.
 * Using `gq` as alias for `:Autoformat` is no longer supported.
-* `:Autoformat` now suppports ranges.
+* `:Autoformat` now supports ranges.
 * Composite filetypes are fully supported.
 
 ### December 20 2013
