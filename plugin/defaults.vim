@@ -288,6 +288,14 @@ if !exists('g:formatters_javascript')
                 \ ]
 endif
 
+" Vue
+if !exists('g:formatters_vue')
+    let g:formatters_vue = [
+                \ 'eslint_local',
+                \ 'stylelint',
+                \ ]
+endif
+
 " JSON
 if !exists('g:formatdef_jsbeautify_json')
     if filereadable('.jsbeautifyrc')
