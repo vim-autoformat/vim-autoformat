@@ -12,7 +12,7 @@ vim-autoformat falls back by default to indenting, (using vim's auto indent func
 ## Requirement
 vim-autoformat requires vim to have python support (python 2 or python 3). You can check your vim has python support by running `:echo has("python3")` and `:echo has("python2")`.
 
-__Neovim__
+#### Neovim
 Neovim does not come with python support by default, and additional setup is required.
 
 First install [pynvim](https://github.com/neovim/pynvim)
