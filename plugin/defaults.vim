@@ -189,6 +189,21 @@ if !exists('g:formatdef_xo_javascript')
     let g:formatdef_xo_javascript = "g:BuildXOLocalCmd()"
 endif
 
+function! s:NodeJsFindPathToExecFile(exec_name)
+    let l:path = fnamemodify(expand('%'), ':p')
+    " find formatter & config file
+    let l:prog = findfile('node_modules/.bin/'.a:exec_name, l:path.";")
+    if empty(l:prog)
+        let l:prog = findfile('~/.npm-global/bin/'.a:exec_name)
+        if empty(l:prog)
+            let l:prog = findfile('/usr/local/bin/'.a:exec_name)
+        endif
+    else
+        let l:prog = getcwd()."/".l:prog
+    endif
+    return l:prog
+endfunction
+
 " Setup ESLint local. Setup is done on formatter execution if ESLint and
 " corresponding config is found they are used, otherwiese the formatter fails.
 " No windows support at the moment.
@@ -217,15 +232,7 @@ if !exists('g:formatdef_eslint_local')
             return "(>&2 echo 'ESLint not supported on win32')"
         endif
         " find formatter & config file
-        let l:prog = findfile('node_modules/.bin/eslint', l:path.";")
-        if empty(l:prog)
-            let l:prog = findfile('~/.npm-global/bin/eslint')
-            if empty(l:prog)
-                let l:prog = findfile('/usr/local/bin/eslint')
-            endif
-        else
-            let l:prog = getcwd()."/".l:prog
-        endif
+        let l:prog = s:NodeJsFindPathToExecFile('eslint')
 
         "initial
         let l:cfg = findfile('.eslintrc.js', l:path.";")
@@ -376,90 +383,26 @@ endif
 
 " CSS
 
-" Setup stylelint. Setup is done on formatter execution if stylelint and
-" corresponding config is found they are used, otherwiese the formatter fails.
+" Setup stylelint. Setup is done on formatter execution
+" if stylelint is found, otherwise the formatter fails.
 " No windows support at the moment.
 if !exists('g:formatdef_stylelint')
-    " returns unique file name near original
-    function! g:BuildStylelintTmpFile(path, ext)
-        let l:i = 0
-        let l:result = a:path.'_stylelint_tmp_'.l:i.a:ext
-        while filereadable(l:result) && l:i < 100000
-            let l:i = l:i + 1
-            let l:result = a:path.'_stylelint_tmp_'.l:i.a:ext
-        endwhile
-        if filereadable(l:result)
-            echoerr "Temporary file could not be created for ".a:path
-            echoerr "Tried from ".a:path.'_stylelint_tmp_'.0.a:ext." to ".a:path.'_stylelint_tmp_'.l:i.a:ext
-            return ''
-        endif
-        return l:result
-    endfunction
-
     function! g:BuildStyleLintCmd()
-        let l:path = fnamemodify(expand('%'), ':p')
-        let l:ext = ".".expand('%:p:e')
         let verbose = &verbose || g:autoformat_verbosemode == 1
         if has('win32')
             return "(>&2 echo 'stylelint not supported on win32')"
         endif
-        " find formatter & config file
-        let l:prog = findfile('node_modules/.bin/stylelint', l:path.";")
-        if empty(l:prog)
-            let l:prog = findfile('~/.npm-global/bin/stylelint')
-            if empty(l:prog)
-                let l:prog = findfile('/usr/local/bin/stylelint')
-            endif
-        else
-            let l:prog = getcwd()."/".l:prog
-        endif
+        " find formatter
+        let l:prog = s:NodeJsFindPathToExecFile('stylelint')
 
-        "initial
-        let l:cfg = findfile('.stylelintrc.js', l:path.";")
-
-        if empty(l:cfg)
-            let l:cfg_fallbacks = [
-                        \'.stylelintrc.yaml',
-                        \'.stylelintrc.yml',
-                        \'.stylelintrc.json',
-                        \'.stylelintrc',
-                        \'.stylelint.config.js',
-                        \]
-
-            for i in l:cfg_fallbacks
-                let l:tcfg = findfile(i, l:path.";")
-                if !empty(l:tcfg)
-                    break
-                endif
-            endfor
-
-            if !empty(l:tcfg)
-                let l:cfg = fnamemodify(l:tcfg, ":p")
-            else
-                let l:cfg = findfile('~/.stylelintrc.js')
-                for i in l:cfg_fallbacks
-                    if !empty(l:cfg)
-                        break
-                    endif
-                    let l:cfg = findfile("~/".i)
-                endfor
-            endif
-        endif
-
-        if (empty(l:cfg) || empty(l:prog))
+        if (empty(l:prog))
             if verbose
-                return "(>&2 echo 'No local or global stylelint program and/or config found')"
+                return "(>&2 echo 'No local or global stylelint program found')"
             endif
             return
         endif
 
-        " This formatter uses a temporary file as stylelint has not option to print
-        " the formatted source to stdout without modifieing the file.
-        let l:stylelint_tmp_file = g:BuildStylelintTmpFile(l:path, l:ext)
-        let content = getline('1', '$')
-        call writefile(content, l:stylelint_tmp_file)
-        return l:prog." --config ".l:cfg." --fix ".l:stylelint_tmp_file." 1> /dev/null; exit_code=$?
-                    \ cat ".l:stylelint_tmp_file."; rm -f ".l:stylelint_tmp_file."; exit $exit_code"
+        return l:prog." --fix --stdin --stdin-filename ".bufname('%')
     endfunction
     let g:formatdef_stylelint = "g:BuildStyleLintCmd()"
 endif
