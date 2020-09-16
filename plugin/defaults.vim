@@ -128,6 +128,26 @@ if !exists('g:formatters_objc')
 endif
 
 
+" D
+if !exists('g:formatdef_dfmt')
+    if executable('dfmt')
+        let s:dfmt_command = 'dfmt'
+    else
+        let s:dfmt_command = 'dub run -q dfmt --'
+    endif
+
+    let s:configfile_def = '"' . s:dfmt_command . '"'
+    let s:noconfigfile_def = '"' . s:dfmt_command . ' -t " . (&expandtab ? "space" : "tab") . " --indent_size " . shiftwidth() . (&textwidth ? " --soft_max_line_length " . &textwidth : "")'
+
+    let g:formatdef_dfmt = 'g:EditorconfigFileExists() ? (' . s:configfile_def . ') : (' . s:noconfigfile_def . ')'
+    let g:formatters_d = ['dfmt']
+endif
+
+function! g:EditorconfigFileExists()
+    return len(findfile(".editorconfig", expand("%:p:h").";"))
+endfunction
+
+
 " Protobuf
 if !exists('g:formatters_proto')
     let g:formatters_proto = ['clangformat']

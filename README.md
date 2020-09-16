@@ -143,6 +143,12 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Download it here: http://astyle.sourceforge.net/.
   *Important: version `2.0.5` or higher is required, since only those versions correctly support piping and are stable enough.*
 
+* `dfmt` for __D__.
+  It can be built or downloaded from https://github.com/dlang-community/dfmt.
+  Arch Linux users can install it from the `community` repository with `pacman -S dfmt`.
+  If `dfmt` is not found in `PATH`, Vim-autoformat will try to use `dub run dfmt` command
+  to automatically download and run `dfmt`.
+
 * `autopep8` for __Python__ (supports formatting ranges).
   It's probably in your distro's repository, so you can download it as a regular package.
   For Ubuntu type `sudo apt-get install python-autopep8` in a terminal.
