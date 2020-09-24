@@ -90,6 +90,8 @@ Or to have your code be formatted upon saving your file, you could use something
 au BufWrite * :Autoformat
 ```
 
+You can also format the current line only (without having to make a visual selection) by executing `:AutoformatLine`.
+
 To disable the fallback to vim's indent file, retabbing and removing trailing whitespace, set the following variables to 0.
 
 ```vim
