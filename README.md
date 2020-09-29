@@ -208,6 +208,11 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Note that `nodejs` is needed for this to work.
   Here is the link to the repository: https://github.com/einars/js-beautify.
 
+* `stylelint` for __CSS__. https://stylelint.io/
+  It can be installed by running `npm install stylelint stylelint-config-standard` for a local project or by running `npm install -g stylelint stylelint-config-standard` for global use. The linter is then installed locally at `$YOUR_PROJECT/node_modules/.bin/stylelint` or globally at `~/.npm-global/bin/stylelint`.
+  When running the formatter, vim will walk up from the current file to search for such local installation. When the local version is missing it will fallback to the global version in your home directory. When both requirements are found styelint is executed with the `--fix` argument.
+  Currently only working on \*nix like OS (Linux, MacOS etc.) as it requires the OS to provide sh like shell syntax.
+
 * `typescript-formatter` for __Typescript__.
   `typescript-formatter` is a thin wrapper around the TypeScript compiler services.
   It can be installed by running `npm install -g typescript-formatter`.
