@@ -307,7 +307,14 @@ endfunction
 " Create a command for formatting the entire buffer
 " Save and recall window state to prevent vim from jumping to line 1
 " Write and read viminfo to restore marks
-command! -nargs=? -range=% -complete=filetype -bar Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
+command! -nargs=? -range=% -complete=filetype -bar
+    \ Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
+
+" Create a command for formatting a single line, or range of lines
+" Save and recall window state to prevent vim from jumping to line 1
+" Write and read viminfo to restore marks
+command! -nargs=? -range -complete=filetype -bar
+    \ AutoformatLine let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
 
 
 " Functions for iterating through list of available formatters
