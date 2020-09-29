@@ -240,7 +240,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Here is the link to the installation: https://golang.org/doc/install
 
 * `rustfmt` for __Rust__.
-  It can be installed using `cargo`, the Rust package manager. Up-to-date installation instructions are on the project page: https://github.com/nrc/rustfmt/#installation.
+  It can be installed using `cargo`, the Rust package manager. Up-to-date installation instructions are on the project page: https://github.com/rust-lang/rustfmt#quick-start.
 
 * `dartfmt` for __Dart__.
   Part of the Dart SDK (make sure it is on your PATH). See https://www.dartlang.org/tools/dartfmt/ for more info.
