@@ -447,3 +447,4 @@ open a pull request or an issue in this repository.
 * Customization of formatprograms can be done easily now, as explained in the readme.
 * I set the default tabwidth to 4 for all formatprograms as well as for vim itself.
 * phpCB has been removed from the defaults, due to code-breaking behaviour.
+Thank you 😊,
