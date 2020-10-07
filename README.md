@@ -129,10 +129,10 @@ separated by dots (`.`).
 
 ### Using multiple formatters for the same file
 
-There is possible to apply multiple formatters for single file, by example, html can use special formatters for js/css etc.
+It is possible to apply multiple formatters for single file, for example, html can use special formatters for js/css etc.
 Support can be enabled via `g:enable_multiple_formaters_<identifier>` option.
 
-In this case, formatters from `g:formatdef_<identifier>` will be applied to file one by one. Fallback (vim) formatting
+In this case, formatters from `g:formatdef_<identifier>` will be applied to the file one by one. Fallback (vim) formatting
 isn't used if at least one formatter has finished sucessfully.
 
 Sample config:
