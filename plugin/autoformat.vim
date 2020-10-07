@@ -134,6 +134,9 @@ function! s:TryAllFormatters(...) range
             endif
             let success = s:TryFormatterPython()
         endif
+
+        let s:index = (s:index + 1) % len(b:formatters)
+
         if success == 0
             if verbose
                 echomsg "Definition in '".formatdef_var."' was successful."
@@ -141,13 +144,7 @@ function! s:TryAllFormatters(...) range
             " Check if we can run few formatters in row
             if b:run_all_formatters == 1
                 let l:formatter_run_successfully += 1
-                let s:index = (s:index + 1) % len(b:formatters)
-                if s:index == b:current_formatter_index
-                    if verbose
-                        echomsg l:formatter_run_successfully." formatters were successfuly run."
-                    endif
-                    return 1
-                else
+                if s:index != b:current_formatter_index
                     if verbose
                         echomsg "Running next chained formatter."
                     endif
@@ -159,7 +156,6 @@ function! s:TryAllFormatters(...) range
             if verbose
                 echomsg "Definition in '".formatdef_var."' was unsuccessful."
             endif
-            let s:index = (s:index + 1) % len(b:formatters)
         endif
 
         if s:index == b:current_formatter_index
