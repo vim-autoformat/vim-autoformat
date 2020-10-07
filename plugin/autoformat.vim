@@ -16,11 +16,11 @@ function! s:find_formatters(...)
     endif
 
     " Support multiple formatters per file type
-    let enable_multiple_formaters_var = "g:enable_multiple_formaters_".compoundtype
-    if exists(enable_multiple_formaters_var)
-        let b:enable_multiple_formaters = eval(enable_multiple_formaters_var)
+    let run_all_formatters_var = "g:run_all_formatters_".compoundtype
+    if exists(run_all_formatters_var)
+        let b:run_all_formatters = eval(run_all_formatters_var)
     else
-        let b:enable_multiple_formaters = 0
+        let b:run_all_formatters = 0
     endif
 
     " Warn for backward incompatible configuration
@@ -139,7 +139,7 @@ function! s:TryAllFormatters(...) range
                 echomsg "Definition in '".formatdef_var."' was successful."
             endif
             " Check if we can run few formatters in row
-            if b:enable_multiple_formaters == 1
+            if b:run_all_formatters == 1
                 let l:formatter_run_successfully += 1
                 let s:index = (s:index + 1) % len(b:formatters)
                 if s:index == b:current_formatter_index
@@ -163,7 +163,7 @@ function! s:TryAllFormatters(...) range
         endif
 
         if s:index == b:current_formatter_index
-            if b:enable_multiple_formaters == 1 && l:formatter_run_successfully >= 1
+            if b:run_all_formatters == 1 && l:formatter_run_successfully >= 1
                 if verbose
                     echomsg l:formatter_run_successfully." formatters were successfuly run."
                 endif

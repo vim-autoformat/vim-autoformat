@@ -130,7 +130,7 @@ separated by dots (`.`).
 ### Using multiple formatters for the same file
 
 It is possible to apply multiple formatters for single file, for example, html can use special formatters for js/css etc.
-Support can be enabled via `g:enable_multiple_formaters_<identifier>` option.
+Support can be enabled via the `g:run_all_formatters_<identifier>` option.
 
 In this case, formatters from `g:formatdef_<identifier>` will be applied to the file one by one. Fallback (vim) formatting
 isn't used if at least one formatter has finished sucessfully.
@@ -138,7 +138,7 @@ isn't used if at least one formatter has finished sucessfully.
 Sample config:
 ```vim
 let g:formatters_vue = ['eslint_local', 'stylelint']
-let g:enable_multiple_formaters_vue = 1
+let g:run_all_formatters_vue = 1
 ```
 
 ## Default formatprograms
