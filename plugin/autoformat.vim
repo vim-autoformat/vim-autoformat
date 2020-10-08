@@ -15,6 +15,14 @@ function! s:find_formatters(...)
         let ftypes = [compoundtype]
     endif
 
+    " Support multiple formatters per file type
+    let run_all_formatters_var = "g:run_all_formatters_".compoundtype
+    if exists(run_all_formatters_var)
+        let b:run_all_formatters = eval(run_all_formatters_var)
+    else
+        let b:run_all_formatters = 0
+    endif
+
     " Warn for backward incompatible configuration
     let old_formatprg_var = "g:formatprg_".compoundtype
     let old_formatprg_args_var = "g:formatprg_args_".compoundtype
@@ -85,6 +93,9 @@ function! s:TryAllFormatters(...) range
     " Try all formatters, starting with selected one
     let s:index = b:current_formatter_index
 
+    " Save if at least one formatter was successful
+    let l:formatter_run_successfully = 0
+
     while 1
         " Formatter definition must be existent
         let formatdef_var = 'b:formatdef_'.b:formatters[s:index]
@@ -123,25 +134,44 @@ function! s:TryAllFormatters(...) range
             endif
             let success = s:TryFormatterPython()
         endif
+
+        let s:index = (s:index + 1) % len(b:formatters)
+
         if success == 0
             if verbose
                 echomsg "Definition in '".formatdef_var."' was successful."
             endif
-            return 1
+            " Check if we can run few formatters in row
+            if b:run_all_formatters == 1
+                let l:formatter_run_successfully += 1
+                if s:index != b:current_formatter_index
+                    if verbose
+                        echomsg "Running next chained formatter."
+                    endif
+                endif
+            else
+                return 1
+            endif
         else
             if verbose
                 echomsg "Definition in '".formatdef_var."' was unsuccessful."
             endif
-            let s:index = (s:index + 1) % len(b:formatters)
         endif
 
         if s:index == b:current_formatter_index
-            if verbose
-                echomsg "No format definitions were successful."
+            if b:run_all_formatters == 1 && l:formatter_run_successfully >= 1
+                if verbose
+                    echomsg l:formatter_run_successfully." formatters were successfuly run."
+                endif
+                return 1
+            else
+                if verbose
+                    echomsg "No format definitions were successful."
+                endif
+                " Tried all formatters, none worked
+                call s:Fallback()
+                return 0
             endif
-            " Tried all formatters, none worked
-            call s:Fallback()
-            return 0
         endif
     endwhile
 endfunction

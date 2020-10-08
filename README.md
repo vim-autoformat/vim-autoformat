@@ -129,6 +129,20 @@ vim-autoformat first tries to detect and use formatters for the exact original f
 then tries the same for all supertypes occurring from left to right in the original filetype
 separated by dots (`.`).
 
+### Using multiple formatters for the same file
+
+It is possible to apply multiple formatters for single file, for example, html can use special formatters for js/css etc.
+Support can be enabled via the `g:run_all_formatters_<identifier>` option.
+
+In this case, formatters from `g:formatdef_<identifier>` will be applied to the file one by one. Fallback (vim) formatting
+isn't used if at least one formatter has finished sucessfully.
+
+Sample config:
+```vim
+let g:formatters_vue = ['eslint_local', 'stylelint']
+let g:run_all_formatters_vue = 1
+```
+
 ## Default formatprograms
 
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
@@ -387,7 +401,6 @@ let g:formatters_python = ['autopep8']
 
 This would allow the user to select a part of the file and execute `:Autoformat`, which
 would then only format the selected part.
-
 
 ## Contributing
 
