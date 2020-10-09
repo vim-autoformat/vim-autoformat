@@ -635,3 +635,12 @@ endif
 if !exists('g:formatters_asm')
     let g:formatters_asm = ['asm_format']
 endif
+
+" Nix
+if !exists('g:formatdef_nix_format')
+    let g:formatdef_nix_format = '"nixfmt"'
+endif
+
+if !exists('g:formatters_nix')
+    let g:formatters_nix = ['nix_format']
+endif
