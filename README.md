@@ -308,6 +308,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `asmfmt` for __Assembly__.
   An assembly formatter. Can be installed with `go get -u github.com/klauspost/asmfmt/cmd/asmfmt`. See https://github.com/klauspost/asmfmt for more info.
 
+* `nixfmt` for __Nix__.
+  It can be installed from nixpkgs with `nix-env -iA nixpkgs.nixfmt`. See https://github.com/serokell/nixfmt for more.
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
