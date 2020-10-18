@@ -644,3 +644,12 @@ endif
 if !exists('g:formatters_nix')
     let g:formatters_nix = ['nix_format']
 endif
+
+" Dhall
+if !exists('g:formatdef_dhall_format')
+    let g:formatdef_dhall_format = '"dhall --ascii format"'
+endif
+
+if !exists('g:formatters_dhall')
+    let g:formatters_dhall = ['dhall_format']
+endif

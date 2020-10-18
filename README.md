@@ -311,6 +311,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `nixfmt` for __Nix__.
   It can be installed from nixpkgs with `nix-env -iA nixpkgs.nixfmt`. See https://github.com/serokell/nixfmt for more.
 
+* `dhall format` for __Dhall__.
+  The standard formatter, bundled with the interpreter. See https://github.com/dhall-lang/dhall-lang for more info.
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
