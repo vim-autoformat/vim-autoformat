@@ -212,6 +212,15 @@ Here is a list of formatprograms that are supported by default, and thus will be
   It can be installed by running `npm install -g xo` (`nodejs` is required).
   Here is the link to the repository: https://github.com/sindresorhus/xo.
 
+* `JuliaFormatter.jl` for __Julia__.
+  It can be installed by running `julia -e 'import Pkg; Pkg.add("JuliaFormatter")'`. You will need to install Julia and have the `julia` binary in your `PATH`.
+  See https://github.com/domluna/JuliaFormatter.jl for more information on how to configure `JuliaFormatter.jl`.
+  Note that since `vim-autoformat` works by running a subprocess, a new instance of Julia is instantiated every time it is invoked.
+  And since Julia needs to precompile the code to run `format_text`, this may block the vim instance while the subprocess is running.
+  Once Julia finishes executing, control will be handled back to the user and the formatted text will replaces the current buffer.
+  You can consider precompiling `JuliaFormatter.jl` to make this process faster (See [`PackageCompiler.jl`](https://github.com/JuliaLang/PackageCompiler.jl) for more information on that),
+  or consider using [a dedicated `JuliaFormatter.vim` plugin](https://github.com/kdheepak/JuliaFormatter.vim) that works asynchronously.
+
 * `html-beautify` for __HTML__.
   It is shipped with `js-beautify`, which can be installed by running `npm install -g js-beautify`.
   Note that `nodejs` is needed for this to work.
