@@ -347,6 +347,19 @@ if !exists('g:formatters_json')
 endif
 
 
+" Julia
+if !exists('g:formatdef_juliaformatter')
+    function! g:BuildJuliaCmd()
+        return 'julia -e "using JuliaFormatter; print(format_text(read(\"' . expand("%:p") . '\", String)))"'
+    endfunction
+    let g:formatdef_juliaformatter = 'g:BuildJuliaCmd()'
+endif
+
+if !exists('g:formatters_julia')
+    let g:formatters_julia = ['juliaformatter']
+endif
+
+
 " HTML
 if !exists('g:formatdef_htmlbeautify')
     let g:formatdef_htmlbeautify = '"html-beautify - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
