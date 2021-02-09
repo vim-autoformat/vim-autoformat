@@ -666,3 +666,12 @@ endif
 if !exists('g:formatters_dhall')
     let g:formatters_dhall = ['dhall_format']
 endif
+
+" Terraform
+if !exists('g:formatdef_terraform_format')
+    let g:formatdef_terraform_format = '"terraform fmt -"'
+endif
+
+if !exists('g:formatters_terraform')
+    let g:formatters_terraform = ['terraform_format']
+endif
