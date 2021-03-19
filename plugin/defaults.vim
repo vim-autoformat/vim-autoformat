@@ -76,6 +76,10 @@ if !exists('g:formatters_cs')
     let g:formatters_cs = ['astyle_cs']
 endif
 
+if !exists('g:formatters_bzl')
+    let g:formatters_bzl = ['buildifier']
+endif
+
 
 " Generic C, C++, Objective-C
 if !exists('g:formatdef_clangformat')
