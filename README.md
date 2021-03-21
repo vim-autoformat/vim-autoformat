@@ -147,6 +147,8 @@ let g:run_all_formatters_vue = 1
 
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
 
+* `buildifier` for __bazel__ build files. (https://github.com/bazelbuild/buildtools/tree/master/buildifier)
+
 * `clang-format` for __C__, __C++__, __Objective-C__, __Protobuf__ (supports formatting ranges).
   Clang-format is a product of LLVM source builds.
   If you `brew install llvm`, clang-format can be found in /usr/local/Cellar/llvm/bin/.
