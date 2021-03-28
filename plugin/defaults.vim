@@ -5,6 +5,7 @@
 
 
 " Vim-autoformat configuration variables
+
 if !exists('g:autoformat_autoindent')
     let g:autoformat_autoindent = 1
 endif
@@ -60,12 +61,41 @@ if !exists('g:formatters_python')
     let g:formatters_python = ['autopep8','yapf', 'black']
 endif
 
+" This function find .astylerc file recursively from current directory to upper
+" directory, stopped when meet root or $HOME. If readable .astylerc found,
+" return its path, or return an empty string when nothing found.
+function! s:FindAstylerc()
+    let l:astylerc = '/.astylerc'
+    let l:cur = '%:p:h'
+    let l:home = expand('~')
+    let l:root = '/'
+    let l:found = 0
+
+    while 1
+        let f = expand(cur)
+        if filereadable(f . astylerc)
+            let found = 1
+            break
+        endif
+        if (f == home) || (f == root)
+            break
+        endif
+        let cur = cur . ':h' " To upper directory
+    endwhile
+
+    if !found
+        return ''
+    else
+        return f . astylerc
+    endif
+endfunction
 
 " C#
 if !exists('g:formatdef_astyle_cs')
-    if filereadable('.astylerc')
-        let g:formatdef_astyle_cs = '"astyle --mode=cs --options=.astylerc"'
-    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+    let astylerc = s:FindAstylerc()
+    if filereadable(astylerc)
+        let g:formatdef_astyle_cs = '"astyle --mode=cs --options=' . astylerc . '"'
+    elseif exists('$ARTISTIC_STYLE_OPTIONS')
         let g:formatdef_astyle_cs = '"astyle --mode=cs"'
     else
         let g:formatdef_astyle_cs = '"astyle --mode=cs --style=ansi --indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
@@ -96,9 +126,10 @@ endfunction
 
 " C
 if !exists('g:formatdef_astyle_c')
-    if filereadable('.astylerc')
-        let g:formatdef_astyle_c = '"astyle --mode=c --options=.astylerc"'
-    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+    let astylerc = s:FindAstylerc()
+    if filereadable(astylerc)
+        let g:formatdef_astyle_c = '"astyle --mode=c --options=' . astylerc . '"'
+    elseif exists('$ARTISTIC_STYLE_OPTIONS')
         let g:formatdef_astyle_c = '"astyle --mode=c"'
     else
         let g:formatdef_astyle_c = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
@@ -112,9 +143,10 @@ endif
 
 " C++
 if !exists('g:formatdef_astyle_cpp')
-    if filereadable('.astylerc')
-        let g:formatdef_astyle_cpp = '"astyle --mode=c --options=.astylerc"'
-    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+    let astylerc = s:FindAstylerc()
+    if filereadable(astylerc)
+        let g:formatdef_astyle_cpp = '"astyle --mode=c --options=' . astylerc . '"'
+    elseif exists('$ARTISTIC_STYLE_OPTIONS')
         let g:formatdef_astyle_cpp = '"astyle --mode=c"'
     else
         let g:formatdef_astyle_cpp = '"astyle --mode=c --style=ansi -pcH".(&expandtab ? "s".shiftwidth() : "t")'
@@ -160,9 +192,10 @@ endif
 
 " Java
 if !exists('g:formatdef_astyle_java')
-    if filereadable('.astylerc')
-        let g:formatdef_astyle_java = '"astyle --mode=java --options=.astylerc"'
-    elseif filereadable(expand('~/.astylerc')) || exists('$ARTISTIC_STYLE_OPTIONS')
+    let astylerc = s:FindAstylerc()
+    if filereadable(astylerc)
+        let g:formatdef_astyle_java = '"astyle --mode=java --options=' . astylerc . '"'
+    elseif exists('$ARTISTIC_STYLE_OPTIONS')
         let g:formatdef_astyle_java = '"astyle --mode=java"'
     else
         let g:formatdef_astyle_java = '"astyle --mode=java --style=java -pcH".(&expandtab ? "s".shiftwidth() : "t")'
