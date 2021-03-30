@@ -18,7 +18,7 @@ if !exists('g:autoformat_remove_trailing_spaces')
 endif
 
 if !exists('g:autoformat_verbosemode')
-    let g:autoformat_verbosemode = 0
+    let g:autoformat_verbosemode = 1
 endif
 
 
@@ -290,7 +290,7 @@ if !exists('g:formatdef_eslint_local')
         endif
 
         if (empty(l:cfg) || empty(l:prog))
-            if verbose
+            if verbose > 0
                 return "(>&2 echo 'No local or global ESLint program and/or config found')"
             endif
             return
@@ -433,7 +433,7 @@ if !exists('g:formatdef_stylelint')
         let l:prog = s:NodeJsFindPathToExecFile('stylelint')
 
         if (empty(l:prog))
-            if verbose
+            if verbose > 0
                 return "(>&2 echo 'No local or global stylelint program found')"
             endif
             return
