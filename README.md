@@ -332,6 +332,8 @@ Here is a list of formatprograms that are supported by default, and thus will be
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
 verbose-mode. Vim-autoformat will then output errors on formatters that failed.
+The value of g:autoformat_verbosemode could set as 0, 1 or 2. which means:
+0: no message output. 1: only error message output. 2: all message output.
 
 ```vim
 let g:autoformat_verbosemode=1
