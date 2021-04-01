@@ -18,7 +18,7 @@ if !exists('g:autoformat_remove_trailing_spaces')
 endif
 
 if !exists('g:autoformat_verbosemode')
-    let g:autoformat_verbosemode = 1
+    let g:autoformat_verbosemode = 0
 endif
 
 
