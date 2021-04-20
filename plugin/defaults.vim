@@ -601,6 +601,15 @@ if !exists('g:formatters_sh')
     let g:formatters_sh = ['shfmt']
 endif
 
+" Fish shell
+if !exists('g:formatdef_fish_indent')
+    let g:formatdef_fish_indent = '"fish_indent"'
+endif
+
+if !exists('g:formatters_fish')
+    let g:formatters_fish = ['fish_indent']
+endif
+
 " SQL
 if !exists('g:formatdef_sqlformat')
     let g:formatdef_sqlformat = '"sqlformat --reindent --indent_width ".shiftwidth()." --keywords upper --identifiers lower -"'
