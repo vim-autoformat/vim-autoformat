@@ -679,3 +679,12 @@ endif
 if !exists('g:formatters_terraform')
     let g:formatters_terraform = ['terraform_format']
 endif
+
+" Packer
+if !exists('g:formatdef_packer_format')
+    let g:formatdef_packer_format = '"packer fmt -"'
+endif
+
+if !exists('g:formatters_packer')
+    let g:formatters_packer = ['packer_format']
+endif

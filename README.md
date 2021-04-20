@@ -328,6 +328,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `terraform fmt` for __Terraform__.
   The standard formatter included with Terraform. See https://www.terraform.io/docs/cli/commands/fmt.html for more info.
 
+* `packer fmt` for __Packer__.
+  The standard formatter included with Packer. See https://www.packer.io/docs/commands/fmt for more info.
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
