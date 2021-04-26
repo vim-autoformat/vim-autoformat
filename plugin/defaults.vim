@@ -21,13 +21,17 @@ if !exists('g:autoformat_verbosemode')
     let g:autoformat_verbosemode = 0
 endif
 
+if !exists('g:autoformat_columnlimit')
+    let g:autoformat_columnlimit = &textwidth
+endif
+
 
 " Python
 if !exists('g:formatdef_autopep8')
     " Autopep8 will not do indentation fixes when a range is specified, so we
     " only pass a range when there is a visual selection that is not the
     " entire file. See #125.
-    let g:formatdef_autopep8 = '"autopep8 -".(g:DoesRangeEqualBuffer(a:firstline, a:lastline) ? " --range ".a:firstline." ".a:lastline : "")." ".(&textwidth ? "--max-line-length=".&textwidth : "")'
+    let g:formatdef_autopep8 = '"autopep8 -".(g:DoesRangeEqualBuffer(a:firstline, a:lastline) ? " --range ".a:firstline." ".a:lastline : "")." ".(g:autoformat_columnlimit ? "--max-line-length=".g:autoformat_columnlimit : "")'
 endif
 
 " There doesn't seem to be a reliable way to detect if are in some kind of visual mode,
@@ -44,7 +48,7 @@ if !exists('g:formatter_yapf_style')
 endif
 if !exists('g:formatdef_yapf')
     let s:configfile_def   = "'yapf -l '.a:firstline.'-'.a:lastline"
-    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.shiftwidth().(&textwidth ? ',column_limit:'.&textwidth : '').'}\" -l '.a:firstline.'-'.a:lastline"
+    let s:noconfigfile_def = "'yapf --style=\"{based_on_style:'.g:formatter_yapf_style.',indent_width:'.shiftwidth().(g:autoformat_columnlimit ? ',column_limit:'.g:autoformat_columnlimit : '').'}\" -l '.a:firstline.'-'.a:lastline"
     let g:formatdef_yapf   = "g:YAPFFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
 
@@ -53,7 +57,7 @@ function! g:YAPFFormatConfigFileExists()
 endfunction
 
 if !exists('g:formatdef_black')
-    let g:formatdef_black = '"black -q ".(&textwidth ? "-l".&textwidth : "")." -"'
+    let g:formatdef_black = '"black -q ".(g:autoformat_columnlimit ? "-l".g:autoformat_columnlimit : "")." -"'
 endif
 
 if !exists('g:formatters_python')
@@ -84,7 +88,7 @@ endif
 " Generic C, C++, Objective-C
 if !exists('g:formatdef_clangformat')
     let s:configfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
-    let s:noconfigfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(&textwidth ? 'ColumnLimit: '.&textwidth.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.shiftwidth() : 'UseTab: Always').'}\"'"
+    let s:noconfigfile_def = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=\"{BasedOnStyle: WebKit, AlignTrailingComments: true, '.(g:autoformat_columnlimit ? 'ColumnLimit: '.g:autoformat_columnlimit.', ' : '').(&expandtab ? 'UseTab: Never, IndentWidth: '.shiftwidth() : 'UseTab: Always').'}\"'"
     let g:formatdef_clangformat = "g:ClangFormatConfigFileExists() ? (" . s:configfile_def . ") : (" . s:noconfigfile_def . ")"
 endif
 
@@ -141,7 +145,7 @@ if !exists('g:formatdef_dfmt')
     endif
 
     let s:configfile_def = '"' . s:dfmt_command . '"'
-    let s:noconfigfile_def = '"' . s:dfmt_command . ' -t " . (&expandtab ? "space" : "tab") . " --indent_size " . shiftwidth() . (&textwidth ? " --soft_max_line_length " . &textwidth : "")'
+    let s:noconfigfile_def = '"' . s:dfmt_command . ' -t " . (&expandtab ? "space" : "tab") . " --indent_size " . shiftwidth() . (g:autoformat_columnlimit ? " --soft_max_line_length " . g:autoformat_columnlimit : "")'
 
     let g:formatdef_dfmt = 'g:EditorconfigFileExists() ? (' . s:configfile_def . ') : (' . s:noconfigfile_def . ')'
     let g:formatters_d = ['dfmt']
@@ -181,7 +185,7 @@ if !exists('g:formatdef_jsbeautify_javascript')
     elseif filereadable(expand('~/.jsbeautifyrc'))
         let g:formatdef_jsbeautify_javascript = '"js-beautify"'
     else
-        let g:formatdef_jsbeautify_javascript = '"js-beautify -X -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
+        let g:formatdef_jsbeautify_javascript = '"js-beautify -X -".(&expandtab ? "s ".shiftwidth() : "t").(g:autoformat_columnlimit ? " -w ".g:autoformat_columnlimit : "")'
     endif
 endif
 
@@ -195,7 +199,7 @@ endif
 
 
 if !exists('g:formatdef_prettier')
-    let g:formatdef_prettier = '"prettier --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+    let g:formatdef_prettier = '"prettier --stdin-filepath ".expand("%:p").(g:autoformat_columnlimit ? " --print-width ".g:autoformat_columnlimit : "")." --tab-width=".shiftwidth()'
 endif
 
 
@@ -366,11 +370,11 @@ endif
 
 " HTML
 if !exists('g:formatdef_htmlbeautify')
-    let g:formatdef_htmlbeautify = '"html-beautify - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
+    let g:formatdef_htmlbeautify = '"html-beautify - -".(&expandtab ? "s ".shiftwidth() : "t").(g:autoformat_columnlimit ? " -w ".g:autoformat_columnlimit : "")'
 endif
 
 if !exists('g:formatdef_tidy_html')
-    let g:formatdef_tidy_html = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
+    let g:formatdef_tidy_html = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -wrap ".g:autoformat_columnlimit'
 endif
 
 if !exists('g:formatters_html')
@@ -381,7 +385,7 @@ endif
 
 " XML
 if !exists('g:formatdef_tidy_xml')
-    let g:formatdef_tidy_xml = '"tidy -q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -wrap ".&textwidth'
+    let g:formatdef_tidy_xml = '"tidy -q -xml --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -wrap ".g:autoformat_columnlimit'
 endif
 
 if !exists('g:formatters_xml')
@@ -395,7 +399,7 @@ endif
 
 " XHTML
 if !exists('g:formatdef_tidy_xhtml')
-    let g:formatdef_tidy_xhtml = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -asxhtml -wrap ".&textwidth'
+    let g:formatdef_tidy_xhtml = '"tidy -q --show-errors 0 --show-warnings 0 --force-output --indent auto --indent-spaces ".shiftwidth()." --vertical-space yes --tidy-mark no -asxhtml -wrap ".g:autoformat_columnlimit'
 endif
 
 if !exists('g:formatters_xhtml')
@@ -620,7 +624,7 @@ endif
 
 " CMake
 if !exists('g:formatdef_cmake_format')
-    let g:formatdef_cmake_format = '"cmake-format - --tab-size ".shiftwidth()." ".(&textwidth ? "--line-width=".&textwidth : "")'
+    let g:formatdef_cmake_format = '"cmake-format - --tab-size ".shiftwidth()." ".(g:autoformat_columnlimit ? "--line-width=".g:autoformat_columnlimit : "")'
 endif
 
 if !exists('g:formatters_cmake')
