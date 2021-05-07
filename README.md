@@ -23,7 +23,7 @@ python3 -m pip install pynvim
 And add the following configuration in your `.vimrc`
 
 ```
-let g:python3_host_prog=/path/to/python/executable/
+let g:python3_host_prog="/path/to/python/executable/"
 ```
 
 
