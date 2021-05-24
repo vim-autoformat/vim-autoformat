@@ -697,3 +697,12 @@ endif
 if !exists('g:formatters_packer')
     let g:formatters_packer = ['packer_format']
 endif
+
+" Nginx
+if !exists('g:formatdef_nginxfmt')
+    let g:formatdef_nginxfmt = '"nginxfmt.py -i ".shiftwidth()." -"'
+endif
+
+if !exists('g:formatters_nginx')
+    let g:formatters_nginx = ['nginxfmt']
+endif
