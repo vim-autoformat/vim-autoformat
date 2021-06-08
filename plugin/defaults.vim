@@ -584,13 +584,19 @@ if !exists('g:formatters_fortran')
 endif
 
 " Elixir
-if !exists('g:formatdef_mix_format')
-    let g:formatdef_mix_format = '"mix format -"'
-endif
 
 if !exists('g:formatters_elixir')
+    let s:configfile_def = '"mix format --dot-formatter " . findfile(".formatter.exs", expand("%:p:h").";") . " -"'
+    let s:noconfigfile_def = '"mix format -"'
+
+    let g:formatdef_mix_format = 'g:ElixirconfigFileExists() ? (' . s:configfile_def . ') : (' . s:noconfigfile_def . ')'
     let g:formatters_elixir = ['mix_format']
 endif
+
+
+function! g:ElixirconfigFileExists()
+  return len(findfile(".formatter.exs", expand("%:p:h").";"))
+endfunction
 
 " Shell
 if !exists('g:formatdef_shfmt')
