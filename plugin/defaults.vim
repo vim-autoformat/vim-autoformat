@@ -616,6 +616,14 @@ if !exists('g:formatters_fish')
     let g:formatters_fish = ['fish_indent']
 endif
 
+" Lua
+if !exists('g:formatdef_luafmt')
+    let g:formatdef_luafmt = "'luafmt --stdin '.bufname('%')"
+endif
+if !exists('g:formatters_lua')
+    let g:formatters_lua = ['luafmt']
+endif
+
 " SQL
 if !exists('g:formatdef_sqlformat')
     let g:formatdef_sqlformat = '"sqlformat --reindent --indent_width ".shiftwidth()." --keywords upper --identifiers lower -"'

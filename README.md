@@ -305,6 +305,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `fish_indent` for __Fish-shell__.
   Fish shell builtin fish_indent formatter for fish shell script.
 
+* `luafmt` for __Lua__.
+  Install `luafmt` with `npm`. See https://github.com/trixnz/lua-fmt for more info.
+
 * `sqlformat` for __SQL__.
   Install `sqlparse` with `pip`.
 
