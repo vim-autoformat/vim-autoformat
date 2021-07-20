@@ -1,8 +1,20 @@
+" Function for getting the verbose mode level
+function! s:get_verbosemode(...)
+    let verbose = &verbose
+    if exists("g:autoformat_verbosemode ")
+      if g:autoformat_verbosemode > verbose
+        let verbose = g:autoformat_verbosemode
+      endif
+    endif
+    echom verbose
+    return verbose
+endfunction
+
 " Function for finding the formatters for this filetype
 " Result is stored in b:formatters
 function! s:find_formatters(...)
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:get_verbosemode()
 
     " Extract filetype to be used
     let ftype = a:0 ? a:1 : &filetype
@@ -70,7 +82,7 @@ endfunction
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:get_verbosemode()
 
     " Make sure formatters are defined and detected
     if !call('<SID>find_formatters', a:000)
@@ -178,7 +190,7 @@ endfunction
 
 function! s:Fallback()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:get_verbosemode()
 
     if exists('b:autoformat_remove_trailing_spaces') ? b:autoformat_remove_trailing_spaces == 1 : g:autoformat_remove_trailing_spaces == 1
         if verbose > 1
@@ -212,7 +224,7 @@ endfunction
 " +python version
 function! s:TryFormatterPython()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:get_verbosemode()
 
 python << EOF
 import vim, subprocess, os
@@ -273,7 +285,7 @@ endfunction
 " +python3 version
 function! s:TryFormatterPython3()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:get_verbosemode()
 
 python3 << EOF
 import vim, subprocess, os
