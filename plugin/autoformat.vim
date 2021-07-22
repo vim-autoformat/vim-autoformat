@@ -1,8 +1,19 @@
+" Function for getting the verbose mode level
+function! s:GetVerboseMode(...)
+    let verbose = &verbose
+    if exists("g:autoformat_verbosemode ")
+      if g:autoformat_verbosemode > verbose
+        let verbose = g:autoformat_verbosemode
+      endif
+    endif
+    return verbose
+endfunction
+
 " Function for finding the formatters for this filetype
 " Result is stored in b:formatters
-function! s:find_formatters(...)
+function! s:FindFormatters(...)
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:GetVerboseMode()
 
     " Extract filetype to be used
     let ftype = a:0 ? a:1 : &filetype
@@ -70,10 +81,10 @@ endfunction
 " works. If none works, autoindent the buffer.
 function! s:TryAllFormatters(...) range
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:GetVerboseMode()
 
     " Make sure formatters are defined and detected
-    if !call('<SID>find_formatters', a:000)
+    if !call('<SID>FindFormatters', a:000)
         " No formatters defined
         if verbose > 0
             echomsg "No format definitions are defined for this filetype."
@@ -178,7 +189,7 @@ endfunction
 
 function! s:Fallback()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:GetVerboseMode()
 
     if exists('b:autoformat_remove_trailing_spaces') ? b:autoformat_remove_trailing_spaces == 1 : g:autoformat_remove_trailing_spaces == 1
         if verbose > 1
@@ -212,7 +223,7 @@ endfunction
 " +python version
 function! s:TryFormatterPython()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:GetVerboseMode()
 
 python << EOF
 import vim, subprocess, os
@@ -273,7 +284,7 @@ endfunction
 " +python3 version
 function! s:TryFormatterPython3()
     " Detect verbosity
-    let verbose = &verbose || g:autoformat_verbosemode == 1
+    let verbose = s:GetVerboseMode()
 
 python3 << EOF
 import vim, subprocess, os
@@ -349,7 +360,7 @@ command! -nargs=? -range -complete=filetype -bar
 
 " Functions for iterating through list of available formatters
 function! s:NextFormatter()
-    call s:find_formatters()
+    call s:FindFormatters()
     if !exists('b:current_formatter_index')
         let b:current_formatter_index = 0
     endif
@@ -358,7 +369,7 @@ function! s:NextFormatter()
 endfunction
 
 function! s:PreviousFormatter()
-    call s:find_formatters()
+    call s:FindFormatters()
     if !exists('b:current_formatter_index')
         let b:current_formatter_index = 0
     endif
@@ -368,7 +379,7 @@ function! s:PreviousFormatter()
 endfunction
 
 function! s:CurrentFormatter()
-    call s:find_formatters()
+    call s:FindFormatters()
     if !exists('b:current_formatter_index')
         let b:current_formatter_index = 0
     endif
