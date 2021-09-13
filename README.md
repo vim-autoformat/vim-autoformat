@@ -307,6 +307,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 
 * `luafmt` for __Lua__.
   Install `luafmt` with `npm`. See https://github.com/trixnz/lua-fmt for more info.
+  
+* `stylua` for __Lua__.
+  Install `stylua` with `cargo`. See https://github.com/JohnnyMorganz/StyLua for more info.
 
 * `sqlformat` for __SQL__.
   Install `sqlparse` with `pip`.
