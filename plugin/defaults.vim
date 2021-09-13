@@ -624,7 +624,7 @@ if !exists('g:formatdef_stylua')
     let g:formatdef_stylua = "'stylua --search-parent-directories --stdin-filepath ' . expand('%:p') .' -- -'"
 endif
 if !exists('g:formatters_lua')
-    let g:formatters_lua = ['luafmt']
+    let g:formatters_lua = ['luafmt', 'stylua']
 endif
 
 " SQL
