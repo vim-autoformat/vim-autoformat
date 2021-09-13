@@ -620,6 +620,9 @@ endif
 if !exists('g:formatdef_luafmt')
     let g:formatdef_luafmt = "'luafmt --stdin '.bufname('%')"
 endif
+if !exists('g:formatdef_stylua')
+    let g:formatdef_stylua = "'stylua --search-parent-directories --stdin-filepath ' . expand('%:p') .' -- -'"
+endif
 if !exists('g:formatters_lua')
     let g:formatters_lua = ['luafmt']
 endif
