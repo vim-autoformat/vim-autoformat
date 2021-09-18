@@ -287,7 +287,7 @@ function! s:TryFormatterPython3()
     let verbose = s:GetVerboseMode()
 
 python3 << EOF
-import vim, subprocess, os
+import vim, subprocess, os, shlex
 from subprocess import Popen, PIPE
 
 # The return code is `failure`, unless otherwise specified
@@ -302,7 +302,7 @@ if int(vim.eval('exists("g:formatterpath")')):
     env['PATH'] = os.pathsep.join(extra_path) + os.pathsep + env['PATH']
 
 try:
-    p = subprocess.Popen(formatprg, env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    p = subprocess.Popen(shlex.split(formatprg), env=env, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     stdoutdata, stderrdata = p.communicate(text)
 except (BrokenPipeError, IOError):
     if verbose > 0:
