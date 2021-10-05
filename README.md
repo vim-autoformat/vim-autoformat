@@ -200,6 +200,8 @@ Here is a list of formatprograms that are supported by default, and thus will be
 
 * `JSCS` for __Javascript__. https://jscs-dev.github.io/
 
+* `gnatpp` for __Ada__. http://gcc.gnu.org/onlinedocs/gcc-3.4.6/gnat_ugn_unw/The-GNAT-Pretty_002dPrinter-gnatpp.html
+
 * `standard` for __Javascript__.
   It can be installed by running `npm install -g standard` (`nodejs` is required). No more configuration needed.
   More information about the style guide can be found here: http://standardjs.com/.

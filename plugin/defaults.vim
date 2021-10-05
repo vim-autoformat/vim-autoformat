@@ -22,6 +22,15 @@ if !exists('g:autoformat_verbosemode')
 endif
 
 
+" Ada
+if !exists('g:formatdef_gnatpp')
+    let g:formatdef_gnatpp = "'cat > /tmp/adafile; gnatpp --pipe /tmp/adafile; rm -f /tmp/adafile'"
+endif
+
+if !exists('g:formatters_ada')
+    let g:formatters_ada = ['gnatpp']
+endif
+
 " Python
 if !exists('g:formatdef_autopep8')
     " Autopep8 will not do indentation fixes when a range is specified, so we
