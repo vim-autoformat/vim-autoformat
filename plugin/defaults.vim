@@ -24,7 +24,7 @@ endif
 
 " Ada
 if !exists('g:formatdef_gnatpp')
-    let g:formatdef_gnatpp = "'gnatpp --pipe '.bufname('%')"
+    let g:formatdef_gnatpp = "'cat > /tmp/adafile; gnatpp --pipe /tmp/adafile; rm -f /tmp/adafile'"
 endif
 
 if !exists('g:formatters_ada')
