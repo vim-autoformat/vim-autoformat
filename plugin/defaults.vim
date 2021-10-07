@@ -523,12 +523,12 @@ if !exists('g:formatters_rust')
 endif
 
 " Dart
-if !exists('g:formatdef_dartfmt')
-    let g:formatdef_dartfmt = '"dartfmt"'
+if !exists('g:formatdef_dart_format')
+    let g:formatdef_dart_format = '"dart format"'
 endif
 
 if !exists('g:formatters_dart')
-    let g:formatters_dart = ['dartfmt']
+    let g:formatters_dart = ['dart_format']
 endif
 
 " Perl
