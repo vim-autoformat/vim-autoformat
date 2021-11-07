@@ -320,7 +320,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
   Install `cmake_format` with `pip`. See https://github.com/cheshirekow/cmake_format for more info.
 
 * `latexindent.pl` for __LaTeX__.
-  Installation instructions at https://github.com/cmhughes/latexindent.pl.
+  Installation instructions at https://github.com/cmhughes/latexindent.pl. On mac you can install it with `brew install latexindent`, then you have to add `let g:formatdef_latexindent = '"latexindent -"'` to `.vimrc`.
 
 * `ocamlformat` for __OCaml__.
   OCamlFormat can be installed with opam: `opam install ocamlformat`.
