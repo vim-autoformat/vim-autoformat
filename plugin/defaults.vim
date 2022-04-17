@@ -690,7 +690,7 @@ endif
 
 " Nix
 if !exists('g:formatdef_nix_format')
-    let g:formatdef_nix_format = '"nixfmt"'
+    let g:formatdef_nix_format = '"nixfmt --width="&textwidth'
 endif
 
 if !exists('g:formatters_nix')
