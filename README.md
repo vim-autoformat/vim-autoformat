@@ -345,6 +345,9 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `nginxfmt.py` for __NGINX__.
   See https://github.com/slomkowski/nginx-config-formatter for more info.
 
+* `zigformat` for __Zig__.
+  It is an unofficial binary. You can find the installation instructions from the repo: [zigformat](https://github.com/Himujjal/zigformat)
+
 ## Help, the formatter doesn't work as expected!
 
 If you're struggling with getting a formatter to work, it may help to set vim-autoformat in
