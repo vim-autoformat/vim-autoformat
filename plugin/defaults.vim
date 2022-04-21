@@ -523,12 +523,12 @@ if !exists('g:formatters_rust')
 endif
 
 " Zig
-if !exists('g:formatdef_zigformat')
-    let g:formatdef_zigformat = '"zigformat"'
+if !exists('g:formatdef_zigfmt')
+    let g:formatdef_zigfmt = '"zig fmt --stdin"'
 endif
 
 if !exists('g:formatters_zig')
-    let g:formatters_zig = ['zigformat']
+    let g:formatters_zig = ['zigfmt']
 endif
 
 " Dart
