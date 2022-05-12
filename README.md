@@ -272,6 +272,7 @@ Here is a list of formatprograms that are supported by default, and thus will be
 * `gofmt` for __Golang__.
   The default golang formatting program is shipped with the golang distribution. Make sure `gofmt` is in your PATH (if golang is installed properly, it should be).
   Here is the link to the installation: https://golang.org/doc/install
+  An alternative formatter is [gofumpt](https://github.com/mvdan/gofumpt), which enforces a stricter format than `gofmt`. To enable `gofumpt` support, you should install it by running `go install mvdan.cc/gofumpt@latest`, and then change the default golang formatter by configuring `let g:formatters_go = ['gofumpt']`.
 
 * `rustfmt` for __Rust__.
   It can be installed using `cargo`, the Rust package manager. Up-to-date installation instructions are on the project page: https://github.com/rust-lang/rustfmt#quick-start.
