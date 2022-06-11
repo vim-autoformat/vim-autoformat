@@ -306,7 +306,7 @@ if !exists('g:formatdef_eslint_local')
         let l:eslint_tmp_file = g:BuildESLintTmpFile(l:path, l:ext)
         let content = getline('1', '$')
         call writefile(content, l:eslint_tmp_file)
-        return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
+        return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?;
                     \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
