@@ -146,6 +146,8 @@ let g:run_all_formatters_vue = 1
 ## Default formatprograms
 
 Here is a list of formatprograms that are supported by default, and thus will be detected and used by vim when they are installed properly.
+They are defined in https://github.com/Chiel92/vim-autoformat/blob/master/plugin/defaults.vim.
+They are simply tried in the order they are listed until one succeeds.
 
 
 * `asmfmt` for __Assembly__.
