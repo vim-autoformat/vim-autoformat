@@ -215,6 +215,19 @@ function! s:Fallback()
 
 endfunction
 
+function! s:WinSaveViews()
+    let s:views = {}
+    for winid in win_findbuf(bufnr())
+        call win_execute(winid, 'let s:views[winid] = winsaveview()')
+    endfor
+endfunction
+
+function! s:WinRestViews()
+    for [winid, winview] in items(s:views)
+        call win_execute(winid, 'call winrestview(winview)')
+    endfor
+endfunction
+
 
 " Call formatter
 " If stderr is empty, apply result, return 0
@@ -250,9 +263,8 @@ stdoutdata, stderrdata = p.communicate(text)
 formattername = vim.eval('b:formatters[s:index]')
 if stderrdata:
     if verbose > 0:
-        print('Formatter {} has errors: {}'.format(formattername, stderrdata))
-    vim.command('return 1')
-elif p.returncode > 0:
+        print('Formatter {} stderr: {}'.format(formattername, stderrdata))
+if p.returncode > 0:
     if verbose > 0:
         print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
     vim.command('return 1')
@@ -311,8 +323,8 @@ else:
     formattername = vim.eval('b:formatters[s:index]')
     if stderrdata:
         if verbose > 0:
-            print('Formatter {} has errors: {}'.format(formattername, stderrdata))
-    elif p.returncode > 0:
+            print('Formatter {} stderr: {}'.format(formattername, stderrdata))
+    if p.returncode > 0:
         if verbose > 0:
             print('Formatter {} gives nonzero returncode: {}'.format(formattername, p.returncode))
     elif not stdoutdata:
@@ -349,13 +361,13 @@ endfunction
 " Save and recall window state to prevent vim from jumping to line 1
 " Write and read viminfo to restore marks
 command! -nargs=? -range=% -complete=filetype -bar
-    \ Autoformat let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
+    \ Autoformat call s:WinSaveViews()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call s:WinRestViews()|rviminfo
 
 " Create a command for formatting a single line, or range of lines
 " Save and recall window state to prevent vim from jumping to line 1
 " Write and read viminfo to restore marks
 command! -nargs=? -range -complete=filetype -bar
-    \ AutoformatLine let winview=winsaveview()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call winrestview(winview)|rviminfo
+    \ AutoformatLine call s:WinSaveViews()|wviminfo|<line1>,<line2>call s:TryAllFormatters(<f-args>)|call s:WinRestViews()|rviminfo
 
 
 " Functions for iterating through list of available formatters
