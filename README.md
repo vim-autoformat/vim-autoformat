@@ -452,7 +452,7 @@ would then only format the selected part.
 ## Contributing
 
 This project is community driven. I don't actively do development on vim-autoformat myself,
-as it's current state fulfills my personal needs.
+as its current state fulfills my personal needs.
 However, I will review pull requests and keep an eye on the general sanity of the code.
 
 If you have any improvements on this plugin or on this readme, if you have some
