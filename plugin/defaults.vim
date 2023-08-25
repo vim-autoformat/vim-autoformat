@@ -85,10 +85,14 @@ if !exists('g:formatters_cs')
     let g:formatters_cs = ['astyle_cs']
 endif
 
+" Bazel BUILD file
 if !exists('g:formatters_bzl')
     let g:formatters_bzl = ['buildifier']
 endif
 
+if !exists('g:formatdef_buildifier')
+    let g:formatdef_buildifier="'buildifier'"
+endif
 
 " Generic C, C++, Objective-C
 if !exists('g:formatdef_clangformat')
