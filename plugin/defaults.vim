@@ -31,6 +31,15 @@ if !exists('g:formatters_ada')
     let g:formatters_ada = ['gnatpp']
 endif
 
+" Apex
+if !exists('g:formatdef_apexcodefmt')
+    let g:formatdef_apexcodefmt = '"apexfmt"'
+endif
+
+if !exists('g:formatters_apex')
+    let g:formatters_apexcode = ['apexcodefmt']
+endif
+
 " Python
 if !exists('g:formatdef_autopep8')
     " Autopep8 will not do indentation fixes when a range is specified, so we
