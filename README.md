@@ -277,6 +277,9 @@ latest`, and then change the default golang formatter by configuring `let g:form
 * `perltidy` for __Perl__.
   It can be installed from CPAN `cpanm Perl::Tidy` . See https://metacpan.org/pod/Perl::Tidy and http://perltidy.sourceforge.net/ for more info.
 
+* `prettier` for __PHP__.
+  It can be installed by running `npm install prettier @prettier/plugin-php` and adding `"plugins": ["@prettier/plugin-php"]` to your [prettier configuration file](https://prettier.io/docs/en/configuration). https://github.com/prettier/plugin-php
+
 * `purty` for __Purescript__
   It can be installed using `npm install purty`. Further instructions available at https://gitlab.com/joneshf/purty
 

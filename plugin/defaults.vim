@@ -754,3 +754,12 @@ endif
 if !exists('g:formatters_nginx')
     let g:formatters_nginx = ['nginxfmt']
 endif
+
+" PHP
+if !exists('g:formatdef_plugin_php')
+    let g:formatdef_plugin_php = '"npx prettier --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+endif
+
+if !exists('g:formatters_php')
+    let g:formatters_php = ['plugin_php']
+endif
