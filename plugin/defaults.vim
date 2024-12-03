@@ -74,8 +74,12 @@ if !exists('g:formatdef_black')
     let g:formatdef_black = '"black -q ".(&textwidth ? "-l".&textwidth : "")." -"'
 endif
 
+if !exists('g:formatdef_ruff')
+    let g:formatdef_ruff = '"ruff format -"'
+endif
+
 if !exists('g:formatters_python')
-    let g:formatters_python = ['autopep8','yapf', 'black']
+    let g:formatters_python = ['autopep8', 'yapf', 'ruff', 'black']
 endif
 
 
