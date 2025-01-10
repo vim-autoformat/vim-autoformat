@@ -767,3 +767,12 @@ endif
 if !exists('g:formatters_php')
     let g:formatters_php = ['plugin_php']
 endif
+
+" Erlang
+if !exists('g:formatdef_erlfmt')
+    let g:formatdef_erlfmt = "'erlfmt --range '.a:firstline.','.a:lastline.' -'"
+endif
+
+if !exists('g:formatters_erlang')
+    let g:formatters_erlang = ['erlfmt']
+endif
