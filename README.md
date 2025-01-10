@@ -197,6 +197,10 @@ They are simply tried in the order they are listed until one succeeds.
 * `dhall format` for __Dhall__.
   The standard formatter, bundled with the interpreter. See https://github.com/dhall-lang/dhall-lang for more info.
 
+* `erlfmt` for __Erlang__.
+  Source code and installation instructions can be found at https://github.com/WhatsApp/erlfmt. Building the escript as described in their README and adding it to your `PATH` or your defined
+  formatter path is necessary for the formatter to work correctly.
+
 * `ESlint` for __Javascript__. http://eslint.org/
   It can be installed by running `npm install eslint` for a local project or by running `npm install -g eslint` for global use. The linter is then installed locally at `$YOUR_PROJECT/node_modules/.bin/eslint` or globally at `~/.npm-global/bin/eslint`.
   When running the formatter, vim will walk up from the current file to search for such local installation and a ESLint configuration file (either `.eslintrc.js` or `eslintrc.json`). When the local version is missing it will fallback to the global version in your home directory. When both requirements are found eslint is executed with the `--fix` argument.
