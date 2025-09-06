@@ -364,11 +364,16 @@ if !exists('g:formatdef_fixjson')
     let g:formatdef_fixjson =  '"fixjson"'
 endif
 
+if !exists('g:formatdef_jq')
+    let g:formatdef_jq =  '"jq ."'
+endif
+
 if !exists('g:formatters_json')
     let g:formatters_json = [
                 \ 'jsbeautify_json',
                 \ 'fixjson',
                 \ 'prettier',
+                \ 'jq',
                 \ ]
 endif
 
