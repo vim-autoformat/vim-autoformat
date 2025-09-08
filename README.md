@@ -243,6 +243,8 @@ latest`, and then change the default golang formatter by configuring `let g:form
 
 * `JSCS` for __Javascript__. https://jscs-dev.github.io/
 
+* `jq` for __JSON__. https://jqlang.org/
+
 * `JuliaFormatter.jl` for __Julia__.
   It can be installed by running `julia -e 'import Pkg; Pkg.add("JuliaFormatter")'`. You will need to install Julia and have the `julia` binary in your `PATH`.
   See https://github.com/domluna/JuliaFormatter.jl for more information on how to configure `JuliaFormatter.jl`.
