@@ -118,7 +118,50 @@ function! g:ClangFormatConfigFileExists()
     return len(findfile(".clang-format", expand("%:p:h").";")) || len(findfile("_clang-format", expand("%:p:h").";")) || len(findfile("~/.clang-format", expand("%:p:h").";")) || len(findfile("~/_clang-format", expand("%:p:h").";"))
 endfunction
 
+" C, C++, D, C#, Java, Pawn, ObjC, ObjC++, Vala.
+if !exists('g:formatdef_uncrustify')
+    let s:cmdline = 'uncrustify'
 
+    let s:filetypes = {
+                \ 'd': 'D',
+                \ 'cs': 'CS',
+                \ 'java': 'JAVA',
+                \ 'pawn': 'PAWN',
+                \ 'objc': 'OC',
+                \ 'objcpp': 'OC',
+                \ 'vala': 'VALA',
+                \ 'cpp': 'CPP'
+                \ }
+    let s:filetype = ''
+    if exists('s:filetypes[&filetype]')
+        let s:cmdline .= ' -l ' . s:filetypes[&filetype]
+    endif
+
+    let s:valid_config =
+                \ exists('g:uncrustify_config_name') &&
+                \ !empty(g:uncrustify_config_name) &&
+                \ filereadable(g:uncrustify_config_name)
+
+    if s:valid_config
+        let s:cmdline .= ' -c ' . g:uncrustify_config_name
+    else
+        if &textwidth > 0
+            let s:cmdline .= ' --set code_width=' . &textwidth
+        endif
+        let s:cmdline .= ' --set indent_columns=' . shiftwidth()
+        let s:cmdline .= ' --set input_tab_size=' . &tabstop
+        let s:cmdline .= ' --set output_tab_size=' . &tabstop
+        if &expandtab
+            let s:cmdline .= ' --set indent_with_tabs=0'
+        else
+            let s:cmdline .= ' --set indent_with_tabs=1'
+        endif
+
+        let s:cmdline .= ' -f ' . expand('%:p') . ' -o -'
+    endif
+
+    let g:formatdef_uncrustify = "'" . s:cmdline . "'"
+endif
 
 " C
 if !exists('g:formatdef_astyle_c')
@@ -645,7 +688,7 @@ endif
 
 
 function! g:ElixirconfigFileExists()
-  return len(findfile(".formatter.exs", expand("%:p:h").";"))
+    return len(findfile(".formatter.exs", expand("%:p:h").";"))
 endfunction
 
 " Shell
